@@ -1,11 +1,21 @@
-// MY STELLIVE v2.4.4: offline application shell. Data remains in browser localStorage.
-const CACHE_NAME = 'my-stellive-pwa-release-1';
-const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
+// MY STELLIVE 2.0 stage 16: same-origin offline shell, staged cache update.
+const CACHE_NAME = 'my-stellive-2-phase16-stability-v1';
+const CACHE_PREFIX = 'my-stellive-';
+const ASSETS = ['./index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', event => {
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS)));
 });
 self.addEventListener('activate', event => {
-  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith('my-stellive-pwa-') && key !== CACHE_NAME).map(key => caches.delete(key)))).then(() => self.clients.claim()));
+  event.waitUntil((async () => {
+    const keys = (await caches.keys()).filter(k => k.startsWith(CACHE_PREFIX));
+    // Keep the current cache and one previous version for a safer file rollback.
+    const old = keys.filter(k => k !== CACHE_NAME);
+    for (const key of old.slice(0, Math.max(0, old.length - 1))) await caches.delete(key);
+    await self.clients.claim();
+  })());
+});
+self.addEventListener('message', event => {
+  if (event.data?.type === 'SKIP_WAITING') self.skipWaiting();
 });
 self.addEventListener('fetch', event => {
   const request = event.request;
@@ -13,10 +23,18 @@ self.addEventListener('fetch', event => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin || !url.pathname.startsWith(new URL(self.registration.scope).pathname)) return;
   if (request.mode === 'navigate') {
-    event.respondWith(fetch(request).then(response => {
-      if (response.ok) { const copy = response.clone(); caches.open(CACHE_NAME).then(cache => cache.put('./index.html', copy)); }
-      return response;
-    }).catch(() => caches.match('./index.html')));
+    event.respondWith((async () => {
+      try {
+        const response = await fetch(request);
+        if (response.ok) {
+          const cache = await caches.open(CACHE_NAME);
+          await cache.put('./index.html', response.clone());
+        }
+        return response;
+      } catch (_) {
+        return await caches.match('./index.html') || Response.error();
+      }
+    })());
     return;
   }
   event.respondWith(caches.match(request).then(cached => cached || fetch(request)));
