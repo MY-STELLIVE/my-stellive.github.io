@@ -1,9 +1,12 @@
 // MY STELLIVE 2.0 stage 16: same-origin offline shell, staged cache update.
-const CACHE_NAME = 'my-stellive-2-phase18-stability-v1';
+const CACHE_NAME = 'my-stellive-2-phase23-settings-qa2-20261025';
 const CACHE_PREFIX = 'my-stellive-';
 const ASSETS = ['./index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', event => {
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS)));
+  event.waitUntil(caches.open(CACHE_NAME).then(async cache => {
+    await cache.addAll(['./index.html', './manifest.webmanifest']);
+    await Promise.all(ASSETS.slice(2).map(asset => cache.add(asset).catch(() => undefined)));
+  }));
 });
 self.addEventListener('activate', event => {
   event.waitUntil((async () => {
