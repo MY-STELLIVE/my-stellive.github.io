@@ -1,5 +1,5 @@
 // MY STELLIVE 2.0 stage 16: same-origin offline shell, staged cache update.
-const CACHE_NAME = 'my-stellive-2-phase16-stability-v1';
+const CACHE_NAME = 'my-stellive-2-phase18-stability-v1';
 const CACHE_PREFIX = 'my-stellive-';
 const ASSETS = ['./index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', event => {
