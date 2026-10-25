@@ -852,6 +852,38 @@ html[data-ms2-theme="dark"] .ms2-settings-danger{border-color:#B77D92!important}
 /* Phase 18: settings anchor navigation and small-screen controls */
 .ms2-settings-section, #aboutApp{scroll-margin-top:20px;scroll-margin-bottom:110px}
 @media(max-width:390px){html[data-ms2-theme] .ms2-settings-nav button{overflow-wrap:anywhere}html[data-ms2-theme] #nav .dock-tab{touch-action:manipulation}}
+
+
+/* v2.4.6-dev stage 6: research-only mobile and accessibility improvements */
+.ms2-lab-nav{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+.ms2-lab-nav button{min-height:48px!important;border-radius:9px!important;line-height:1.4!important;overflow-wrap:anywhere}
+.ms-research-root{box-sizing:border-box;min-width:0;overflow-x:clip}
+.ms-research-root *{box-sizing:border-box}
+.ms-research-groups{gap:8px}
+.ms-research-groups button{min-height:48px;padding:10px 6px;font-size:clamp(11px,2.9vw,13px);line-height:1.4;word-break:keep-all}
+.ms-research-member{min-height:52px;padding:12px 13px;line-height:1.45;font-size:14px;overflow-wrap:anywhere}
+.ms-research-member span:first-child{min-width:0}
+.ms-research-back{min-height:44px;white-space:normal;overflow-wrap:anywhere}
+.ms-research-formats button{min-height:48px;font-size:13px}
+.ms-research-document{display:block;width:100%;min-width:0;max-height:min(65dvh,620px);max-height:min(65vh,620px);padding:12px;font-size:clamp(12px,3vw,14px);line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-gutter:stable;outline-offset:2px}
+.ms-research-document:focus-visible,.ms-research-root button:focus-visible,.ms2-lab-nav button:focus-visible{outline:3px solid #bda2ff!important;outline-offset:2px}
+.ms-research-document-label{display:block;font-size:12px;line-height:1.5;margin:10px 0 6px}
+@media(max-width:360px){.ms2-lab-nav{gap:5px!important}.ms2-lab-nav button{font-size:11px!important;padding:9px 5px!important}.ms-research-groups{gap:6px}.ms-research-groups button{font-size:11px;padding:9px 4px}.ms-research-root{padding-left:11px;padding-right:11px}.ms-research-document{padding:10px}}
+@media(min-width:600px){.ms2-lab-nav{grid-template-columns:repeat(5,minmax(0,1fr))!important}}
+@media(prefers-reduced-motion:reduce){.ms-research-document{scroll-behavior:auto}}
+
+/* MY STELLIVE v2.4.6-dev stage 4: research reader only */
+.ms-research-root{min-width:0;max-width:100%;overflow:hidden}
+.ms-research-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
+.ms-research-groups button{min-width:0;min-height:44px;font-size:12px;padding:9px 6px;border-radius:9px;overflow-wrap:anywhere}
+.ms-research-members{display:grid;grid-template-columns:1fr;gap:8px;margin:12px 0}
+.ms-research-member{width:100%;display:flex;align-items:center;justify-content:space-between;text-align:left;min-height:48px;border-radius:9px;gap:10px}
+.ms-research-back{margin:5px 0 12px;max-width:100%;text-align:left;border-radius:9px}
+.ms-research-name{font-size:16px;margin:12px 0}
+.ms-research-formats{display:flex;gap:8px;margin:10px 0}
+.ms-research-formats button{flex:1;min-width:0;min-height:44px;border-radius:9px}
+.ms-research-document{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;max-width:100%;max-height:65vh;overflow:auto;overscroll-behavior:contain;font:12px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;color:#e9e5f6;background:#161621;border:1px solid #494356;border-radius:9px;padding:12px;tab-size:2;user-select:text}
+@media(min-width:600px){.ms-research-groups{grid-template-columns:repeat(4,minmax(0,1fr))}.ms-research-members{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style><style>/* Beta 10: collab broadcast patterns */
 #evStreamerWrap[hidden]{display:none!important}.broadcast-streamers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}.broadcast-streamer{display:flex;align-items:center;gap:7px;min-width:0;padding:9px;border:1px solid rgba(185,157,236,.24);border-radius:15px;background:rgba(120,85,180,.08);font-size:12px}.broadcast-streamer .avatar{width:28px;height:28px;flex:none}.broadcast-streamer span{min-width:0;overflow-wrap:anywhere}.broadcast-streamer.chosen{border-color:#b69ae8;background:rgba(161,121,231,.18)}.broadcast-streamer.inactive{opacity:.52}.broadcast-mode-tag,.broadcast-streamer-summary{margin:8px 0;padding:9px 12px;border-radius:13px;background:rgba(135,96,192,.12);font-size:12px;color:#e2d5f7;overflow-wrap:anywhere}
 </style>
@@ -1067,7 +1099,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   .home2-gen-members .member{content-visibility:auto;contain-intrinsic-size:auto 120px}
 }
 @media(prefers-reduced-motion:reduce){#content,*{scroll-behavior:auto!important}}
-</style><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#101018"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="MY STELLIVE"><link rel="apple-touch-icon" href="./icon-192.png"><style id="ms2-stage10-studio">
+</style><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#101018"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="MYSTEL"><link rel="apple-touch-icon" href="./icon-192.png"><style id="ms2-stage10-studio">
 /* MY STELLIVE 2.0 - stage 10: studio presentation only */
 #content .studio-v2-hero{padding:20px 18px;margin-bottom:12px;border-radius:20px;background:linear-gradient(120deg,var(--ms2-card,#fff),var(--ms2-accent-soft,#efe5fc));border:1px solid var(--ms2-border,rgba(150,105,198,.23));box-shadow:0 7px 24px rgba(77,49,117,.07)}
 #content .studio-v2-hero .eyebrow{font-size:11px;letter-spacing:.1em;font-weight:800;color:var(--ms2-accent,#8658c3)}
@@ -1406,7 +1438,7 @@ function smoothRender(kind='page'){
       {duration:kind==='expand'?240:200,easing:'cubic-bezier(.2,.8,.3,1)'});
   }catch(e){}
 }
-function setView(v){if(view===v)return;view=v;selected=null;smoothRender('page')}
+function setView(v){if(view===v)return;view=v;selected=null;if(v==='stats'&&ms2LabPanel==='research')msResearchEnsureLoaded();smoothRender('page')}
 function toggleFav(id){db.favorites=db.favorites.includes(id)?db.favorites.filter(x=>x!==id):[...db.favorites,id];render()}
 // v2.0.0 Alpha 2: home ordering and persistent member pins (local only)
 const HOME_PREF_KEY='my-stellive-home-prefs-v1';
@@ -1456,7 +1488,7 @@ function ms16DownloadBackup(data,filename){
 }
 function ms16ClockEndMinutes(start,end){if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(start||'')||!/^([01]\d|2[0-3]):[0-5]\d$/.test(end||''))return null;const a=+start.slice(0,2)*60+(+start.slice(3)),b=+end.slice(0,2)*60+(+end.slice(3));return b<a?b+1440:b}
 function ms16OvernightCarry(date){const previous=plus(date,-1);const personal=db.schedules.filter(x=>x.date===previous&&x.status==='예정'&&ms16ClockEndMinutes(x.start,x.end)>=1440);const collabs=db.events.filter(x=>x.date===previous&&ms16ClockEndMinutes(x.start,x.end)>=1440);return {personal,collabs,previous}}
-function render(){const undoHost=document.getElementById('deleteUndoHost');if(undoHost)undoHost.innerHTML=deletionUndoUI();db.version='2.4.5';persistMainDB();let tabs=[['today','MY'],['calendar','일정'],['manage','스튜디오'],['stats','연구소'],['settings','설정']];const nav=$('nav');if(nav.dataset.activeView!==view||nav.children.length!==tabs.length){nav.innerHTML=tabs.map(([v,t])=>`<button type="button" aria-label="${t}" aria-current="${view===v?'page':'false'}" class="dock-tab ${view===v?'active':''}" onclick="setView('${v}')"><span class="dock-icon">${navIcon(v)}</span><span class="dock-label">${t}</span></button>`).join('');nav.dataset.activeView=view;}$('date').value=day;$('date-display').textContent=formatShortDate(day);$('content').innerHTML=view==='today'?todayUI():view==='calendar'?calendarUI():view==='manage'?manageUI():view==='stats'?statsUI():settingsUI();if(view==='settings'){hydrateAppSettings();hydrateHistory();addLogoSettings()}if(view==='manage'){hydrateStudioSections();recurringPreview();hydrateStudioDraft();ms23Mount()}}
+function render(){const undoHost=document.getElementById('deleteUndoHost');if(undoHost)undoHost.innerHTML=deletionUndoUI();db.version='2.4.6';persistMainDB();let tabs=[['today','MY'],['calendar','일정'],['manage','스튜디오'],['stats','연구소'],['settings','설정']];const nav=$('nav');if(nav.dataset.activeView!==view||nav.children.length!==tabs.length){nav.innerHTML=tabs.map(([v,t])=>`<button type="button" aria-label="${t}" aria-current="${view===v?'page':'false'}" class="dock-tab ${view===v?'active':''}" onclick="setView('${v}')"><span class="dock-icon">${navIcon(v)}</span><span class="dock-label">${t}</span></button>`).join('');nav.dataset.activeView=view;}$('date').value=day;$('date-display').textContent=formatShortDate(day);$('content').innerHTML=view==='today'?todayUI():view==='calendar'?calendarUI():view==='manage'?manageUI():view==='stats'?statsUI():settingsUI();if(view==='settings'){hydrateAppSettings();hydrateHistory();addLogoSettings()}if(view==='manage'){hydrateStudioSections();recurringPreview();hydrateStudioDraft();ms23Mount()}}
 function eventUI(e,manage=false){
  const mode='📡 '+(BROADCAST_LABELS[e.broadcastMode]||BROADCAST_LABELS.unknown);
  const after=e.afterEventId?db.events.find(x=>x.id===e.afterEventId):null;
@@ -2205,9 +2237,9 @@ function actualBroadcastStatsUI(){
 }
 /* MY STELLIVE 2.0 phase 11: research hub. Existing MBTI forms, comparison and analytics remain intact. */
 let ms2LabPanel='mbti';
-function ms2SetLabPanel(panel){if(!['catalog','mbti','broadcast','actual'].includes(panel))return;ms2LabPanel=panel;if(panel==='catalog'&&circleFilter==='예정')circleFilter='전체';render();}
+function ms2SetLabPanel(panel){if(!['catalog','mbti','broadcast','actual','research'].includes(panel))return;ms2LabPanel=panel;if(panel==='research')msResearchEnsureLoaded();if(panel==='catalog'&&circleFilter==='예정')circleFilter='전체';render();}
 function ms2LabJump(id){const el=document.getElementById(id);if(el){el.scrollIntoView({behavior:'smooth',block:'start'});}}
-function ms2LabNav(){return `<div class="ms2-lab-nav" role="group" aria-label="연구소 분석 영역">${[['catalog','멤버 도감'],['mbti','MBTI 연구'],['broadcast','일정 통계'],['actual','방송 기록']].map(([id,label])=>`<button type="button" class="${ms2LabPanel===id?'ms2-lab-active':'alt'}" aria-pressed="${ms2LabPanel===id}" onclick="ms2SetLabPanel('${id}')">${label}</button>`).join('')}</div>`;}
+function ms2LabNav(){return `<div class="ms2-lab-nav" role="group" aria-label="연구소 분석 영역">${[['catalog','멤버 도감'],['mbti','MBTI 연구'],['broadcast','일정 통계'],['actual','방송 기록'],['research','연구 자료']].map(([id,label])=>`<button type="button" class="${ms2LabPanel===id?'ms2-lab-active':'alt'}" aria-pressed="${ms2LabPanel===id}" onclick="ms2SetLabPanel('${id}')">${label}</button>`).join('')}</div>`;}
 function ms2LabBroadcast(){
  const all=Array.isArray(db.schedules)?db.schedules:[];
  const events=Array.isArray(db.events)?db.events:[];
@@ -2223,7 +2255,147 @@ function ms2LabMBTI(){
  return `<div class="ms2-lab-quicklinks"><button type="button" class="alt" onclick="ms2LabJump('ms2-lab-catalog')">👥 14명 도감</button><button type="button" class="alt" onclick="ms2LabJump('ms2-lab-compare')">🔎 2인 비교</button><button type="button" class="alt" onclick="ms2LabJump('ms2-lab-distribution')">📈 유형 통계</button><button type="button" class="alt" onclick="ms2LabJump('ms2-lab-report')">📝 연구 리포트</button></div>`+content;
 }
 function ms19MemberCatalogue(){const all=rows(),active=all.filter(m=>m.status==='예정'),cs=all.filter(m=>circleFilter==='전체'||m.status===circleFilter);return `<div class="card"><div class="row between"><h2 style="margin:0">STELLA PROFILE · 멤버 도감</h2><span class="muted">예정 ${active.length}명</span></div><div class="toolbar">${['예정','전체','휴방','미정'].map(s=>`<button class="tiny ${circleFilter===s?'':'alt'}" onclick="circleFilter='${s}';selected=null;render()">${s}</button>`).join('')}</div><div class="circles">${cs.map(m=>`<button class="circle ${m.status==='휴방'?'off':m.status==='미정'?'unknown':''}" onclick="selected='${m.id}';render()">${av(m.id,'')}<span class="circle-state state-${m.status}" aria-label="${m.status}">${statusIcon(m.status)}</span><span>${esc(m.name.split(' ').slice(-1)[0])}</span><div class="desc">${m.gen}기</div></button>`).join('')}</div>${selected?detailUI(selected):'<div class="muted">프로필을 누르면 멤버 상세 정보가 표시됩니다.</div>'}<div class="notice">예정·휴방·미정은 직접 등록한 공지 기준이며, 실제 LIVE 상태가 아닙니다.</div></div>`;}
-function statsUI(){return `<header class="ms2-lab-hero"><span class="ms2-lab-eyebrow">MY STELLIVE · RESEARCH LAB</span><h2>스텔라이브 연구소</h2><p>14명 MBTI 도감 · 성격 연구 · 방송 데이터 분석</p></header>${ms2LabNav()}${ms2LabPanel==='catalog'?ms19MemberCatalogue():ms2LabPanel==='mbti'?ms2LabMBTI():ms2LabPanel==='broadcast'?ms2LabBroadcast():actualBroadcastStatsUI()}`}
+/* Stage 5: research is separate from db/localStorage; validated JSON may be cached in CacheStorage. */
+const MS_RESEARCH_URL='./data/MY_STELLIVE_RESEARCH_ALL.json';
+const MS_RESEARCH_EXPECTED=[
+ ['1기 EVERYS', ['uni','huya'], ['아야츠노 유니','사키하네 후야']],
+ ['2기 UNIVERSE', ['hina','mashiro','lize','tabi'], ['시라유키 히나','네네코 마시로','아카네 리제','아라하시 타비']],
+ ['3기 Cliché', ['shibuki','rin','nana','riko'], ['텐코 시부키','아오쿠모 린','하나코 나나','유즈하 리코']],
+ ['4기 ABYSS', ['toa','rang','hiyori','meri'], ['시즈키 토아','코가네 랑','하나요 히요리','토키노 메리']]
+];
+/* Stage 5: isolated validated CacheStorage entry; no db/localStorage writes.
+   Deliberately avoid the service worker's my-stellive- cleanup prefix. */
+const MS_RESEARCH_CACHE='ms-research-validated-v1';
+let msResearchState={status:'idle',groups:null,error:'',attempt:0,source:''};
+let msResearchRequest=null;
+let msResearchPending=null;
+let msResearchCacheWriteQueue=Promise.resolve();
+function msResearchCacheAvailable(){return typeof caches!=='undefined'&&typeof caches.open==='function';}
+async function msResearchReadCache(){
+ if(!msResearchCacheAvailable())return null;
+ try{
+  const cache=await caches.open(MS_RESEARCH_CACHE);
+  const response=await cache.match(MS_RESEARCH_URL);
+  if(!response||!response.ok)return null;
+  const groups=msResearchValidate(await response.json());
+  return groups;
+ }catch(_){return null;}
+}
+function msResearchWriteCache(response,attempt){
+ if(!msResearchCacheAvailable())return Promise.resolve();
+ msResearchCacheWriteQueue=msResearchCacheWriteQueue.catch(()=>{}).then(async()=>{
+  if(attempt!==msResearchState.attempt)return;
+  try{
+   const cache=await caches.open(MS_RESEARCH_CACHE);
+   if(attempt!==msResearchState.attempt)return;
+   await cache.put(MS_RESEARCH_URL,response.clone());
+  }catch(_){/* CacheStorage is optional */}
+ });
+ return msResearchCacheWriteQueue;
+}
+function msResearchValidate(raw){
+ if(!raw||typeof raw!=='object'||!Array.isArray(raw.기수)||raw.기수.length!==4)throw Error('기수 배열이 4개가 아닙니다.');
+ const appIds=new Set(MEMBERS.map(m=>m.id));const used=new Set();
+ const groups=raw.기수.map((g,i)=>{
+  const [label,ids,names]=MS_RESEARCH_EXPECTED[i];
+  if(!g||!Array.isArray(g.멤버)||g.멤버.length!==ids.length||Number(g.기수번호)!==i+1)throw Error(`${i+1}기 멤버 수 또는 기수번호 오류`);
+  const members=g.멤버.map((m,j)=>{
+   const id=ids[j];
+   if(!m||m.이름!==names[j]||!appIds.has(id)||used.has(id)||!m.원본_JSON||typeof m.원본_JSON!=='object'||Array.isArray(m.원본_JSON)||typeof m.원본_TXT_전문!=='string'||!m.원본_TXT_전문.trim())throw Error(`${i+1}기 ${j+1}번째 멤버 자료 오류`);
+   used.add(id);
+   return {id,name:m.이름,original:m.원본_JSON,originalText:m.원본_TXT_전문};
+  });
+  return {name:label,members};
+ });
+ if(used.size!==14)throw Error('14명 ID 연결이 완료되지 않았습니다.');
+ return groups;
+}
+function msResearchRefreshView(){
+ if(ms2LabPanel!=='research'||view!=='stats')return;
+ const host=document.getElementById('ms2-research-root');
+ if(host)host.outerHTML=msResearchUI();
+}
+function msResearchEnsureLoaded(force=false){
+ if(!force&&(msResearchState.status==='loading'||msResearchState.status==='ready'))return msResearchPending||Promise.resolve();
+ if(msResearchRequest)msResearchRequest.abort();
+ const attempt=++msResearchState.attempt;
+ msResearchState={status:'loading',groups:null,error:'',attempt,source:''};
+ msResearchRefreshView();
+ const controller=new AbortController();msResearchRequest=controller;
+ msResearchPending=(async()=>{
+  let timer;
+  try{
+   timer=setTimeout(()=>controller.abort(),12000);
+   // Bypass HTTP and service-worker cached responses when refreshing.
+   const requestURL=new URL(MS_RESEARCH_URL,location.href);requestURL.searchParams.set('_msr',String(Date.now())+'-'+attempt);
+   const response=await fetch(requestURL.href,{method:'GET',cache:'no-store',signal:controller.signal,credentials:'same-origin'});
+   if(!response.ok)throw Error(`HTTP ${response.status}`);
+   const raw=await response.clone().json();
+   const groups=msResearchValidate(raw); // Only validated responses enter the offline cache.
+   if(attempt!==msResearchState.attempt)return;
+   msResearchState={status:'ready',groups,error:'',attempt,source:'network'};
+   msResearchRefreshView();
+   await msResearchWriteCache(response,attempt);
+  }catch(error){
+   if(attempt!==msResearchState.attempt)return;
+   const cached=await msResearchReadCache();
+   if(attempt!==msResearchState.attempt)return;
+   if(cached){
+    msResearchState={status:'ready',groups:cached,error:'',attempt,source:'cache'};
+   }else{
+    const reason=error?.name==='AbortError'?'요청 시간이 초과됐습니다.':String(error?.message||error);
+    msResearchState={status:'error',groups:null,error:reason,attempt,source:''};
+   }
+   msResearchRefreshView();
+  }finally{
+   clearTimeout(timer);
+   if(msResearchRequest===controller)msResearchRequest=null;
+   if(attempt===msResearchState.attempt)msResearchPending=null;
+  }
+ })();
+ return msResearchPending;
+}
+function msResearchRetry(){return msResearchEnsureLoaded(true);}
+let msResearchSelectedGroup=0;
+let msResearchSelectedMember=null;
+let msResearchDetailFormat='txt';
+function msResearchSelectGroup(index){
+ const groups=msResearchState.groups;
+ if(!groups||!Number.isInteger(index)||index<0||index>=groups.length)return;
+ msResearchSelectedGroup=index;msResearchSelectedMember=null;msResearchRefreshView();
+}
+function msResearchSelectMember(id){
+ const group=msResearchState.groups?.[msResearchSelectedGroup];
+ if(!group||!group.members.some(m=>m.id===id))return;
+ msResearchSelectedMember=id;msResearchDetailFormat='txt';msResearchRefreshView();
+}
+function msResearchCloseMember(){msResearchSelectedMember=null;msResearchRefreshView();}
+function msResearchSetFormat(format){
+ if(format!=='txt'&&format!=='json')return;
+ msResearchDetailFormat=format;msResearchRefreshView();
+}
+function msResearchUI(){
+ const state=msResearchState;
+ let content='';
+ if(state.status==='loading')content='<p role="status" class="muted">연구 JSON을 불러오는 중입니다…</p>';
+ else if(state.status==='error')content=`<p role="alert">연구 자료를 불러오지 못했습니다: ${esc(state.error)}</p><button type="button" class="alt" onclick="msResearchRetry()">다시 시도</button><p class="muted">기존 연구소 메뉴와 개인 일정 데이터에는 영향을 주지 않습니다.</p>`;
+ else if(state.status==='ready'){
+  const groups=state.groups;
+  const sourceNote=state.source==='cache'?'오프라인/오류로 마지막 정상 캐시를 표시합니다.':'최신 연구 자료를 불러왔습니다.';
+  if(msResearchSelectedGroup>=groups.length)msResearchSelectedGroup=0;
+  const group=groups[msResearchSelectedGroup];
+  const member=group.members.find(m=>m.id===msResearchSelectedMember);
+  const groupNav=`<div class="ms-research-groups" role="group" aria-label="기수 선택">${groups.map((g,i)=>`<button type="button" class="${i===msResearchSelectedGroup?'':'alt'}" aria-pressed="${i===msResearchSelectedGroup}" onclick="msResearchSelectGroup(${i})">${esc(g.name)}</button>`).join('')}</div>`;
+  const list=`<div class="ms-research-members">${group.members.map(m=>`<button type="button" class="alt ms-research-member" onclick="msResearchSelectMember('${m.id}')"><span>${esc(m.name)}</span><span aria-hidden="true">›</span></button>`).join('')}</div>`;
+  if(member){
+   const txt=msResearchDetailFormat==='json'?JSON.stringify(member.original,null,2):member.originalText;
+   content=`<p class="muted" role="status">4개 기수 · 14명 검증 완료 · 읽기 전용</p><p class="muted">${esc(sourceNote)}</p>${groupNav}<button type="button" class="alt ms-research-back" onclick="msResearchCloseMember()">← ${esc(group.name)} 멤버 목록</button><h3 class="ms-research-name">${esc(member.name)}</h3><div class="ms-research-formats" role="group" aria-label="원문 형식"><button type="button" class="${msResearchDetailFormat==='txt'?'':'alt'}" aria-pressed="${msResearchDetailFormat==='txt'}" onclick="msResearchSetFormat('txt')">TXT 전문</button><button type="button" class="${msResearchDetailFormat==='json'?'':'alt'}" aria-pressed="${msResearchDetailFormat==='json'}" onclick="msResearchSetFormat('json')">원본 JSON</button></div><span class="ms-research-document-label" id="ms-research-document-help">읽기 전용 원문 · 원문 영역을 스크롤하여 전체 내용을 확인할 수 있습니다.</span><pre class="ms-research-document" tabindex="0" role="region" aria-describedby="ms-research-document-help" aria-label="${esc(member.name)} ${msResearchDetailFormat==='json'?'JSON':'TXT'} 원문">${esc(txt)}</pre>`;
+  }else content=`<p class="muted" role="status">4개 기수 · 14명 검증 완료 · 읽기 전용</p><p class="muted">${esc(sourceNote)}</p>${groupNav}<h3 class="ms-research-name">${esc(group.name)} · ${group.members.length}명</h3>${list}<p class="muted">멤버를 선택하면 JSON과 TXT 원문을 확인할 수 있습니다.</p>`;
+ }else content='<p class="muted">연구 자료 메뉴 진입 시 공개 JSON을 불러옵니다.</p><button type="button" class="alt" onclick="msResearchEnsureLoaded()">불러오기</button>';
+ return `<section id="ms2-research-root" class="card ms2-research-placeholder ms-research-root" aria-labelledby="ms2-research-title"><h2 id="ms2-research-title">📚 연구 자료</h2>${content}<p class="muted">MY STELLIVE v2.4.6 · 연구 자료는 읽기 전용이며 개인 일정 데이터와 분리됩니다.</p></section>`;
+}
+
+function statsUI(){return `<header class="ms2-lab-hero"><span class="ms2-lab-eyebrow">MY STELLIVE · RESEARCH LAB</span><h2>스텔라이브 연구소</h2><p>14명 MBTI 도감 · 성격 연구 · 방송 데이터 분석</p></header>${ms2LabNav()}${ms2LabPanel==='catalog'?ms19MemberCatalogue():ms2LabPanel==='mbti'?ms2LabMBTI():ms2LabPanel==='broadcast'?ms2LabBroadcast():ms2LabPanel==='actual'?actualBroadcastStatsUI():msResearchUI()}`}
 
 const STELLIVE_SETTINGS_KEY='my-stellive-display-prefs-v1';
 let appSettings={motion:'gentle',compact:false,touch:true};
@@ -2278,9 +2450,9 @@ ${ms2StorageStatus()}<div class="settings-section-label">데이터 · 보관</di
  <div class="about-app-body">
   <div class="about-app-head"><strong>MY STELLIVE</strong></div>
   <p class="muted">스텔라이브 멤버 14명의 방송 일정과 합방, 휴방 및 특별방송을 직접 기록하고 확인하는 개인용 오프라인 웹앱입니다.</p>
-  <div class="about-app-info"><div><span>앱 이름</span><strong>MY STELLIVE</strong></div><div><span>앱 버전</span><strong>2.4.5 · Phase 23 기반 설정 정보 패치 (2026-10-25)</strong></div><div><span>배포 상태</span><strong>로컬 패치 파일 · GitHub Pages 배포 미확인</strong></div><div><span>GitHub</span><strong>저장소 주소 미등록</strong></div><div><span>PWA</span><strong id="ms-release-pwa">실행 환경 확인 중</strong></div><div><span>오프라인 캐시</span><strong id="ms-release-cache">서비스 워커 확인 중</strong></div><div><span>최근 수정</span><strong>2026-10-25 · 설정 정보 통합</strong></div><div><span>실행 방식</span><strong>단일 HTML · 오프라인</strong></div><div><span>지원 멤버</span><strong>14명 · 4개 기수</strong></div><div><span>데이터 저장</span><strong>브라우저 로컬 저장소</strong></div></div>
+  <div class="about-app-info"><div><span>앱 이름</span><strong>MY STELLIVE</strong></div><div><span>앱 버전</span><strong>2.4.6 · 연구소 자료 연동 및 MYSTEL 표시명 업데이트 (2026-10-25)</strong></div><div><span>배포 상태</span><strong>v2.4.6 배포 후보 · 미배포</strong></div><div><span>GitHub</span><strong>MY-STELLIVE/my-stellive.github.io</strong></div><div><span>PWA</span><strong id="ms-release-pwa">실행 환경 확인 중</strong></div><div><span>오프라인 캐시</span><strong id="ms-release-cache">서비스 워커 확인 중</strong></div><div><span>최근 수정</span><strong>2026-10-25 · 연구소 자료 연동 및 표시명 업데이트</strong></div><div><span>실행 방식</span><strong>단일 HTML · 오프라인</strong></div><div><span>지원 멤버</span><strong>14명 · 4개 기수</strong></div><div><span>데이터 저장</span><strong>브라우저 로컬 저장소</strong></div></div>
      <h3>최근 업데이트 기록</h3><ol class="ms-release-history"><li><strong>2026-10-25 · 설정 정보 통합 패치</strong><small>앱 정보·GitHub 배포 상태·PWA 상태·최근 패치 이력을 설정 탭에만 배치. 기존 일정·MBTI·JSON 데이터 로직은 유지.</small></li><li><strong>2026-10-25 · Phase 23 안정화 QA</strong><small>공지 분석 회귀 검사 21/21 통과 기록. 실제 모바일 PWA 수동 검수와 GitHub Pages 배포는 별도 확인 필요.</small></li><li><strong>Phase 20~22 개발 및 안정화</strong><small>설정 화면, 공지 분석, 일정 관리 관련 단계별 개선 작업. 세부 변경은 해당 QA 기록 기준.</small></li><li><strong>v2.4.4 · 모바일 화면 개선</strong><small>설정 항목의 작은 화면 배치 및 반응형 표시 보완.</small></li><li><strong>v2.2.0 · 제4차 안정화</strong><small>이전 정식 안정화 기준점.</small></li><li><strong>v2.1.8 · 제3차 안정화</strong><small>이전 정식 안정화 기준점.</small></li></ol><p class="muted">※ 개발 단계(Phase)와 앱 데이터 버전은 서로 다른 식별자입니다. GitHub 주소는 실제 저장소가 확인되면 등록할 수 있습니다.</p>
-<h3>주요 기능</h3><p class="muted">MY 방송 현황 · 일정 달력 · 스튜디오 일정 관리 · 연구소 MBTI 및 통계 · 설정 개인화 · JSON 백업/복원</p>
+<h3>주요 기능</h3><p class="muted">MY 방송 현황 · 일정 달력 · 스튜디오 일정 관리 · 연구소 MBTI·통계·14명 연구 자료 · 설정 개인화 · JSON 백업/복원</p>
   <h3>개인정보 및 저장 안내</h3><p class="muted">방송 일정과 설정은 현재 브라우저의 기기 내 저장소에 보관됩니다. 서버 계정이나 자동 동기화 기능은 없습니다. 브라우저 데이터 삭제 또는 다른 브라우저 사용 시 기존 데이터가 보이지 않을 수 있으므로 JSON 백업을 권장합니다.</p>
   <p class="about-app-note">비공식 개인용 일정 관리 도구이며 스텔라이브의 공식 서비스가 아닙니다.</p>
  </div>
@@ -2300,15 +2472,15 @@ function filterHistory(){historyCategory=$('historyCategory')?.value||'all';hist
 function moreHistory(){historyLimit+=30;updateHistoryList()}
 function cleanupOldHistory(){const threshold=Date.now()-30*86400000;const matches=db.history.filter(h=>{const t=Date.parse(h.at);return Number.isFinite(t)&&t<threshold});if(!matches.length){notify('30일 지난 이력이 없습니다.');return}if(!confirm(`30일 지난 변경 이력 ${matches.length}건을 삭제할까요? 방송 일정은 유지됩니다.`))return;db.history=db.history.filter(h=>{const t=Date.parse(h.at);return !Number.isFinite(t)||t>=threshold});render();notify(`${matches.length}건 정리 완료`)}
 function cleanupFilteredHistory(){if(historyCategory==='all'){notify('삭제할 카테고리를 먼저 선택해 주세요.');return}const n=db.history.filter(h=>historyKind(h)===historyCategory).length;if(!n){notify('정리할 이력이 없습니다.');return}if(!confirm(`${HISTORY_KINDS[historyCategory]} 이력 ${n}건을 모두 삭제할까요? 검색어와 관계없이 해당 카테고리 전체가 삭제됩니다.`))return;db.history=db.history.filter(h=>historyKind(h)!==historyCategory);render();notify(`${n}건 정리 완료`)}
-function makeBackup(){$('json').value=JSON.stringify({...db,version:'2.4.5'},null,2);notify('백업 JSON 생성 완료')}
+function makeBackup(){$('json').value=JSON.stringify({...db,version:'2.4.6'},null,2);notify('백업 JSON 생성 완료')}
 async function copyBackup(){if(!$('json').value)makeBackup();try{await navigator.clipboard.writeText($('json').value);notify('복사 완료')}catch{ $('json').select();document.execCommand('copy');notify('복사 시도 완료')}}
-function backupFileData(){return JSON.stringify({...db,version:'2.4.5'},null,2)}
+function backupFileData(){return JSON.stringify({...db,version:'2.4.6'},null,2)}
 function downloadBackup(){
  try{
   const blob=new Blob([backupFileData()],{type:'application/json;charset=utf-8'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
-  a.href=url;a.download='MY_STELLIVE_backup_v2.4.5.json';
+  a.href=url;a.download='MY_STELLIVE_backup_v2.4.6.json';
   a.style.display='none';document.body.appendChild(a);
   a.click();
   notify('파일 저장을 요청했습니다. 다운로드 목록을 확인해 주세요.');
@@ -2317,7 +2489,7 @@ function downloadBackup(){
 }
 async function shareBackup(){
  try{
-  const file=new File([backupFileData()],'MY_STELLIVE_backup_v2.4.5.json',{type:'application/json'});
+  const file=new File([backupFileData()],'MY_STELLIVE_backup_v2.4.6.json',{type:'application/json'});
   if(!navigator.share||!navigator.canShare||!navigator.canShare({files:[file]})){
    notify('이 환경에서는 파일 공유가 지원되지 않습니다. 내용 복사를 이용해 주세요.');return;
   }
@@ -2327,7 +2499,7 @@ async function shareBackup(){
 async function loadBackupFile(input){const f=input.files?.[0];if(!f)return;if(f.size>5*1024*1024){notify('백업 파일이 너무 큽니다. 5MB 이하 JSON 파일을 선택하세요.');input.value='';return;}try{$('json').value=await f.text();backupPreview();notify('백업 파일을 읽었습니다. 검증 결과를 확인하세요.')}catch(e){notify('백업 파일을 읽지 못했습니다.')}}
 function validateBackupObject(x){
  if(!x||typeof x!=='object'||Array.isArray(x))throw Error('백업 객체가 아닙니다.');
- if(!['2.4.5','2.4.4','2.4.3','2.4.2','2.4.1','2.4.0','2.3.9','2.3.8','2.3.7','2.3.6','2.3.5','2.3.4','2.3.3','2.3.2','2.3.1','2.3.0','2.2.7','2.2.6','2.2.5','2.2.4','2.2.3','2.2.2','2.2.1','2.2.0','2.1.17','2.1.16','2.1.15','2.1.14','2.1.13','2.1.12','2.1.11','2.1.10','2.1.9','2.1.8','2.1.7','2.1.6','2.1.5','2.1.4','2.1.3','2.1.2','2.1.1','2.1.0','2.1.0-beta.10','2.1.0-beta.9','2.1.0-beta.8','2.1.0-beta.7','2.1.0-beta.6','2.1.0-beta.5','2.1.0-beta.4','2.1.0-beta.2','2.1.0-beta.1','2.0.0','2.0.0 Alpha 2 HOME','2.0.0 Alpha 2','1.6.20','1.6.17','3.3','1.0.0','1.1.0','1.1.4','1.1.5','1.2.0','1.2.1','1.2.2','1.2.3','1.2.4','1.3.0','1.5.7'].includes(x.version))throw Error('지원하지 않는 백업 버전입니다.');
+ if(!['2.4.6','2.4.5','2.4.4','2.4.3','2.4.2','2.4.1','2.4.0','2.3.9','2.3.8','2.3.7','2.3.6','2.3.5','2.3.4','2.3.3','2.3.2','2.3.1','2.3.0','2.2.7','2.2.6','2.2.5','2.2.4','2.2.3','2.2.2','2.2.1','2.2.0','2.1.17','2.1.16','2.1.15','2.1.14','2.1.13','2.1.12','2.1.11','2.1.10','2.1.9','2.1.8','2.1.7','2.1.6','2.1.5','2.1.4','2.1.3','2.1.2','2.1.1','2.1.0','2.1.0-beta.10','2.1.0-beta.9','2.1.0-beta.8','2.1.0-beta.7','2.1.0-beta.6','2.1.0-beta.5','2.1.0-beta.4','2.1.0-beta.2','2.1.0-beta.1','2.0.0','2.0.0 Alpha 2 HOME','2.0.0 Alpha 2','1.6.20','1.6.17','3.3','1.0.0','1.1.0','1.1.4','1.1.5','1.2.0','1.2.1','1.2.2','1.2.3','1.2.4','1.3.0','1.5.7'].includes(x.version))throw Error('지원하지 않는 백업 버전입니다.');
  for(const k of ['schedules','events','favorites','history'])if(!Array.isArray(x[k]))throw Error(k+' 목록 형식이 올바르지 않습니다.');
  if(x.mbti!=null&&(typeof x.mbti!=='object'||Array.isArray(x.mbti)||Object.entries(x.mbti).some(([id,v])=>!MEMBERS.some(m=>m.id===id)||!mbtiCustomValid(v))))throw Error('MBTI 데이터 형식이 올바르지 않습니다.');
  for(const k of ['specialSchedules','segments','liveSessions'])if(x[k]!=null&&!Array.isArray(x[k]))throw Error(k+' 목록 형식이 올바르지 않습니다.');
@@ -2368,7 +2540,7 @@ function restoreBackup(){
   if(!confirm('복원할 데이터: 개인 일정 '+x.schedules.length+'건, 합방 '+x.events.length+'건. 현재 데이터가 교체됩니다. 계속할까요?'))return;
   const previous=db;
   db=structuredClone(x);if(!Array.isArray(db.specialSchedules))db.specialSchedules=[];if(!db.mbti||typeof db.mbti!=='object'||Array.isArray(db.mbti))db.mbti={};if(!Array.isArray(db.liveSessions))db.liveSessions=[];if(!db.liveDetails||typeof db.liveDetails!=='object'||Array.isArray(db.liveDetails))db.liveDetails={};ms23Ensure();lastDeletedSnapshot=null;
-  db.version='2.4.5';
+  db.version='2.4.6';
   try{localStorage.setItem('my-stellive-v3.3',JSON.stringify(db))}catch(e){db=previous;throw Error('저장 공간이 부족해 복원하지 못했습니다.');}
   addHistory('백업 복원','JSON에서 복원');render();notify('복원 완료');
  }catch(e){notify('복원 실패: '+e.message);backupPreview();}
@@ -2385,7 +2557,7 @@ function resetData(){
  catch(e){ms16StorageWarning('초기화 전 백업을 만들지 못했습니다. 초기화를 취소했습니다.');return}
  if(!confirm('백업 파일이 다운로드되었는지 확인하셨나요? 확인되지 않았다면 취소하세요.'))return;
  if(!confirm('마지막 확인: 모든 수정 사항을 삭제하고 초기 데이터로 되돌릴까요?'))return;
- const previous=db;db=structuredClone(INITIAL);db.version='2.4.5';
+ const previous=db;db=structuredClone(INITIAL);db.version='2.4.6';
  if(!persistMainDB()){db=previous;notify('초기화 실패: 저장할 수 없어 기존 데이터를 유지했습니다.');return}
  render();notify('초기화 완료');
 }
