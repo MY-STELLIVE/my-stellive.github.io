@@ -1549,7 +1549,7 @@ main > *, .card, .ms247-wiki-root, .ms247-wiki-layout, .ms247-wiki-body{min-widt
 @media(max-width:420px){.ms2513-today{padding:11px}.ms2513-item{gap:6px;padding:10px 7px}.ms2513-item-time{flex-basis:40px}.ms2513-item-status{font-size:.68rem}}
 </style>
 <style id="ms2514-home-unified">
-/* v2.5.14: one schedule summary + one manual LIVE panel; no duplicate upcoming dashboard */
+/* v2.5.18: one schedule summary + one manual LIVE panel; no duplicate upcoming dashboard */
 .ms251-home .ms2513-today{margin-top:12px;margin-bottom:14px}
 .ms251-home .ms2513-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
 .ms251-home .ms2513-summary>span{min-width:0;text-align:center;white-space:normal}
@@ -1560,6 +1560,26 @@ main > *, .card, .ms247-wiki-root, .ms247-wiki-layout, .ms247-wiki-body{min-widt
 .ms251-home .ms251-actions button{min-width:0;min-height:44px;white-space:normal}
 .ms251-home .home-live-panel{margin-top:12px}
 @media(max-width:380px){.ms251-home .ms2513-summary{gap:4px}.ms251-home .ms2513-summary>span{padding-inline:4px;font-size:12px}}
+</style>
+<style id="ms2515-calendar">
+/* v2.5.18 — calendar readability and safe inline details */
+.ms2515-day-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0 14px}
+.ms2515-day-nav button{min-height:44px;white-space:nowrap;padding:9px 5px}
+.ms2515-row{min-width:0;align-items:flex-start;gap:9px}
+.ms2515-row .cal-info{min-width:0;flex:1;overflow-wrap:anywhere}
+.ms2515-row .cal-info strong,.ms2515-row .cal-info small{overflow-wrap:anywhere;white-space:normal}
+.ms2515-row .cal-timeline-time{flex-shrink:0;min-width:43px;font-variant-numeric:tabular-nums}
+.ms2515-title{line-height:1.55;display:block}
+.ms2515-detail{margin-top:8px;max-width:100%;min-width:0}
+.ms2515-detail>summary{display:inline-flex;align-items:center;min-height:40px;cursor:pointer;font-size:12px;font-weight:650;padding:8px 10px;border:1px solid var(--line,rgba(140,140,160,.25));border-radius:9px;list-style:revert}
+.ms2515-detail-body{display:grid;gap:8px;padding:10px 0 3px;font-size:12px;line-height:1.5}
+.ms2515-detail-body>div{display:grid;grid-template-columns:76px minmax(0,1fr);gap:8px}
+.ms2515-detail-body b{opacity:.7;font-weight:600}
+.ms2515-detail-body span{min-width:0;overflow-wrap:anywhere}
+.calendar-card .day{min-width:0;overflow:hidden;touch-action:manipulation}
+.calendar-card .day .cal-date-number{font-variant-numeric:tabular-nums}
+.cal-head button,.cal-modes button,.cal-detail-filters button{min-height:40px;touch-action:manipulation}
+@media(max-width:480px){.cal-detail-head{flex-wrap:wrap;gap:8px}.cal-detail-head h2{min-width:0;overflow-wrap:anywhere}.cal-detail-filters{display:flex;flex-wrap:wrap;gap:6px}.ms2515-row .cal-info strong{line-height:1.5}.ms2515-detail-body>div{grid-template-columns:68px minmax(0,1fr)}}
 </style>
 </head><body><main><header class="brand-header"><div class="brand-lockup"><div class="brand-symbol" id="brand-symbol" aria-label="MY STELLIVE 로고"><svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><defs><linearGradient id="brandGlow" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4c8ff"/><stop offset=".5" stop-color="#b39cff"/><stop offset="1" stop-color="#83b9ff"/></linearGradient></defs><path d="M32 5 38.7 23.3 58 25.5 43 38.2 47.6 57 32 46.3 16.4 57 21 38.2 6 25.5 25.3 23.3Z" fill="url(#brandGlow)"/><path d="m32 14 4.5 13.1 13.9 1.1-10.8 9 3.3 13.5L32 43l-10.9 7.7 3.3-13.5-10.8-9 13.9-1.1Z" fill="#29203f" opacity=".58"/><path d="m32 20 3.2 10 10.4.2-8.2 6.4 2.9 10L32 40.7l-8.3 5.9 2.9-10-8.2-6.4 10.4-.2Z" fill="#f8efff"/></svg><img class="official-logo" id="official-logo" alt="사용자가 선택한 스텔라이브 공식 로고"></div><div class="brand-copy"><div class="brand-title-row"><h1 class="brand-title">MY <span>STELLIVE</span></h1></div><div class="brand-subtitle">PERSONAL STREAM PLANNER <span class="brand-dot">✦</span> 14 MEMBERS</div></div></div></header><div class="toolbar date-toolbar"><button class="alt tiny" onclick="moveDate(-1)" aria-label="이전 날짜"><svg class="ms21-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m14 6-6 6 6 6"/></svg></button><label class="date-picker-wrap" aria-label="날짜 선택"><span id="date-display" class="date-display">26.10.24 (토)</span><input id="date" type="date" value="2026-10-24" aria-label="날짜 선택" onchange="changeDate(this.value)"></label><button class="alt tiny" onclick="moveDate(1)" aria-label="다음 날짜"><svg class="ms21-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m10 6 6 6-6 6"/></svg></button></div><section id="content"></section></main><nav id="nav"></nav><div id="toast" role="status" aria-live="polite" aria-atomic="true"></div><script>
 function setOfficialLogo(file){
@@ -1838,7 +1858,7 @@ function ms16StorageWarning(message){
 }
 let ms256LastSavedJSON=null;
 
-// v2.5.14: non-destructive session-scoped schedule history, independent of backup schema.
+// v2.5.18: non-destructive session-scoped schedule history, independent of backup schema.
 const MS2510_KEY='ms2510-schedule-undo-session';
 const MS2510_FIELDS=['schedules','events','specialSchedules'];
 let ms2510UndoBusy=false;
@@ -1888,7 +1908,7 @@ function ms16DownloadBackup(data,filename){
 }
 function ms16ClockEndMinutes(start,end){if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(start||'')||!/^([01]\d|2[0-3]):[0-5]\d$/.test(end||''))return null;const a=+start.slice(0,2)*60+(+start.slice(3)),b=+end.slice(0,2)*60+(+end.slice(3));return b<a?b+1440:b}
 function ms16OvernightCarry(date){const previous=plus(date,-1);const personal=db.schedules.filter(x=>x.date===previous&&x.status==='예정'&&ms16ClockEndMinutes(x.start,x.end)>=1440);const collabs=db.events.filter(x=>x.date===previous&&ms16ClockEndMinutes(x.start,x.end)>=1440);return {personal,collabs,previous}}
-function render(){const undoHost=document.getElementById('deleteUndoHost');if(undoHost)undoHost.innerHTML=deletionUndoUI();db.version='2.5.14';persistMainDB();let tabs=[['today','MY'],['calendar','일정'],['manage','스튜디오'],['stats','연구소'],['settings','설정']];const nav=$('nav');if(nav.dataset.activeView!==view||nav.children.length!==tabs.length){nav.innerHTML=tabs.map(([v,t])=>`<button type="button" aria-label="${t}" aria-current="${view===v?'page':'false'}" class="dock-tab ${view===v?'active':''}" onclick="setView('${v}')"><span class="dock-icon">${navIcon(v)}</span><span class="dock-label">${t}</span></button>`).join('');nav.dataset.activeView=view;}$('date').value=day;$('date-display').textContent=formatShortDate(day);$('content').innerHTML=view==='today'?todayUI():view==='calendar'?calendarUI():view==='manage'?manageUI():view==='stats'?statsUI():settingsUI();if(view==='settings'){hydrateAppSettings();hydrateHistory();addLogoSettings()}if(view==='manage'){hydrateStudioSections();recurringPreview();hydrateStudioDraft();ms23Mount();ms250StudioMount()}}
+function render(){const undoHost=document.getElementById('deleteUndoHost');if(undoHost)undoHost.innerHTML=deletionUndoUI();db.version='2.5.18';persistMainDB();let tabs=[['today','MY'],['calendar','일정'],['manage','스튜디오'],['stats','연구소'],['settings','설정']];const nav=$('nav');if(nav.dataset.activeView!==view||nav.children.length!==tabs.length){nav.innerHTML=tabs.map(([v,t])=>`<button type="button" aria-label="${t}" aria-current="${view===v?'page':'false'}" class="dock-tab ${view===v?'active':''}" onclick="setView('${v}')"><span class="dock-icon">${navIcon(v)}</span><span class="dock-label">${t}</span></button>`).join('');nav.dataset.activeView=view;}$('date').value=day;$('date-display').textContent=formatShortDate(day);$('content').innerHTML=view==='today'?todayUI():view==='calendar'?calendarUI():view==='manage'?manageUI():view==='stats'?statsUI():settingsUI();if(view==='settings'){hydrateAppSettings();hydrateHistory();addLogoSettings()}if(view==='manage'){hydrateStudioSections();recurringPreview();hydrateStudioDraft();ms23Mount();ms250StudioMount()}}
 function eventUI(e,manage=false){
  const mode='📡 '+(BROADCAST_LABELS[e.broadcastMode]||BROADCAST_LABELS.unknown);
  const after=e.afterEventId?db.events.find(x=>x.id===e.afterEventId):null;
@@ -1989,7 +2009,7 @@ ${birthdayUpcomingUI()}</div>`;
 }
 
 // v2.5.1 compact home. Original full roster is reused in Studio > Manage.
-// v2.5.14: read-only home summary and calendar navigation.
+// v2.5.18: read-only home summary and calendar navigation.
 function ms2513Jump(date,member){
  if(!/^\d{4}-\d{2}-\d{2}$/.test(date))return;
  calMode='day';day=date;selected=null;
@@ -2242,10 +2262,10 @@ function calTimeline(d,kindFilter="all"){
  if(!items.length)return '<div class="cal-empty">등록된 방송 예정이 없습니다.</div>';
  return items.map(x=>{const when=esc(x.start||'미정');if(x.kind==='collab'||x.kind==='carrycollab'){
  const e=x.e,people=(e.participants||[]).map(id=>M(id)?.name||id).join(' · ');
- return `<div class="cal-timeline-row collab"><span class="cal-timeline-time">${when}</span><div class="cal-info"><strong>👥 ${esc(x.title)} <span class="cal-timeline-kind">${x.kind==='carrycollab'?'전날부터 이어지는 합방':'합방'}</span><span data-live-event="${esc(e.id)}">${liveTag({...e,status:'예정'},e.date)}</span></strong><small>${esc(people)}${e.host?' · MAIN '+esc(M(e.host)?.name||''):''}</small></div></div>`;
+ return `<div class="cal-timeline-row collab ms2515-row"><span class="cal-timeline-time">${when}</span><div class="cal-info"><strong>👥 ${esc(x.title)} <span class="cal-timeline-kind">${x.kind==='carrycollab'?'전날부터 이어지는 합방':'합방'}</span><span data-live-event="${esc(e.id)}">${liveTag({...e,status:'예정'},e.date)}</span></strong><small>${esc(people)}${e.host?' · MAIN '+esc(M(e.host)?.name||''):''}</small><details class="ms2515-detail"><summary>합방 상세 보기</summary><div class="ms2515-detail-body"><div><b>방송 날짜</b><span>${esc(e.date||d)}</span></div><div><b>시작 시각</b><span>${when}</span></div><div><b>참여 멤버</b><span>${esc(people||'미등록')}</span></div>${e.host?`<div><b>메인 진행</b><span>${esc(M(e.host)?.name||e.host)}</span></div>`:''}</div><button type="button" class="ms2516-edit" onclick="ms2516Open('collab',${JSON.stringify(e.id)})">스튜디오에서 합방 편집</button></details></div></div>`;
  }
  const s=x.s,m=M(s.member);
- return `<div class="cal-timeline-row"><span class="cal-timeline-time">${when}</span>${av(s.member)}<div class="cal-info"><strong>${esc(m?.name||s.member)} <span class="cal-timeline-kind">${x.kind==='carrypersonal'?'전날부터 이어지는 방송':x.kind==='special'?'✦ 특별방송':'개인 일정'}</span><span data-live-member=\"${s.member}\" data-live-date=\"${d}\"></span></strong><small>${esc(x.title)}</small>${commentBadge(s)}</div></div>`;
+ return `<div class="cal-timeline-row ms2515-row"><span class="cal-timeline-time">${when}</span>${av(s.member)}<div class="cal-info"><strong>${esc(m?.name||s.member)} <span class="cal-timeline-kind">${x.kind==='carrypersonal'?'전날부터 이어지는 방송':x.kind==='special'?'✦ 특별방송':'개인 일정'}</span><span data-live-member="${s.member}" data-live-date="${d}"></span></strong><small class="ms2515-title">${esc(x.title)}</small>${commentBadge(s)}<details class="ms2515-detail"><summary>방송 상세 보기</summary><div class="ms2515-detail-body"><div><b>멤버</b><span>${esc(m?.name||s.member)}</span></div><div><b>방송 날짜</b><span>${esc(s.date||d)}</span></div><div><b>시작·종료</b><span>${when}${s.end?' ~ '+esc(s.end):''}</span></div><div><b>방송 상태</b><span>${esc(s.status||'예정')}</span></div>${s.comment?`<div><b>메모</b><span>${esc(s.comment)}</span></div>`:''}${s.source?`<div><b>공지 출처</b><span>${esc(s.source)}</span></div>`:''}</div><button type="button" class="ms2516-edit" onclick="ms2516Open('personal',${JSON.stringify(s.member)},${JSON.stringify(s.date||d)})">스튜디오에서 일정 편집</button></details></div></div>`;
  }).join('');
 }
 let calendarDetailFilter='all';
@@ -2277,7 +2297,7 @@ function ms252BirthdayCompact(){
  const first=upcoming[0];
  return `<section class="ms252-birth"><button type="button" class="ms252-birth-toggle" aria-expanded="${ms252BirthOpen}" onclick="ms252BirthOpen=!ms252BirthOpen;render()"><span>🎂 다가오는 생일 · ${esc(first.member.name)} ${Number(first.date.slice(5,7))}/${Number(first.date.slice(8))}</span><span>${ms252BirthOpen?'접기 ▲':'펼치기 ▼'}</span></button>${ms252BirthOpen?birthdayUpcomingUI():''}</section>`;
 }
-// v2.5.14: read-only schedule finder; filters never mutate stored data.
+// v2.5.18: read-only schedule finder; filters never mutate stored data.
 let ms2511Open=false;
 let ms2511Filters={from:'',to:'',member:'all',gen:'all',kind:'all',state:'all',query:'',fav:false};
 function ms2511SetFilter(key,value){if(Object.prototype.hasOwnProperty.call(ms2511Filters,key))ms2511Filters[key]=String(value||'');}
@@ -2301,7 +2321,8 @@ function ms2511Results(){const f=ms2511Filters;return ms2511Rows().filter(x=>{
  const people=x.participants.map(id=>M(id)?.name||'').join(' ');
  return !f.query||(x.title+' '+people+' '+x.date).toLocaleLowerCase().includes(f.query.toLocaleLowerCase());
  }).sort((a,b)=>a.date.localeCompare(b.date)||(a.time||'99:99').localeCompare(b.time||'99:99')).slice(0,100);}
-function ms2511Jump(date){if(!/^\d{4}-\d{2}-\d{2}$/.test(date))return;calMode='day';changeDate(date);const card=document.querySelector('.calendar-card');if(card)card.scrollIntoView({behavior:'smooth',block:'start'});}
+let ms2518FinderMode='keep';
+function ms2511Jump(date){if(!/^\d{4}-\d{2}-\d{2}$/.test(date))return;if(ms2518FinderMode==='day')calMode='day';changeDate(date);const card=document.querySelector('.calendar-card');if(card)card.scrollIntoView({behavior:'smooth',block:'start'});}
 function ms2511FinderUI(){
  const f=ms2511Filters;
  const opts=(items,value)=>items.map(([id,label])=>`<option value="${esc(id)}" ${value===id?'selected':''}>${esc(label)}</option>`).join('');
@@ -2309,7 +2330,7 @@ function ms2511FinderUI(){
  const found=ms2511Results();
  const group=new Map();for(const x of found){if(!group.has(x.date))group.set(x.date,[]);group.get(x.date).push(x);}
  const items=[...group].map(([date,rows])=>`<section class="ms2512-day"><h4>${esc(date)} <span>${rows.length}건</span></h4>${rows.map(x=>`<button type="button" class="ms2511-result" onclick="ms2511Jump('${x.date}')"><span><b>${esc(x.time||'시간 미정')}</b> · ${esc(x.participants.map(id=>M(id)?.name||'').join('·')||'합방')}</span><span>${esc(x.title||'제목 없음')}</span><small>${esc(({personal:'개인 방송',second:'2부 방송',collab:'합방',off:'휴방',special:'특별방송'})[x.kind]||x.kind)} · ${esc(({live:'🔴 LIVE (시간 기준)',scheduled:'예정',off:'휴방',other:'미정'})[x.state]||x.state)} · 날짜로 이동 ›</small></button>`).join('')}</section>`).join('');
- const quick=`<div class="ms2512-quick" role="group" aria-label="빠른 날짜 검색"><button type="button" class="alt" onclick="ms2512Quick('today')">오늘</button><button type="button" class="alt" onclick="ms2512Quick('week')">이번 주</button><button type="button" class="alt" onclick="ms2512Quick('month')">이번 달</button></div><label class="ms2512-fav"><input type="checkbox" ${f.fav?'checked':''} onchange="ms2512Fav()"> ★ 즐겨찾는 멤버만 보기 <small>(${(db.favorites||[]).length}명)</small></label>`;
+ const quick=`<label class="ms2518-finder-mode">검색 결과 이동 방식<select aria-label="검색 결과 이동 방식" onchange="ms2518FinderMode=this.value"><option value="keep" ${ms2518FinderMode==='keep'?'selected':''}>현재 일간·주간·월간 보기 유지</option><option value="day" ${ms2518FinderMode==='day'?'selected':''}>일간 상세 보기로 이동</option></select></label><div class="ms2512-quick" role="group" aria-label="빠른 날짜 검색"><button type="button" class="alt" onclick="ms2512Quick('today')">오늘</button><button type="button" class="alt" onclick="ms2512Quick('week')">이번 주</button><button type="button" class="alt" onclick="ms2512Quick('month')">이번 달</button></div><label class="ms2512-fav"><input type="checkbox" ${f.fav?'checked':''} onchange="ms2512Fav()"> ★ 즐겨찾는 멤버만 보기 <small>(${(db.favorites||[]).length}명)</small></label>`;
  return `<section class="ms2511-finder card"><button type="button" class="ms2511-toggle" aria-expanded="${ms2511Open}" onclick="ms2511Open=!ms2511Open;render()"><span>⌕ 일정 검색 · 필터</span><span>${ms2511Open?'접기 ▲':'펼치기 ▼'}</span></button>${ms2511Open?`<div class="ms2511-body"><p class="ms2511-help">검색 조건을 선택하고 적용하세요. 기존 일정은 변경되지 않습니다.</p>${quick}${fields}<div class="ms2511-actions"><button type="button" onclick="render()">검색 적용</button><button type="button" class="alt" onclick="ms2511Reset()">전체 초기화</button></div><p class="ms2511-help" role="status">${found.length===100?'100건 표시 (추가 결과 가능)':found.length+'건 검색됨'} · ${group.size}개 날짜 · LIVE는 등록 시간 기준</p><div class="ms2511-results">${items||'<p class="ms2511-empty">조건에 맞는 일정이 없습니다. 날짜나 즐겨찾기 조건을 확인해 주세요.</p>'}</div></div>`:''}</section>`;
 }
 
@@ -2323,10 +2344,10 @@ function calendarUI(){
   const extra=Math.max(0,sum.personal.filter(s=>s.status==='예정').length-3);
   const sig=calendarDaySignals(d,sum);
   const genDots=calMode==='week'&&sig.gens.length?`<span class="cal-gen-dots" aria-label="${sig.gens.map(g=>g+'기').join(', ')} 방송"><span class="cal-gen-label">기수</span>${sig.gens.map(g=>`<i class="cal-gen-dot cal-gen-${g}" title="${g}기"></i>`).join('')}</span>`:'';
-  return `<button class="day ${d===day?'selected':''} ${calMode==='month'&&d.slice(0,7)!==day.slice(0,7)?'other':''} ${holiday?'kr-holiday':''} ${birth.length?'birthday-day':''} ${sum.ev.length?'has-collab':''} ${sunday?'kr-sunday':''}" onclick="changeDate('${d}')" aria-label="${formatShortDate(d)}${holiday?', '+holiday:''}${birthText?', '+birthText:''}, 방송 ${sum.active}명, 휴방 ${sum.off}명, 합방 ${sum.ev.length}건"><span class="cal-date-number">${Number(d.slice(-2))}</span>${holiday?`<span class="kr-holiday-label" title="${esc(holiday)}">${esc(holiday)}</span>`:''}${birth.length?`<span class="cal-birthday" title="${esc(birthText)}">🎂 ${birth.map(m=>esc(m.name.split(' ').at(-1))).join('·')}</span>`:''}<span class="cal-counts">${sum.active?`<span class="cal-count">▶${sum.active}</span>`:''}${sum.off?`<span class="cal-count off">☾${sum.off}</span>`:''}${sig.live?`<span class="cal-live-count" title="등록 시간 기준 LIVE ${sig.live}명">🔴${sig.live}</span>`:''}</span>${genDots}${ms19AbsenceBadge(d)}${sum.ev.length?`<span class="cal-collab">♧ 합방${sum.ev.length>1?' '+sum.ev.length:''}</span>`:''}${specialBroadcasts(d).length?'<span class="cal-special-mark">✦ 특별</span>':''}<span class="cal-dots">${personalFaces}${extra?`<span class="cal-more">+${extra}</span>`:''}</span></button>`;
+  return `<button class="day ${d===day?'selected':''} ${calMode==='month'&&d.slice(0,7)!==day.slice(0,7)?'other':''} ${holiday?'kr-holiday':''} ${birth.length?'birthday-day':''} ${sum.ev.length?'has-collab':''} ${sunday?'kr-sunday':''}" onclick="changeDate('${d}')" aria-pressed="${d===day}" aria-label="${formatShortDate(d)}${holiday?', '+holiday:''}${birthText?', '+birthText:''}, 방송 ${sum.active}명, 휴방 ${sum.off}명, 합방 ${sum.ev.length}건"><span class="cal-date-number">${Number(d.slice(-2))}</span>${holiday?`<span class="kr-holiday-label" title="${esc(holiday)}">${esc(holiday)}</span>`:''}${birth.length?`<span class="cal-birthday" title="${esc(birthText)}">🎂 ${birth.map(m=>esc(m.name.split(' ').at(-1))).join('·')}</span>`:''}<span class="cal-counts">${sum.active?`<span class="cal-count">▶${sum.active}</span>`:''}${sum.off?`<span class="cal-count off">☾${sum.off}</span>`:''}${sig.live?`<span class="cal-live-count" title="등록 시간 기준 LIVE ${sig.live}명">🔴${sig.live}</span>`:''}</span>${genDots}${ms19AbsenceBadge(d)}${sum.ev.length?`<span class="cal-collab">♧ 합방${sum.ev.length>1?' '+sum.ev.length:''}</span>`:''}${specialBroadcasts(d).length?'<span class="cal-special-mark">✦ 특별</span>':''}<span class="cal-dots">${personalFaces}${extra?`<span class="cal-more">+${extra}</span>`:''}</span></button>`;
  }).join('');
  const offRows=rows().filter(m=>m.status==='휴방').map(m=>`<div class="cal-schedule-row">${av(m.id)}<div class="cal-info"><strong>${esc(m.name)}</strong><small class="cal-off-comment">${esc(m.title&&m.title!=='등록된 공지 없음'&&m.title!=='휴방'?m.title:'휴방 멘트 미등록')}</small>${commentBadge(m)}</div><span class="cal-status">${m.offKind==='longOff'?'장기 휴방':m.offKind==='vacation'?'휴가':m.offKind==='travel'?'여행':m.offKind==='shortOff'?'단기 휴방':'휴방'}</span></div>`).join('');
- return `<div class="ms2-section-head ms2-calendar-head"><span class="ms2-eyebrow">MY STELLIVE · SCHEDULE</span><h1>방송 일정</h1><p>일간·주간·월간 보기에서 방송 일정을 확인하세요.</p></div>${ms252BirthdayCompact()}${ms2511FinderUI()}<div class="card calendar-card ${calMode==='week'?'week-calendar':''}"><div class="cal-modes"><button class="${calMode==='day'?'':'alt'}" onclick="calMode='day';render()">일간</button><button class="${calMode==='week'?'':'alt'}" onclick="calMode='week';render()">주간</button><button class="${calMode==='month'?'':'alt'}" onclick="calMode='month';render()">월간</button></div><div class="cal-head"><button class="alt tiny" onclick="calJump(-1)" aria-label="이전 기간">◀</button><strong>${rangeTitle}</strong><button class="alt tiny ms252-today" onclick="ms252Today()">오늘</button><button class="alt tiny" onclick="calJump(1)" aria-label="다음 기간">▶</button></div><div class="weekdays" ${calMode==='day'?'hidden':''}>${['일','월','화','수','목','금','토'].map(x=>`<span>${x}</span>`).join('')}</div><div class="days ${calMode==='day'?'ms252-day-grid':''}">${cells}</div><div class="cal-legend"><span>▶ 방송 인원(합방 참여자 포함)</span><span>🔴 등록 시간 기준 LIVE</span><span class="cal-gen-legend"><i class="cal-gen-dot cal-gen-1"></i>1기 <i class="cal-gen-dot cal-gen-2"></i>2기 <i class="cal-gen-dot cal-gen-3"></i>3기 <i class="cal-gen-dot cal-gen-4"></i>4기</span><span>☾ 휴방</span><span>♧ 합방</span><span>✦ 특별방송</span><span>🎂 생일</span><span>🔴 공휴일</span></div></div><div class="card"><div class="cal-detail-head"><h2 style="margin:0">📅 ${formatShortDate(day)} 일정${krHoliday(day)?`<span class="kr-detail-holiday">🔴 ${esc(krHoliday(day))}</span>`:''}${birthdayLabel(day)?`<span class="birthday-detail-label">${esc(birthdayLabel(day))}</span>`:''}</h2><button class="alt tiny" onclick="setView('today')">방송표 전체 보기 ›</button></div>${calendarSelectedOverview(day)}${ms21ExceptionInfo(day)}${ms19ConflictUI(day)}<div class="cal-stats"><span>방송 ${calDaySummary(day).active}명</span><span>휴방 ${calDaySummary(day).off}명</span><span>미정 ${count('미정')}</span><span>합방 ${events().length}건</span></div>${birthdayMembers(day).map(m=>`<div class="birthday-detail-row">${av(m.id)}<div><strong>🎂 ${esc(m.name)} · ${birthdayOrdinalText(m.id,day)}</strong><small>${esc(MEMBER_BIRTHDAYS[m.id].fan)} · ${esc(MEMBER_BIRTHDAYS[m.id].oshi)}</small></div></div>`).join('')}<h3 class="cal-timeline-title">⏱ 시간순 방송 목록</h3><p class="live-meta-hint">🔴 시간 기준 LIVE로 표시되는 개인 방송은 아래에서 현재 방제와 카테고리를 직접 등록할 수 있습니다. 실제 방송 정보는 자동 조회하지 않습니다.</p><div class="cal-detail-filters" aria-label="방송 목록 필터"><button class="tiny ${calendarDetailFilter==='all'?'is-active':''}" data-cal-filter="all" aria-pressed="${calendarDetailFilter==='all'}" onclick="setCalendarDetailFilter('all')">전체</button><button class="tiny ${calendarDetailFilter==='personal'?'is-active':''}" data-cal-filter="personal" aria-pressed="${calendarDetailFilter==='personal'}" onclick="setCalendarDetailFilter('personal')">개인·특별</button><button class="tiny ${calendarDetailFilter==='collab'?'is-active':''}" data-cal-filter="collab" aria-pressed="${calendarDetailFilter==='collab'}" onclick="setCalendarDetailFilter('collab')">합방</button></div><div id="calTimelineResults" aria-live="polite">${calTimeline(day,calendarDetailFilter)}</div>${offRows?`<h3 style="font-size:14px;margin:18px 0 3px;color:#bcb6cf">휴방</h3>${offRows}`:''}</div>`;
+ return `<div class="ms2-section-head ms2-calendar-head"><span class="ms2-eyebrow">MY STELLIVE · SCHEDULE</span><h1>방송 일정</h1><p>일간·주간·월간 보기에서 방송 일정을 확인하세요.</p></div>${ms252BirthdayCompact()}${ms2511FinderUI()}<div class="card calendar-card ${calMode==='week'?'week-calendar':''}"><div class="cal-modes"><button class="${calMode==='day'?'':'alt'}" onclick="calMode='day';render()">일간</button><button class="${calMode==='week'?'':'alt'}" onclick="calMode='week';render()">주간</button><button class="${calMode==='month'?'':'alt'}" onclick="calMode='month';render()">월간</button></div><div class="cal-head"><button class="alt tiny" onclick="calJump(-1)" aria-label="이전 기간">◀</button><strong>${rangeTitle}</strong><button class="alt tiny ms252-today" onclick="ms252Today()">오늘</button><button class="alt tiny" onclick="calJump(1)" aria-label="다음 기간">▶</button></div><div class="weekdays" ${calMode==='day'?'hidden':''}>${['일','월','화','수','목','금','토'].map(x=>`<span>${x}</span>`).join('')}</div><div class="days ${calMode==='day'?'ms252-day-grid':''}">${cells}</div><div class="cal-legend"><span>▶ 방송 인원(합방 참여자 포함)</span><span>🔴 등록 시간 기준 LIVE</span><span class="cal-gen-legend"><i class="cal-gen-dot cal-gen-1"></i>1기 <i class="cal-gen-dot cal-gen-2"></i>2기 <i class="cal-gen-dot cal-gen-3"></i>3기 <i class="cal-gen-dot cal-gen-4"></i>4기</span><span>☾ 휴방</span><span>♧ 합방</span><span>✦ 특별방송</span><span>🎂 생일</span><span>🔴 공휴일</span></div></div><div class="card"><div class="cal-detail-head"><h2 style="margin:0">📅 ${formatShortDate(day)} 일정${krHoliday(day)?`<span class="kr-detail-holiday">🔴 ${esc(krHoliday(day))}</span>`:''}${birthdayLabel(day)?`<span class="birthday-detail-label">${esc(birthdayLabel(day))}</span>`:''}</h2><button class="alt tiny" onclick="setView('today')">방송표 전체 보기 ›</button></div><div class="ms2515-day-nav" role="group" aria-label="날짜 이동"><button type="button" class="alt" onclick="moveDate(-1)" aria-label="전날 일정">‹ 전날</button><button type="button" class="alt" onclick="ms252Today()">오늘</button><button type="button" class="alt" onclick="moveDate(1)" aria-label="다음 날 일정">다음 날 ›</button></div>${calendarSelectedOverview(day)}${ms21ExceptionInfo(day)}${ms19ConflictUI(day)}<div class="cal-stats"><span>방송 ${calDaySummary(day).active}명</span><span>휴방 ${calDaySummary(day).off}명</span><span>미정 ${count('미정')}</span><span>합방 ${events().length}건</span></div>${birthdayMembers(day).map(m=>`<div class="birthday-detail-row">${av(m.id)}<div><strong>🎂 ${esc(m.name)} · ${birthdayOrdinalText(m.id,day)}</strong><small>${esc(MEMBER_BIRTHDAYS[m.id].fan)} · ${esc(MEMBER_BIRTHDAYS[m.id].oshi)}</small></div></div>`).join('')}<h3 class="cal-timeline-title">⏱ 시간순 방송 목록</h3><p class="live-meta-hint">🔴 시간 기준 LIVE로 표시되는 개인 방송은 아래에서 현재 방제와 카테고리를 직접 등록할 수 있습니다. 실제 방송 정보는 자동 조회하지 않습니다.</p><div class="cal-detail-filters" aria-label="방송 목록 필터"><button class="tiny ${calendarDetailFilter==='all'?'is-active':''}" data-cal-filter="all" aria-pressed="${calendarDetailFilter==='all'}" onclick="setCalendarDetailFilter('all')">전체</button><button class="tiny ${calendarDetailFilter==='personal'?'is-active':''}" data-cal-filter="personal" aria-pressed="${calendarDetailFilter==='personal'}" onclick="setCalendarDetailFilter('personal')">개인·특별</button><button class="tiny ${calendarDetailFilter==='collab'?'is-active':''}" data-cal-filter="collab" aria-pressed="${calendarDetailFilter==='collab'}" onclick="setCalendarDetailFilter('collab')">합방</button></div><div id="calTimelineResults" aria-live="polite">${calTimeline(day,calendarDetailFilter)}</div>${offRows?`<h3 style="font-size:14px;margin:18px 0 3px;color:#bcb6cf">휴방</h3>${offRows}`:''}</div>`;
 }
 function calJump(n){if(calMode==='day')moveDate(n);else if(calMode==='week')moveDate(n*7);else{let d=fmt(day);d.setUTCDate(1);d.setUTCMonth(d.getUTCMonth()+n);changeDate(d.toISOString().slice(0,10))}}
 
@@ -2393,7 +2414,7 @@ function initUptimeStudio(){
 
 function loadMember(){let s=getRow($('member').value);$('status').value=s.status;$('start').value=s.start||'';$('end').value=s.end||'';$('title').value=s.title==='등록된 공지 없음'?'':s.title;$('source').value=s.source||((!db.schedules.some(x=>x.date===day&&x.member===$('member').value))?M($('member').value).name+'님 공지글':'');$('comment').value=s.comment||'';$('isGuerrilla').checked=!!s.guerrilla;studioEndManuallyEdited=!!s.end;if(!db.schedules.some(x=>x.date===day&&x.member===$('member').value)&&s.start&&!s.end)applyUptimeEnd();updateUptimeHint()}
 function quickSource(kind){const el=$('source');if(!el)return;const name=M($('member').value).name;const choices={member:name+'님 공지글',cafe:'스텔라이브 공식 카페',chzzk:name+'님 치지직 공지',direct:'직접 확인',clear:''};el.value=choices[kind]??el.value;el.dispatchEvent(new Event('input',{bubbles:true}));el.focus()}
-// v2.5.14: advisory conflict review; existing records are never silently removed.
+// v2.5.18: advisory conflict review; existing records are never silently removed.
 function ms259TimeRange(a,b){
  const valid=x=>/^([01]\d|2[0-3]):[0-5]\d$/.test(x||'');
  if(!valid(a))return null;
@@ -2439,7 +2460,7 @@ function ms259Review(label,items,oldInfo,newInfo){
 function saveMember(){let id=$('member').value,s=$('status').value,start=$('start').value,end=$('end').value;let prev=db.schedules.find(x=>x.date===day&&x.member===id);const overlaps=ms259Conflicts(id,day,start,end,{kind:'schedule'});
  const oldInfo=prev?`${prev.status} ${prev.start||'시간 미정'}~${prev.end||''} ${prev.title||''}`:'';
  const newInfo=`${s} ${start||'시간 미정'}~${end||''} ${$('title').value.trim()}`;
- if(!ms259Review(`${M(id).name} · ${day} 개인 일정`,overlaps,oldInfo,newInfo))return;clearStudioDraft();lastDeletedSnapshot=null;db.schedules=db.schedules.filter(x=>!(x.date===day&&x.member===id));db.schedules.push({date:day,member:id,status:s,start:s==='예정'?start:'',end:s==='예정'?end:'',title:$('title').value.trim(),comment:cleanComment($('comment').value),source:$('source').value.trim()||M(id).name+'님 공지글',guerrilla:$('isGuerrilla').checked});studioRecentSave('member',{status:s,start,end,title:$('title').value,comment:$('comment').value,source:$('source').value,guerrilla:$('isGuerrilla').checked});addHistory(prev?'일정 수정':'일정 등록',`${day} ${M(id).name} ${prev?.status||'미등록'} → ${s}`);notify(prev?'일정 수정 완료':'일정 등록 완료');render();$('member').value=id;loadMember()}
+ if(!ms259Review(`${M(id).name} · ${day} 개인 일정`,overlaps,oldInfo,newInfo))return;clearStudioDraft();lastDeletedSnapshot=null;db.schedules=db.schedules.filter(x=>!(x.date===day&&x.member===id));db.schedules.push({date:day,member:id,status:s,start:s==='예정'?start:'',end:s==='예정'?end:'',title:$('title').value.trim(),comment:cleanComment($('comment').value),source:$('source').value.trim()||M(id).name+'님 공지글',guerrilla:$('isGuerrilla').checked});studioRecentSave('member',{status:s,start,end,title:$('title').value,comment:$('comment').value,source:$('source').value,guerrilla:$('isGuerrilla').checked});addHistory(prev?'일정 수정':'일정 등록',`${day} ${M(id).name} ${prev?.status||'미등록'} → ${s}`);notify(prev?'일정 수정 완료':'일정 등록 완료');if(ms2517Saved('personal',id))return;render();$('member').value=id;loadMember()}
 function deleteMember(){clearStudioDraft();let id=$('member').value;if(!db.schedules.some(x=>x.date===day&&x.member===id)){notify('등록된 일정이 없습니다.');return}rememberDelete('개인 방송 일정');db.schedules=db.schedules.filter(x=>!(x.date===day&&x.member===id));addHistory('일정 삭제',`${day} ${M(id).name}`);notify('일정 삭제 완료');render();$('member').value=id;loadMember()}
 function dismissAbyssNotice(){try{localStorage.setItem("stellive-abyss-notice-hidden-20261024","1")}catch(e){}const el=document.getElementById("abyssNoticeCard");if(el)el.remove()}
 
@@ -2563,6 +2584,8 @@ function ms250StudioMount(){
  try{const remembered=sessionStorage.getItem('my-stellive-studio-active-tab-v257');if(['create','notice','manage'].includes(remembered))ms250ActiveTab=remembered}catch(e){}
  ms250Select(ms250ActiveTab);
  ms251MountStudioRoster();
+ ms2516MountReturn();
+ ms2517Baseline=ms2517Snapshot();
 }
 
 // Beta 6: bounded weekly recurring schedules; never silently overwrite.
@@ -2638,7 +2661,7 @@ function saveCollab(){let title=$('evTitle').value.trim(),start=$('evStart').val
  const original=editEvent?db.events.find(e=>e.id===editEvent):null;
  const before=original?`${original.title} ${original.start||'시간 미정'} · ${(original.participants||[]).map(x=>M(x)?.name||x).join(', ')}`:'';
  if(!ms259Review(`합방 · ${day}`,collisionNotes,before,`${title} ${start||'시간 미정'} · ${participants.map(x=>M(x)?.name||x).join(', ')}`))return;
- let id=editEvent||'ev'+Date.now();db.events=db.events.filter(x=>x.id!==id);db.events.push({id,date:day,title,start,end,participants,host,broadcastMode,streamers:(broadcastMode==='partial'||broadcastMode==='relay')?streamers:[],afterEventId:$('evAfter').value===id?'':$('evAfter').value,source:$('evSource').value});studioRecentSave('collab',{start,end,participants,host,broadcastMode,streamers});const wasEditing=!!editEvent;addHistory(wasEditing?'합방 수정':'합방 등록',`${day} ${title}`);editEvent=null;render();notify(wasEditing?'합방 수정 완료':'합방 등록 완료')}
+ let id=editEvent||'ev'+Date.now();db.events=db.events.filter(x=>x.id!==id);db.events.push({id,date:day,title,start,end,participants,host,broadcastMode,streamers:(broadcastMode==='partial'||broadcastMode==='relay')?streamers:[],afterEventId:$('evAfter').value===id?'':$('evAfter').value,source:$('evSource').value});studioRecentSave('collab',{start,end,participants,host,broadcastMode,streamers});const wasEditing=!!editEvent;addHistory(wasEditing?'합방 수정':'합방 등록',`${day} ${title}`);editEvent=null;if(ms2517Saved('collab',id)){notify(wasEditing?'합방 수정 완료':'합방 등록 완료');return}render();notify(wasEditing?'합방 수정 완료':'합방 등록 완료')}
 function bulkRegisterCollabSchedules(){
  const title=$('evTitle').value.trim(),start=$('evStart').value,end=$('evEnd').value;
  const participants=[...document.querySelectorAll('.participant:checked')].map(el=>el.value);
@@ -3267,7 +3290,7 @@ function restoreBackup(){
   if(!confirm('복원할 데이터: 개인 일정 '+x.schedules.length+'건, 합방 '+x.events.length+'건. 현재 데이터가 교체됩니다. 계속할까요?'))return;
   const previous=db;
   db=structuredClone(x);if(!Array.isArray(db.specialSchedules))db.specialSchedules=[];if(!db.mbti||typeof db.mbti!=='object'||Array.isArray(db.mbti))db.mbti={};if(!Array.isArray(db.liveSessions))db.liveSessions=[];if(!db.liveDetails||typeof db.liveDetails!=='object'||Array.isArray(db.liveDetails))db.liveDetails={};ms23Ensure();lastDeletedSnapshot=null;
-  db.version='2.5.14';
+  db.version='2.5.18';
   try{localStorage.setItem('my-stellive-v3.3',JSON.stringify(db))}catch(e){db=previous;throw Error('저장 공간이 부족해 복원하지 못했습니다.');}
   addHistory('백업 복원','JSON에서 복원');render();notify('복원 완료');
  }catch(e){notify('복원 실패: '+e.message);backupPreview();}
@@ -3284,7 +3307,7 @@ function resetData(){
  catch(e){ms16StorageWarning('초기화 전 백업을 만들지 못했습니다. 초기화를 취소했습니다.');return}
  if(!confirm('백업 파일이 다운로드되었는지 확인하셨나요? 확인되지 않았다면 취소하세요.'))return;
  if(!confirm('마지막 확인: 모든 수정 사항을 삭제하고 초기 데이터로 되돌릴까요?'))return;
- const previous=db;db=structuredClone(INITIAL);db.version='2.5.14';
+ const previous=db;db=structuredClone(INITIAL);db.version='2.5.18';
  if(!persistMainDB()){db=previous;notify('초기화 실패: 저장할 수 없어 기존 데이터를 유지했습니다.');return}
  render();notify('초기화 완료');
 }
@@ -3517,4 +3540,147 @@ function ms23Save(apply){ms23Ensure();if(!ms23Draft)return;const n=ms23Draft;let
 
 function ms23Mount(){const root=$('content');if(!root||$('ms23Panel'))return;const wrap=document.createElement('div');wrap.innerHTML=ms23Panel();root.insertBefore(wrap.firstElementChild,root.firstChild)}
 
-</script><script id="ms-release-info-script">(function(){function update(){var p=document.getElementById('ms-release-pwa'),c=document.getElementById('ms-release-cache');if(!p&&!c)return;var installed=window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches;if(p)p.textContent=installed?'설치형 PWA로 실행 중':location.protocol==='https:'?'웹 브라우저 실행 · 설치 여부 미확인':'로컬 파일/비보안 환경 · PWA 설치 제한';if(c){if(!('serviceWorker' in navigator)){c.textContent='서비스 워커 미지원';return;}navigator.serviceWorker.getRegistration().then(function(r){if(c)c.textContent=r?(r.active?'서비스 워커 활성 · 캐시 사용 가능':'서비스 워커 등록됨 · 활성화 대기'):'서비스 워커 미등록';}).catch(function(){if(c)c.textContent='상태 확인 불가';});}}document.addEventListener('DOMContentLoaded',update);document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('#aboutApp'))setTimeout(update,100);});})();</script></body></html>
+</script><script id="ms-release-info-script">(function(){function update(){var p=document.getElementById('ms-release-pwa'),c=document.getElementById('ms-release-cache');if(!p&&!c)return;var installed=window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches;if(p)p.textContent=installed?'설치형 PWA로 실행 중':location.protocol==='https:'?'웹 브라우저 실행 · 설치 여부 미확인':'로컬 파일/비보안 환경 · PWA 설치 제한';if(c){if(!('serviceWorker' in navigator)){c.textContent='서비스 워커 미지원';return;}navigator.serviceWorker.getRegistration().then(function(r){if(c)c.textContent=r?(r.active?'서비스 워커 활성 · 캐시 사용 가능':'서비스 워커 등록됨 · 활성화 대기'):'서비스 워커 미등록';}).catch(function(){if(c)c.textContent='상태 확인 불가';});}}document.addEventListener('DOMContentLoaded',update);document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('#aboutApp'))setTimeout(update,100);});})();</script>
+<style id="ms2516-style">
+.ms2516-edit{display:block;width:100%;min-height:44px;margin-top:12px;white-space:normal;text-align:center;font-weight:650}
+.ms2516-return{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:12px;margin:10px 0;border:1px solid var(--line, #8885);border-radius:10px}
+.ms2516-return button{min-height:44px;flex:1;min-width:140px}
+@media(max-width:430px){.ms2516-return{display:grid;grid-template-columns:1fr}.ms2516-return button{width:100%}}
+</style>
+<script id="ms2516-script">
+/* v2.5.18: calendar-to-studio editing; never modifies saved schedules on navigation. */
+let ms2516Return=null;
+function ms2516Open(kind,id,dateValue){
+ const targetDate=kind==='collab'?db.events.find(e=>e.id===id)?.date:dateValue;
+ if(!targetDate){notify('해당 일정을 찾을 수 없습니다.');return;}
+ ms2516Return={date:day,mode:calMode,filter:calendarDetailFilter};
+ day=targetDate;view='manage';selected=null;
+ // Studio tab and form must exist before values are populated.
+ if(kind==='collab')ms250ActiveTab='create';else ms250ActiveTab='manage';
+ render();ms250Select(ms250ActiveTab);
+ if(kind==='collab'){
+   if(!db.events.some(e=>e.id===id)){notify('합방 일정을 찾을 수 없습니다.');return;}
+   editCollab(id);
+   ms2516Focus('evTitle');
+ }else{
+   const select=document.getElementById('member');
+   if(!select){notify('스튜디오 입력창을 찾을 수 없습니다.');return;}
+   select.value=id;loadMember();ms2516Focus('title');
+ }
+ ms2516MountReturn();
+}
+function ms2516Focus(id){const el=document.getElementById(id);if(!el)return;try{el.focus({preventScroll:true});el.scrollIntoView({block:'center',behavior:'smooth'});}catch(e){el.focus();}}
+function ms2516MountReturn(){
+ if(!ms2516Return)return;
+ const host=document.getElementById('ms250Studio');if(!host||document.getElementById('ms2516Return'))return;
+ const bar=document.createElement('div');bar.id='ms2516Return';bar.className='ms2516-return';
+ const note=document.createElement('span');note.textContent='캘린더에서 편집 중 · '+day;
+ const btn=document.createElement('button');btn.type='button';btn.className='alt';btn.textContent='캘린더로 돌아가기';btn.addEventListener('click',ms2516Back);
+ bar.append(note,btn);host.insertBefore(bar,host.children[1]||null);
+}
+function ms2516Back(force=false){
+ const prev=ms2516Return;if(!prev)return;
+ if(!force&&!ms2517ConfirmLeave())return;
+ ms2516Return=null;day=prev.date;calMode=prev.mode;calendarDetailFilter=prev.filter;
+ view='calendar';selected=null;render();window.scrollTo({top:0,behavior:'instant'});
+}
+</script>
+
+<style id="ms2517-style">
+.ms2517-return-hint{display:block;font-size:12px;color:#bdb4d2;line-height:1.5;margin-top:4px}
+.ms2516-return{border-radius:8px}.ms2516-return button{min-height:46px}
+@media(max-width:430px){.ms2516-edit{min-height:46px}.ms2516-return{padding:10px}}
+</style>
+<script id="ms2517-script">
+/* v2.5.18: guarded calendar-origin edit and return on successful save. */
+let ms2517Baseline=null;
+function ms2517Snapshot(){
+ if(!ms2516Return||view!=='manage')return null;
+ const ids=['member','status','start','end','title','comment','source','isGuerrilla','evTitle','evStart','evEnd','evSource','evHost','evBroadcastMode','evAfter'];
+ const values={};for(const id of ids){const el=document.getElementById(id);if(el)values[id]=el.type==='checkbox'?el.checked:el.value;}
+ values.participants=[...document.querySelectorAll('.participant:checked')].map(x=>x.value).sort();
+ values.streamers=[...document.querySelectorAll('.ev-streamer:checked')].map(x=>x.value).sort();
+ return JSON.stringify(values);
+}
+function ms2517Dirty(){return !!ms2516Return&&ms2517Baseline!==null&&ms2517Snapshot()!==ms2517Baseline;}
+function ms2517ConfirmLeave(){return !ms2517Dirty()||confirm('저장하지 않은 변경 사항이 있습니다. 편집 내용을 버리고 이동하시겠습니까?');}
+function ms2517Saved(kind,id){
+ if(!ms2516Return)return false;
+ // Only return when the edited record is present in the app database.
+ const exists=kind==='personal'?db.schedules.some(x=>x.date===day&&x.member===id):db.events.some(x=>x.id===id&&x.date===day);
+ if(!exists)return false;
+ ms2517Baseline=null;ms2516Back(true);return true;
+}
+const ms2517OriginalSetView=setView;
+setView=function(v){if(ms2516Return&&v!==view){if(!ms2517ConfirmLeave())return;ms2516Return=null;ms2517Baseline=null;}return ms2517OriginalSetView(v)};
+const ms2517OriginalSelect=ms250Select;
+ms250Select=function(tab){if(ms2516Return&&ms2517Baseline!==null&&ms250ActiveTab!==tab){if(!ms2517ConfirmLeave())return;ms2516Return=null;ms2517Baseline=null;}return ms2517OriginalSelect(tab)};
+const ms2517OriginalChangeDate=changeDate;
+changeDate=function(v){if(ms2516Return&&v!==day){if(!ms2517ConfirmLeave())return;ms2516Return=null;ms2517Baseline=null;}return ms2517OriginalChangeDate(v)};
+window.addEventListener('beforeunload',function(e){if(ms2517Dirty()){e.preventDefault();e.returnValue='';}});
+const ms2517OriginalMountReturn=ms2516MountReturn;
+ms2516MountReturn=function(){ms2517OriginalMountReturn();const bar=document.getElementById('ms2516Return');if(bar&&!bar.querySelector('.ms2517-return-hint')){const hint=document.createElement('small');hint.className='ms2517-return-hint';hint.textContent='저장하면 원래 캘린더 날짜와 보기로 자동 복귀합니다.';bar.querySelector('span')?.appendChild(hint);}};
+</script>
+
+<style id="ms2518-style">
+.ms2518-finder-mode{display:grid;gap:6px;margin:12px 0;font-size:13px;font-weight:650}
+.ms2518-finder-mode select{min-height:44px;width:100%;max-width:100%;font-size:16px}
+.ms2518-editor-state{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px;line-height:1.45;margin-top:6px}
+.ms2518-editor-state strong{font-weight:750}
+.ms2518-editor-state[data-dirty="yes"] strong{color:#ffc76a}
+.ms2518-editor-state[data-dirty="no"] strong{color:#a7d9b7}
+.ms2515-detail{border:1px solid rgba(180,170,210,.22);border-radius:8px;margin-top:8px;overflow:hidden}
+.ms2515-detail summary{padding:11px 12px;min-height:44px;display:flex;align-items:center;cursor:pointer;font-weight:650}
+.ms2515-detail[open] summary{border-bottom:1px solid rgba(180,170,210,.2)}
+.ms2515-detail-body{padding:10px 12px;display:grid;gap:8px}
+.ms2515-detail-body>div{display:grid;grid-template-columns:minmax(85px,33%) minmax(0,1fr);gap:10px;align-items:start;overflow-wrap:anywhere}
+.ms2515-detail-body b{font-size:12px;opacity:.8}
+.ms2515-detail .ms2516-edit{margin:8px 12px 12px;width:calc(100% - 24px)}
+@media(max-width:430px){.ms2515-detail-body>div{grid-template-columns:minmax(75px,35%) minmax(0,1fr)}.ms2518-finder-mode select{font-size:16px}.ms2516-return{position:relative}}
+</style>
+<script id="ms2518-script">
+/* v2.5.18: editing safeguards and accessible calendar navigation, no schema changes. */
+(function(){
+ // Compare only controls belonging to the active editor, including radio, multi-select and new fields.
+ function activeFields(){
+  if(!ms2516Return||view!=='manage')return null;
+  const collab=ms2518EditingKind==='collab';
+  const root=document.getElementById(collab?'collabEditor':'memberEditor');
+  const ids=collab?['evTitle','evStart','evEnd','evSource','evHost','evBroadcastMode','evAfter']:['member','status','start','end','title','comment','source','isGuerrilla'];
+  const inputs=ids.map(id=>document.getElementById(id)).filter(Boolean);
+  if(collab)inputs.push(...document.querySelectorAll('.participant,.ev-streamer'));
+  if(root)inputs.push(...root.querySelectorAll('input,select,textarea'));
+  const seen=new Set(),data=[];
+  inputs.forEach(el=>{
+   if(seen.has(el)||el.disabled)return;seen.add(el);
+   const key=el.id||el.name||el.className||el.type;
+   data.push([key,el.type==='checkbox'||el.type==='radio'?!!el.checked:el.value]);
+  });
+  return JSON.stringify(data);
+ }
+ let ms2518EditingKind='personal';
+ const originalOpen=ms2516Open;
+ ms2516Open=function(kind,id,dateValue){
+  if(ms2516Return&&ms2517Dirty()&&!ms2517ConfirmLeave())return;
+  ms2518EditingKind=kind==='collab'?'collab':'personal';
+  originalOpen(kind,id,dateValue);
+  // The original studio mount snapshots before the record is hydrated; reset after hydration.
+  if(ms2516Return){ms2517Baseline=activeFields();ms2518UpdateStatus();}
+ };
+ ms2517Snapshot=activeFields;
+ function ms2518UpdateStatus(){
+  const bar=document.getElementById('ms2516Return');if(!bar)return;
+  let el=bar.querySelector('.ms2518-editor-state');
+  if(!el){el=document.createElement('div');el.className='ms2518-editor-state';el.setAttribute('role','status');el.setAttribute('aria-live','polite');bar.querySelector('span')?.appendChild(el);}
+  const dirty=ms2517Dirty();el.dataset.dirty=dirty?'yes':'no';
+  el.innerHTML=dirty?'<strong>● 저장하지 않은 변경 있음</strong><span>저장하거나 돌아가기 전에 확인해 주세요.</span>':'<strong>✓ 현재까지 변경 없음</strong><span>저장 후 원래 캘린더로 복귀합니다.</span>';
+ }
+ document.addEventListener('input',e=>{if(ms2516Return&&e.target.closest('#ms250Studio'))ms2518UpdateStatus()});
+ document.addEventListener('change',e=>{if(ms2516Return&&e.target.closest('#ms250Studio'))ms2518UpdateStatus()});
+ const oldBack=ms2516Back;
+ ms2516Back=function(force){const previous=ms2516Return;oldBack(force);if(previous&&!ms2516Return)ms2517Baseline=null;};
+ // Do not erase edit context on invalid saves. Existing save functions only return on success.
+ // Do not intercept data persistence, history, backup, LIVE or PWA logic.
+})();
+</script>
+</body></html>
