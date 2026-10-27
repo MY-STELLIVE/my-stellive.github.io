@@ -1,5 +1,25 @@
-const CACHE='my-stellive-v2.4.7-static-v1';
-const ASSETS=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./data/MY_STELLIVE_RESEARCH_ALL.json'];
-self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));});
-self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('my-stellive-v2.4.7-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
-self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;const url=new URL(event.request.url);if(url.origin!==self.location.origin)return;event.respondWith(fetch(event.request).then(response=>{if(response.ok&&url.pathname.startsWith(new URL('./',self.registration.scope).pathname)){const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(event.request,copy)).catch(()=>{});}return response;}).catch(()=>caches.match(event.request).then(r=>r||caches.match('./index.html'))));});
+/* MY STELLIVE v2.5.32 - network-first navigation, offline fallback */
+const CACHE='my-stellive-v2.5.32-shell';
+const SHELL=['./index.html','./manifest.webmanifest'];
+self.addEventListener('install',e=>{
+ e.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()));
+});
+self.addEventListener('activate',e=>{
+ e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('my-stellive-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));
+});
+self.addEventListener('fetch',e=>{
+ const r=e.request;
+ if(r.method!=='GET')return;
+ const u=new URL(r.url);
+ if(u.origin!==self.location.origin)return;
+ const scope=new URL(self.registration.scope);
+ if(!u.pathname.startsWith(scope.pathname))return;
+ if(r.mode==='navigate'||u.pathname.endsWith('/index.html')){
+  e.respondWith(fetch(r,{cache:'no-store'}).then(res=>{
+   if(res.ok){const copy=res.clone();e.waitUntil(caches.open(CACHE).then(c=>c.put('./index.html',copy)));}
+   return res;
+  }).catch(()=>caches.match('./index.html')));
+  return;
+ }
+ e.respondWith(fetch(r).catch(()=>caches.match(r)));
+});
