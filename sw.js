@@ -1,5 +1,5 @@
-/* MY STELLIVE v2.5.32 - network-first navigation, offline fallback */
-const CACHE='my-stellive-v2.5.32-shell';
+/* MY STELLIVE v2.6.1 - network-first navigation, offline fallback */
+const CACHE='my-stellive-v2.6.1-shell';
 const SHELL=['./index.html','./manifest.webmanifest'];
 self.addEventListener('install',e=>{
  e.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()));
