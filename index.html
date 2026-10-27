@@ -1958,7 +1958,7 @@ function ms16DownloadBackup(data,filename){
 }
 function ms16ClockEndMinutes(start,end){if(!/^([01]\d|2[0-3]):[0-5]\d$/.test(start||'')||!/^([01]\d|2[0-3]):[0-5]\d$/.test(end||''))return null;const a=+start.slice(0,2)*60+(+start.slice(3)),b=+end.slice(0,2)*60+(+end.slice(3));return b<a?b+1440:b}
 function ms16OvernightCarry(date){const previous=plus(date,-1);const personal=db.schedules.filter(x=>x.date===previous&&x.status==='예정'&&ms16ClockEndMinutes(x.start,x.end)>=1440);const collabs=db.events.filter(x=>x.date===previous&&ms16ClockEndMinutes(x.start,x.end)>=1440);return {personal,collabs,previous}}
-const MS_APP_VERSION='2.5.28';
+const MS_APP_VERSION='2.5.30';
 function render(){const undoHost=document.getElementById('deleteUndoHost');if(undoHost)undoHost.innerHTML=deletionUndoUI();db.version=MS_APP_VERSION;persistMainDB();let tabs=[['today','MY'],['calendar','일정'],['manage','스튜디오'],['stats','연구소'],['settings','설정']];const nav=$('nav');if(nav.dataset.activeView!==view||nav.children.length!==tabs.length){nav.innerHTML=tabs.map(([v,t])=>`<button type="button" aria-label="${t}" aria-current="${view===v?'page':'false'}" class="dock-tab ${view===v?'active':''}" onclick="setView('${v}')"><span class="dock-icon">${navIcon(v)}</span><span class="dock-label">${t}</span></button>`).join('');nav.dataset.activeView=view;}$('date').value=day;$('date-display').textContent=formatShortDate(day);$('content').innerHTML=view==='today'?todayUI():view==='calendar'?calendarUI():view==='manage'?manageUI():view==='stats'?statsUI():settingsUI();if(view==='settings'){hydrateAppSettings();hydrateHistory();addLogoSettings()}if(view==='manage'){hydrateStudioSections();recurringPreview();hydrateStudioDraft();ms23Mount();ms250StudioMount()}}
 function eventUI(e,manage=false){
  const mode='📡 '+(BROADCAST_LABELS[e.broadcastMode]||BROADCAST_LABELS.unknown);
@@ -4056,7 +4056,7 @@ function ms2528Edit(){
  const date=sel.target.date,kind=current.kind,id=kind==='collab'?current.record.id:current.record.member;
  if(!id){ms2528Calendar();return;}
  ms2528Close();
- ms2516Open(kind,id,date);
+ ms2529OpenStudio(kind,id,date);
 }
 function ms2524SchedulePanel(){
  const d=ms2524HomeData();
@@ -4070,4 +4070,175 @@ function ms2524SchedulePanel(){
  return '<section class="ms2524-schedule" aria-label="오늘 방송 일정"><div class="ms2524-section-head"><h3>오늘의 방송</h3><button type="button" class="tiny alt" onclick="ms2520GoCalendar('+JSON.stringify(d.date)+')">전체 보기 ›</button></div>'+(items||'<div class="ms2524-empty">오늘 등록된 방송 일정이 없습니다. 스튜디오에서 일정을 추가할 수 있습니다.</div>')+'</section>';
 }
 
-</script></body></html>
+</script><style id="ms2529-style">
+/* v2.5.29: compact dashboard and unobstructed mobile scrolling */
+.ms251-home{padding-bottom:calc(132px + env(safe-area-inset-bottom,0px))!important}
+.ms251-home .ms251-heading{margin-bottom:12px}
+.ms251-home .ms251-heading h2{margin:5px 0 2px}
+.ms251-home .ms248-clock{margin-block:12px}
+.ms251-home .ms2524-summary{margin-top:12px;margin-bottom:12px}
+.ms251-home .ms2524-roster{margin-top:16px}
+.ms2525-tab{position:relative}
+.ms2529-tab-live::after{content:'';position:absolute;right:7px;top:6px;width:6px;height:6px;background:#ff6075;border-radius:50%;box-shadow:0 0 0 2px #392d58}
+.ms2526-person strong{overflow-wrap:anywhere}
+.ms2529-profile-hint{text-align:center;color:#c6b6dd;font-size:11px;margin:8px 0 0}
+.ms2528-dialog{padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
+.ms2529-extra{border-top:1px solid #544764;padding-top:12px;margin-top:12px}
+.ms2529-extra dl{margin:0}
+.ms2529-empty{padding:18px 14px;border:1px dashed #645675;border-radius:10px;text-align:center;color:#d3c5e3}
+.ms2529-empty button{margin-top:12px;min-height:44px}
+.ms2529-return-note{color:#d8c4f1;font-size:12px}
+@media(max-width:430px){.ms251-home .ms251-heading{margin-bottom:8px}.ms251-home .ms248-clock{margin-block:9px}.ms2529-tab-live::after{right:3px;top:3px}}
+@media(prefers-reduced-motion:reduce){.ms2525-tab,.ms2526-person{transition:none!important}}
+</style>
+<script id="ms2529-script">
+/* UI-only enhancements; existing db/localStorage/JSON schemas unchanged. */
+let ms2529HomeEditor=false;
+function ms2529OpenStudio(kind,id,date){
+ ms2529HomeEditor=false;
+ ms2516Open(kind,id,date);
+ if(view!=='manage'||!ms2516Return)return;
+ ms2529HomeEditor=true;
+ ms2529HomeReturnBar();
+}
+function ms2529HomeReturnBar(){
+ if(!ms2529HomeEditor||view!=='manage')return;
+ const bar=document.getElementById('ms2516Return');if(!bar)return;
+ const label=bar.querySelector('span');if(label)label.textContent='MY 홈에서 일정 수정 중 · '+day;
+ const btn=bar.querySelector('button');if(btn)btn.textContent='MY 홈으로 돌아가기';
+ if(!bar.querySelector('.ms2529-return-note')){
+  const note=document.createElement('small');note.className='ms2529-return-note';note.textContent='저장하면 MY 홈의 최신 일정으로 돌아갑니다.';bar.appendChild(note);
+ }
+}
+const ms2529OriginalBack=ms2516Back;
+ms2516Back=function(force=false){
+ if(!ms2529HomeEditor)return ms2529OriginalBack(force);
+ if(!force&&!ms2517ConfirmLeave())return;
+ ms2529HomeEditor=false;ms2516Return=null;ms2517Baseline=null;
+ view='today';selected=null;render();window.scrollTo({top:0,behavior:'instant'});
+};
+const ms2529OriginalSetView=setView;
+setView=function(v){
+ const wasHome=ms2529HomeEditor;
+ const result=ms2529OriginalSetView(v);
+ if(wasHome&&view!=='manage'&&!ms2516Return)ms2529HomeEditor=false;
+ return result;
+};
+const ms2529OriginalSelect=ms250Select;
+ms250Select=function(tab){
+ const result=ms2529OriginalSelect(tab);
+ if(ms2529HomeEditor&&!ms2516Return)ms2529HomeEditor=false;
+ return result;
+};
+const ms2529OriginalDetail=ms2527OpenSchedule;
+ms2527OpenSchedule=function(token){
+ ms2529OriginalDetail(token);
+ const dialog=document.querySelector('#ms2528-detail .ms2528-dialog');
+ const selected=ms2528Selected;
+ if(!dialog||!selected?.source?.safe)return;
+ const r=selected.source.record;
+ const extra=[['종료 시간',r.end],['메모',r.comment],['출처',r.source]]
+  .filter(([key,value])=>typeof value==='string'&&value.trim());
+ if(!extra.length)return;
+ const box=document.createElement('div');box.className='ms2529-extra';
+ const dl=document.createElement('dl');
+ for(const [key,value] of extra){const dt=document.createElement('dt');dt.textContent=key;const dd=document.createElement('dd');dd.textContent=value;dl.append(dt,dd);}
+ box.append(dl);
+ const actions=dialog.querySelector('.ms2528-actions');if(actions)dialog.insertBefore(box,actions);else dialog.append(box);
+};
+const ms2529OriginalCarousel=ms2525CarouselBody;
+ms2525CarouselBody=function(){
+ const markup=ms2529OriginalCarousel();
+ const d=ms2524HomeData();
+ const liveGens=new Set(d.members.filter(x=>x.live).map(x=>x.m.gen));
+ const temp=document.createElement('template');temp.innerHTML=markup;
+ temp.content.querySelectorAll('.ms2525-tab').forEach((tab,i)=>{
+  if(liveGens.has(i+1)){tab.classList.add('ms2529-tab-live');tab.setAttribute('aria-label',tab.textContent+' · LIVE 멤버 있음');}
+ });
+ const hint=document.createElement('p');hint.className='ms2529-profile-hint';hint.textContent='멤버 카드를 누르면 연구소 프로필로 이동합니다.';
+ temp.content.append(hint);
+ return temp.innerHTML;
+};
+const ms2529OriginalSchedulePanel=ms2524SchedulePanel;
+ms2524SchedulePanel=function(){
+ const html=ms2529OriginalSchedulePanel();
+ if(ms2524HomeData().events.length)return html;
+ return html.replace(/<div class="ms2524-empty">[\s\S]*?<\/div>/,
+  '<div class="ms2529-empty">오늘 등록된 방송이 없습니다.<div><button type="button" class="alt" onclick="setView(\'manage\')">＋ 일정 등록하기</button></div></div>');
+};
+</script>
+<style id="ms2530-style">
+/* v2.5.30 A/F: compact, readable home with safe mobile spacing */
+.ms251-home{padding-bottom:calc(148px + env(safe-area-inset-bottom,0px))!important}
+.ms251-home .ms251-heading{margin-bottom:8px}
+.ms251-home .ms2524-summary{gap:8px}
+.ms251-home .ms2524-summary>div{min-width:0}
+.ms251-home .ms2524-summary strong{font-variant-numeric:tabular-nums}
+.ms2530-next-sub{font-size:12px;color:#d4c9e5;margin-top:4px;display:block}
+/* B: generation status is text as well as a dot for accessibility */
+.ms2530-live-count{font-size:10px;display:inline-block;margin-left:4px;color:#ffc3cc;font-weight:700}
+.ms2525-tab[aria-selected="true"]{outline:2px solid rgba(220,195,255,.65);outline-offset:-2px}
+.ms2525-person:focus-visible,.ms2525-tab:focus-visible,.ms2527-next:focus-visible{outline:3px solid #edcaff;outline-offset:2px}
+.ms2524-event-main{min-width:0;overflow-wrap:anywhere}
+.ms2524-event-main strong{overflow-wrap:anywhere}
+.ms2528-dialog:focus{outline:none}
+.ms2530-detail-help{font-size:12px;color:#c8badc;margin:8px 0 0;line-height:1.5}
+.ms2530-more{font-size:12px;color:#cfc1e2;margin-top:9px}
+@media(max-width:440px){.ms2524-event{gap:7px}.ms2524-event button{min-height:42px}.ms2525-tabs{scroll-padding-inline:12px}.ms2528-overlay{padding:12px}.ms2528-dialog{max-height:calc(100dvh - 28px)}}
+@media(prefers-reduced-motion:reduce){.ms2525-roster *{scroll-behavior:auto!important;transition-duration:0s!important;animation-duration:0s!important}}
+</style>
+<script id="ms2530-script">
+/* v2.5.30: display-only refinements, no change to db, storage keys or backups. */
+const ms2530PreviousSummary=ms2524HomeSummary;
+ms2524HomeSummary=function(){
+ const html=ms2530PreviousSummary();
+ const d=ms2524HomeData(),next=d.events.find(x=>x._phase===1);
+ if(!next)return html;
+ const names=(next.participants||[]).map(id=>M(id)?.name||'').filter(Boolean).join(' · ');
+ const kind=next.kind==='collab'?'합방':next.kind==='special'?'특별방송':'방송';
+ const subtitle='<small class="ms2530-next-sub">'+esc(kind)+(names?' · '+esc(names):'')+'</small>';
+ return html.replace(/(<button\b[^>]*class="ms2527-next"[\s\S]*?<strong>[\s\S]*?<\/strong>)/, '$1'+subtitle);
+};
+const ms2530PreviousCarousel=ms2525CarouselBody;
+ms2525CarouselBody=function(){
+ const html=ms2530PreviousCarousel(),d=ms2524HomeData();
+ const liveByGen={};for(const x of d.members){if(x.live)liveByGen[x.m.gen]=(liveByGen[x.m.gen]||0)+1;}
+ return html.replace(/(<button\b[^>]*class="ms2525-tab"[^>]*onclick="ms2525SelectGen\((\d)\)"[^>]*>)([\s\S]*?)(<\/button>)/g,
+  (full,head,gen,label,end)=>head+label+(liveByGen[Number(gen)]?'<span class="ms2530-live-count" aria-label="'+liveByGen[Number(gen)]+'명 방송 중">LIVE '+liveByGen[Number(gen)]+'</span>':'')+end);
+};
+const ms2530PreviousSchedule=ms2524SchedulePanel;
+ms2524SchedulePanel=function(){
+ const html=ms2530PreviousSchedule(),d=ms2524HomeData();
+ if(d.events.length<=7)return html;
+ return html.replace('</section>','<p class="ms2530-more">총 '+d.events.length+'건 중 7건 표시 · 전체 일정은 캘린더에서 확인하세요.</p></section>');
+};
+let ms2530DialogFocus=null;
+const ms2530PreviousOpenSchedule=ms2527OpenSchedule;
+ms2527OpenSchedule=function(token){
+ ms2530DialogFocus=document.activeElement;
+ ms2530PreviousOpenSchedule(token);
+ const dialog=document.querySelector('#ms2528-detail .ms2528-dialog');
+ if(!dialog)return;
+ dialog.setAttribute('tabindex','-1');
+ const note=document.createElement('p');note.className='ms2530-detail-help';
+ note.textContent='Esc 키로 닫을 수 있습니다. 원본을 식별할 수 없는 일정은 캘린더에서 확인해 주세요.';
+ const actions=dialog.querySelector('.ms2528-actions');if(actions)dialog.insertBefore(note,actions);
+ dialog.focus({preventScroll:true});
+};
+const ms2530PreviousClose=ms2528Close;
+ms2528Close=function(){ms2530PreviousClose();const target=ms2530DialogFocus;ms2530DialogFocus=null;if(target?.isConnected&&typeof target.focus==='function')target.focus({preventScroll:true});};
+document.addEventListener('keydown',function(event){
+ const overlay=document.getElementById('ms2528-detail');if(!overlay)return;
+ if(event.key==='Escape'){event.preventDefault();ms2528Close();return;}
+ if(event.key!=='Tab')return;
+ const focusable=[...overlay.querySelectorAll('button:not([disabled]),a[href],input:not([disabled]),[tabindex="0"]')];
+ if(!focusable.length)return;
+ const first=focusable[0],last=focusable[focusable.length-1];
+ if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+ else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+});
+/* D: avoid stale home-edit state after leaving the studio; preserve existing unsaved-change guard. */
+const ms2530PreviousStudio=ms2529OpenStudio;
+ms2529OpenStudio=function(kind,id,date){ms2530PreviousStudio(kind,id,date);if(ms2529HomeEditor)ms2529HomeReturnBar();};
+</script>
+</body></html>
