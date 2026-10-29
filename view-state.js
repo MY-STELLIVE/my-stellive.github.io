@@ -1,7 +1,7 @@
 'use strict';
 const screenStates = {};
-function captureView(){return {scroll:window.scrollY,rails:[...document.querySelectorAll('#app .rail')].map(el=>el.scrollLeft)};}
-function restoreView(v){document.querySelectorAll('#app .rail').forEach((el,i)=>el.scrollLeft=v?.rails?.[i]||0);window.scrollTo(0,v?.scroll||0);}
+function captureView(){return {scroll:window.scrollY,rails:[...document.querySelectorAll('#app .rail,#app .generation-rail')].map(el=>el.scrollLeft)};}
+function restoreView(v){document.querySelectorAll('#app .rail,#app .generation-rail').forEach((el,i)=>el.scrollLeft=v?.rails?.[i]||0);window.scrollTo(0,v?.scroll||0);}
 function render(){
  const view=captureView(),active=document.activeElement;
  const id=active?.id, selection=active?.selectionStart, end=active?.selectionEnd;
@@ -10,9 +10,9 @@ function render(){
 }
 function switchScreen(next){
  if(screen===next)return;
- screenStates[screen]={date,week,filter,crew,crewTab,search,expanded,view:captureView()};
- const state=screenStates[next]||{date:Core.day(),week:Core.monday(Core.day()),filter:-1,crew:null,crewTab:'schedule',search:'',expanded:false};
- screen=next;({date,week,filter,crew,crewTab,search,expanded}=state);
+ screenStates[screen]={date,week,filter,crew,crewTab,search,expanded,boardMode,boardQuery,view:captureView()};
+ const state=screenStates[next]||{date:Core.day(),week:Core.monday(Core.day()),filter:-1,crew:null,crewTab:'schedule',search:'',expanded:false,boardMode:'week',boardQuery:''};
+ screen=next;({date,week,filter,crew,crewTab,search,expanded,boardMode,boardQuery}=state);
  draw();restoreView(state.view);
 }
 function plannerResults(){

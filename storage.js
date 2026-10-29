@@ -45,7 +45,7 @@ const Store = (() => {
         o[k] = seen.get(value);
       } else throw Error('이미지 참조를 확인하지 못했습니다. 저장을 중단했습니다.');
     }
-    raw.version = '1.0.1';
+    raw.version = '1.0.2';
     const used = new Set(slots(raw).map(([o,k]) => o[k]));
     const t = db.transaction(['state','assets'], 'readwrite'), done = complete(t);
     const states=t.objectStore('state'), assets=t.objectStore('assets');
