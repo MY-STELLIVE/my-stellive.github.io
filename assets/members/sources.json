@@ -1,0 +1,226 @@
+[
+  {
+    "slug": "yuni",
+    "title": "스텔라이브 - 아야츠노 유니",
+    "channels": [
+      "https://chzzk.naver.com/45e71a76e949e16a34764deb962f9d9f"
+    ],
+    "channelName": "아야츠노 유니",
+    "imageURL": "https://nng-phinf.pstatic.net/MjAyNTAzMzFfMjQw/MDAxNzQzNDMwNTM4OTg4.Bam6imHvAZLBWT0GHFprz94iS5CaGFmVI9RoXktnY-4g.AkwRyhY_RhSGzEiBXTvs4pEyo7KxI4GmUd151O8cVcYg.PNG/%EC%9C%A0%EB%8B%883.png",
+    "verified": true,
+    "api": "https://api.chzzk.naver.com/service/v1/channels/45e71a76e949e16a34764deb962f9d9f",
+    "image": "assets/members/yuni.png",
+    "bytes": 2087048,
+    "sha256": "3774c5f911aaa55d781b6f68bf076f420ee3522d42ebeb8a4a81a9024957a370",
+    "checkedAt": "2026-10-29",
+    "officialProfile": "https://stellive.me/yuni"
+  },
+  {
+    "slug": "huya",
+    "title": "스텔라이브 - 사키하네 후야",
+    "channels": [
+      "https://chzzk.naver.com/36ddb9bb4f17593b60f1b63cec86611d"
+    ],
+    "channelName": "사키하네 후야",
+    "imageURL": "https://nng-phinf.pstatic.net/MjAyNTEwMDZfMTM5/MDAxNzU5NzM1NzcwMzYy.rHebaUJodSd6OzknaidIRjQOJ4S9c3cHA9THL0ZCFjcg.YELyoLQuwQV0rjgKihBPS0KpcSwMsNwynTo8KK8-w00g.PNG/image.png",
+    "verified": true,
+    "api": "https://api.chzzk.naver.com/service/v1/channels/36ddb9bb4f17593b60f1b63cec86611d",
+    "image": "assets/members/huya.png",
+    "bytes": 3480388,
+    "sha256": "9e061d9daf11289defebfe512c19c16ce4a795b6b1942f7335e59743eecab27c",
+    "checkedAt": "2026-10-29",
+    "officialProfile": "https://stellive.me/huya"
+  },
+  {
+    "slug": "hina",
+    "title": "스텔라이브 - 시라유키 히나",
+    "channels": [
+      "https://chzzk.naver.com/b044e3a3b9259246bc92e863e7d3f3b8"
+    ],
+    "channelName": "시라유키 히나",
+    "imageURL": "https://nng-phinf.pstatic.net/MjAyNjA0MTNfMjQx/MDAxNzc2MDY0NDg2MTI3.R9iKGvCIe2yTsl2srojhOYmdKoas_v5EWA1D96uNjYQg.LjMY6UtlQGuYxztJ9iaOtsx2AgO5uTpfpfGGbfFaJWYg.JPEG/image.jpg",
+    "verified": true,
+    "api": "https://api.chzzk.naver.com/service/v1/channels/b044e3a3b9259246bc92e863e7d3f3b8",
+    "image": "assets/members/hina.jpg",
+    "bytes": 43724,
+    "sha256": "efca17522eb9ce0800d423c1de2a2f67352f06556dfa9ea97ca41b5c52ebefa1",
+    "checkedAt": "2026-10-29",
+    "officialProfile": "https://stellive.me/hina"
+  },
+  {
+    "slug": "mashiro",
+    "title": "스텔라이브 - 네네코 마시로",
+    "channels": [
+      "https://chzzk.naver.com/4515b179f86b67b4981e16190817c580"
+    ],
+    "channelName": "네네코 마시로",
+    "imageURL": "https://nng-phinf.pstatic.net/MjAyNjAyMjhfMTg2/MDAxNzcyMjU1NTg2NTQz.Z6ersUy28FrZwzIF713cz_B6f-PXTcIsAk1ioLaslFAg.VDC-dXCG2l5LkFRUFHsNyPHFTqgDGsctJIII0EUNCIsg.JPEG/image.jpg",
+    "verified": true,
+    "api": "https://api.chzzk.naver.com/service/v1/channels/4515b179f86b67b4981e16190817c580",
+    "image": "assets/members/mashiro.jpg",
+    "bytes": 255945,
+    "sha256": "dc017d51fd46520437dc622a758cc634ee56ce2b985adc96cab0834622bba894",
+    "checkedAt": "2026-10-29",
+    "officialProfile": "https://stellive.me/mashiro"
+  },
+  {
+    "slug": "lize",
+    "title": "스텔라이브 - 아카네 리제",
+    "channels": [
+      "https://chzzk.naver.com/4325b1d5bbc321fad3042306646e2e50"
+    ],
+    "channelName": "아카네 리제",
+    "imageURL": "https://nng-phinf.pstatic.net/MjAyNjAxMTJfMzcg/MDAxNzY4MTU4NjM2MDIz.oQq0evg7PYwWZzfNpnS5JUrlz3yxK7MD0yCgDt6T1_gg.v5sGRjzuTx94hpZHBc_7iXLGAqgD3pgHmQ5MHxsfr_0g.PNG/image.png",
+    "verified": true,
+    "api": "https://api.chzzk.naver.com/service/v1/channels/4325b1d5bbc321fad3042306646e2e50",
+    "image": "assets/members/lize.png",
+    "bytes": 2301438,
+    "sha256": "4c54b3aa368b539c914fd25932f4bddf53c45bdc71d8b5646725f44bd7ffa180",
+    "checkedAt": "2026-10-29",
+    "officialProfile": "https://stellive.me/lize"
+  },
+  {
+    "slug": "tabi",
+    "title": "스텔라이브 - 아라하시 타비",
+    "channels": [
+      "https://chzzk.naver.com/a6c4ddb09cdb160478996007bff35296"
+    ],
+    "channelName": "아라하시 타비",
+    "imageURL": "https://nng-phinf.pstatic.net/MjAyNjA5MTJfMjY3/MDAxNzg5MTg3Mjc4OTky.npVxf-ARc47toU6Krgam-xMIl0p73hmUoVPlAqeM_nYg.F18COlK3ADXWLXIjGQBJXuppouLuoQSmmJgbxr6dzZEg.JPEG/image.jpg",
+    "verified": true,
+    "api": "https://api.chzzk.naver.com/service/v1/channels/a6c4ddb09cdb160478996007bff35296",
+    "image": "assets/members/tabi.jpg",
+    "bytes": 191734,
+    "sha256": "fae1664ad67b97abba70e0dab006f0ca52df2a63371337161357397110fdb04f",
+    "checkedAt": "2026-10-29",
+    "officialProfile": "https://stellive.me/tabi"
+  },
+  {
+    "slug": "shibuki",
+    "title": "스텔라이브 - 텐코 시부키",
+    "channels": [
+      "https://chzzk.naver.com/64d76089fba26b180d9c9e48a32600d9"
+    ],
+    "channelName": "텐코 시부키",
+    "imageURL": "https://nng-phinf.pstatic.net/MjAyNDA1MTVfMjg1/MDAxNzE1NzU5Njc2ODkz.F8_DECdU00CsDYOfqX8vbmhL2MRVGo9coPTcOQJ0Faog.bUoeQvj3S_Zjsc8n2VZQqnhmq3-5YDrHuZCHXxT7isQg.PNG/%EC%85%80%EC%B9%B41.PNG",
+    "verified": true,
+    "api": "https://api.chzzk.naver.com/service/v1/channels/64d76089fba26b180d9c9e48a32600d9",
+    "image": "assets/members/shibuki.png",
+    "bytes": 323869,
+    "sha256": "a2b3fbf0e7300002d9adcd6bf13339f347b38f1ad99537437aa2b7e7873d4e8b",
+    "checkedAt": "2026-10-29",
+    "officialProfile": "https://stellive.me/shibuki"
+  },
+  {
+    "slug": "rin",
+    "title": "스텔라이브 - 아오쿠모 린",
+    "channels": [
+      "https://chzzk.naver.com/516937b5f85cbf2249ce31b0ad046b0f"
+    ],
+    "channelName": "아오쿠모 린",
+    "imageURL": "https://nng-phinf.pstatic.net/MjAyNDA1MTVfMTUx/MDAxNzE1NzU5NDAyNjMw._KFvKTGvQ4J7L6G9zutnjrNpN3GxLRE7MNnxZ8AFwjkg.ssr7rO32NC1SPIZcGlRT2An_b8LvQHxwGAuEdtm1nXEg.PNG/STELLIVE_%EB%A6%B0.png",
+    "verified": true,
+    "api": "https://api.chzzk.naver.com/service/v1/channels/516937b5f85cbf2249ce31b0ad046b0f",
+    "image": "assets/members/rin.png",
+    "bytes": 2045481,
+    "sha256": "a479205899561dbb3a46fadcc6f5c6f059a328c4b028937b7b14d523b02ea5ea",
+    "checkedAt": "2026-10-29",
+    "officialProfile": "https://stellive.me/rin"
+  },
+  {
+    "slug": "nana",
+    "title": "스텔라이브 - 하나코 나나",
+    "channels": [
+      "https://chzzk.naver.com/4d812b586ff63f8a2946e64fa860bbf5"
+    ],
+    "channelName": "하나코 나나",
+    "imageURL": "https://nng-phinf.pstatic.net/MjAyNTAxMjdfMTQ4/MDAxNzM3OTA4NjQ4NjQ4.kNvqxMvLcDx8_MIMJE64ikrwtsz5FQf1FyhTVMYVK_8g.tgMSgWMLciW3xhQoQ1vBSZjrzDiPYcOeBli7IAZOopYg.PNG/%EC%BA%A1%EC%B2%98.PNG",
+    "verified": true,
+    "api": "https://api.chzzk.naver.com/service/v1/channels/4d812b586ff63f8a2946e64fa860bbf5",
+    "image": "assets/members/nana.png",
+    "bytes": 211868,
+    "sha256": "f6ff60075fed23f5c08f27db6eb38181515c51c0536f3b3390db9db9113ccfa4",
+    "checkedAt": "2026-10-29",
+    "officialProfile": "https://stellive.me/nana"
+  },
+  {
+    "slug": "riko",
+    "title": "스텔라이브 - 유즈하 리코",
+    "channels": [
+      "https://chzzk.naver.com/8fd39bb8de623317de90654718638b10"
+    ],
+    "channelName": "유즈하 리코",
+    "imageURL": "https://nng-phinf.pstatic.net/MjAyNjAxMTFfODgg/MDAxNzY4MDYyMjk4MTg5.cyeP_FgjeBirqW4Y-tZ-9yFilWFLZYfX20BfI3pevE4g.ggyLmYSLY8tQGC4PI4YJoK8gPSO_5XmdNk1-wOP1LkIg.PNG/image.png",
+    "verified": true,
+    "api": "https://api.chzzk.naver.com/service/v1/channels/8fd39bb8de623317de90654718638b10",
+    "image": "assets/members/riko.png",
+    "bytes": 24867,
+    "sha256": "ae7b9953e70828309dc522f197980b54dda625ed44e61b9d0868f13de164426e",
+    "checkedAt": "2026-10-29",
+    "officialProfile": "https://stellive.me/riko"
+  },
+  {
+    "slug": "toa",
+    "title": "스텔라이브 - 시즈키 토아",
+    "channels": [
+      "https://chzzk.naver.com/2299fad4bebb504b0978e1ec08b2f7d3"
+    ],
+    "channelName": "시즈키 토아",
+    "imageURL": "https://nng-phinf.pstatic.net/MjAyNjEwMTFfMTEg/MDAxNzkxNzA1ODc5NTk1.uOBSzqpGxdfZMkp-lCQTzKJFJq5MvMvemHb9X-tkf6Mg.wI-aCm7PU6GvSDa9i0Dw8-noAlXD4ZiKHHLrQo75Iwog.PNG/image.png",
+    "verified": true,
+    "api": "https://api.chzzk.naver.com/service/v1/channels/2299fad4bebb504b0978e1ec08b2f7d3",
+    "image": "assets/members/toa.png",
+    "bytes": 645719,
+    "sha256": "c37b3ab10239636cd90a982915a37eea35584e57ba9b643973dfa29a1a928729",
+    "checkedAt": "2026-10-29",
+    "officialProfile": "https://stellive.me/toa"
+  },
+  {
+    "slug": "rang",
+    "title": "스텔라이브 - 코가네 랑",
+    "channels": [
+      "https://chzzk.naver.com/c657aa3592260a2b59669a72ec151936"
+    ],
+    "channelName": "코가네 랑",
+    "imageURL": "https://nng-phinf.pstatic.net/MjAyNjEwMTFfMjM3/MDAxNzkxNzA1ODY5MjA5.Hugj_v0YBjAf_-tjXp8J4EnY9NesLqrs03AD_uwEDCwg.1OC540ofeGkRMblzh4tKz9J02KIO04Cjp_DjKZIKAUwg.PNG/image.png",
+    "verified": true,
+    "api": "https://api.chzzk.naver.com/service/v1/channels/c657aa3592260a2b59669a72ec151936",
+    "image": "assets/members/rang.png",
+    "bytes": 573710,
+    "sha256": "ff2726492dda65e91fcbae0187716bffbe48fa9fe4bf427efa96b7bf5e8ed662",
+    "checkedAt": "2026-10-29",
+    "officialProfile": "https://stellive.me/rang"
+  },
+  {
+    "slug": "hiyori",
+    "title": "스텔라이브 - 하나요 히요리",
+    "channels": [
+      "https://chzzk.naver.com/49d2c3cf8f0b2843d934ec15e82bb54c"
+    ],
+    "channelName": "하나요 히요리",
+    "imageURL": "https://nng-phinf.pstatic.net/MjAyNjEwMTFfNzkg/MDAxNzkxNzA1ODc0MjIx.hDdPLiY5o5Jsikmwc2GcIq5V6zGAT9BKPenPqIR3_7gg.BOPBBvxHuF1OkR54Su1XmlL1D43iZzGXzB5RR3sxYE4g.PNG/image.png",
+    "verified": true,
+    "api": "https://api.chzzk.naver.com/service/v1/channels/49d2c3cf8f0b2843d934ec15e82bb54c",
+    "image": "assets/members/hiyori.png",
+    "bytes": 782140,
+    "sha256": "c1b074b8f8e7c4c6c51e96c4f3ed8bf67c7e36532d9e5736372646702796704a",
+    "checkedAt": "2026-10-29",
+    "officialProfile": "https://stellive.me/hiyori"
+  },
+  {
+    "slug": "mary",
+    "title": "스텔라이브 - 토키노 메리",
+    "channels": [
+      "https://chzzk.naver.com/792acf9ca28b42918710327e14b06b68"
+    ],
+    "channelName": "토키노 메리",
+    "imageURL": "https://nng-phinf.pstatic.net/MjAyNjEwMTlfMjE4/MDAxNzkyMzkyNzQ2OTkz.i7iMeemk9a3TY-08PkjzSEqk6RGML3GDrE3A-22eJIAg.vrW6QJnhRiksdq4fjO3CSwFVRR7S6YbARfCf0v7KDZcg.PNG/image.png",
+    "verified": true,
+    "api": "https://api.chzzk.naver.com/service/v1/channels/792acf9ca28b42918710327e14b06b68",
+    "image": "assets/members/mary.png",
+    "bytes": 692161,
+    "sha256": "4b60d495531af4d8332f138882648ffc60b075e7207f2215b303bfc74ae639ad",
+    "checkedAt": "2026-10-29",
+    "officialProfile": "https://stellive.me/mary"
+  }
+]
