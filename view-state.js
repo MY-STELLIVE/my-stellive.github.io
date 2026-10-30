@@ -18,5 +18,5 @@ function switchScreen(next){
 function plannerResults(){
  if(search)return searchHTML();
  const dates=data.settings.weekMode==='all'&&data.settings.view!=='month'?Array.from({length:7},(_,i)=>Core.add(Core.monday(date),i)):[date];
- return dates.map(d=>`<section><h3>${d} ${d===Core.day()?'· 오늘':''}</h3>${list(d)}</section>`).join('');
+ return dates.map(d=>`<section><h3>${d} ${d===Core.day()?'· 오늘':''}</h3>${list(d)}${breakList(d)}</section>`).join('');
 }

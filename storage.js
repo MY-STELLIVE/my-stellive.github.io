@@ -36,7 +36,7 @@ const Store = (() => {
     return state;
   }
   async function save(state) {
-    const raw = structuredClone(state), pending = new Map(), seen = new Map();
+    const raw = Core.migrate(state), pending = new Map(), seen = new Map();
     for (const [o,k] of slots(raw)) {
       const value = o[k];
       if (ids.has(value)) o[k] = ids.get(value);
@@ -45,7 +45,7 @@ const Store = (() => {
         o[k] = seen.get(value);
       } else throw Error('이미지 참조를 확인하지 못했습니다. 저장을 중단했습니다.');
     }
-    raw.version = '1.0.2';
+    raw.version = '1.1.0';
     const used = new Set(slots(raw).map(([o,k]) => o[k]));
     const t = db.transaction(['state','assets'], 'readwrite'), done = complete(t);
     const states=t.objectStore('state'), assets=t.objectStore('assets');
@@ -80,7 +80,8 @@ const Store = (() => {
     revision=raw?.storageRevision||0;
     const state=raw||Core.initial();
     if(slots(state).some(([o,k])=>o[k].startsWith('data:')))return save(state);
-    return hydrate(state);
+    const hydrated=await hydrate(state);
+    return state.version==='1.1.0'?Core.migrate(hydrated):save(Core.migrate(hydrated));
   }
   async function exportState(state) {
     const copy=structuredClone(state), wanted=[...new Set(slots(copy).map(([o,k])=>ids.get(o[k])).filter(Boolean))];
