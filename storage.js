@@ -9,6 +9,7 @@ const Store = (() => {
   function slots(state) {
     const out = [];
     state.boards.forEach(b => b.images.forEach((_, i) => out.push([b.images, i])));
+    [...(state.calendarItems||[]),...Object.values(state.calendarOverrides||{})].forEach(e=>(e.images||[]).forEach((_,i)=>out.push([e.images,i])));
     Object.values(state.profiles).forEach(p => { if (p.image) out.push([p, 'image']); });
     return out;
   }
@@ -45,7 +46,7 @@ const Store = (() => {
         o[k] = seen.get(value);
       } else throw Error('이미지 참조를 확인하지 못했습니다. 저장을 중단했습니다.');
     }
-    raw.version = '1.1.0';
+    raw.version = '1.2.0';
     const used = new Set(slots(raw).map(([o,k]) => o[k]));
     const t = db.transaction(['state','assets'], 'readwrite'), done = complete(t);
     const states=t.objectStore('state'), assets=t.objectStore('assets');
@@ -81,7 +82,7 @@ const Store = (() => {
     const state=raw||Core.initial();
     if(slots(state).some(([o,k])=>o[k].startsWith('data:')))return save(state);
     const hydrated=await hydrate(state);
-    return state.version==='1.1.0'?Core.migrate(hydrated):save(Core.migrate(hydrated));
+    return state.version==='1.2.0'?Core.migrate(hydrated):save(Core.migrate(hydrated));
   }
   async function exportState(state) {
     const copy=structuredClone(state), wanted=[...new Set(slots(copy).map(([o,k])=>ids.get(o[k])).filter(Boolean))];
