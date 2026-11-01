@@ -1,4 +1,4 @@
-const CACHE='stellink-app-v1.3.2';
+const CACHE='stellink-app-v1.3.3';
 const FILES=['./assets/brand/stellink-apple-touch-180.png','./assets/brand/stellink-favicon-64.png','./assets/brand/stellink-icon-192.png','./assets/brand/stellink-icon-512.png','./assets/brand/stellink-logo-512.png','./assets/brand/stellink-maskable-512.png','./','./release-ui.js','./release-ui.css','./assets/brand/stellink-wordmark.png','./index.html','./style.css','./calendar-data.js','./calendar-model.js','./registration.js','./calendar-ui.js','./upgrade-ui.js','./chzzk-live.js','./next-ui.js','./next-ui.css','./data/calendar.json','./core.js','./storage.js','./view-state.js','./app.js','./schedule.js','./breaks.js','./calendar.js','./notices.js','./image-viewer.js','./features.js','./members.js','./icons.js','./assets/members/yuni.png','./assets/members/huya.png','./assets/members/hina.jpg','./assets/members/mashiro.jpg','./assets/members/lize.png','./assets/members/tabi.jpg','./assets/members/shibuki.png','./assets/members/rin.png','./assets/members/nana.png','./assets/members/riko.png','./assets/members/toa.png','./assets/members/rang.png','./assets/members/hiyori.png','./assets/members/mary.png','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
 // Keep one complete version together; never mix new HTML with cached old JS.
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES))));
@@ -10,6 +10,6 @@ self.addEventListener('fetch',e=>{
  const base=new URL(self.registration.scope);
  const local=url.pathname.slice(base.pathname.length);
  if(url.pathname.startsWith(base.pathname)&&(['','index.html',...FILES.map(x=>x.slice(2))].includes(local))){
-  e.respondWith(caches.open(CACHE).then(async c=>(await c.match(e.request,{ignoreSearch:true}))||(e.request.mode==='navigate'?await c.match('./release-ui.js','./release-ui.css','./assets/brand/stellink-wordmark.png','./index.html'):null)||fetch(e.request)));
+  e.respondWith(caches.open(CACHE).then(async c=>(await c.match(e.request,{ignoreSearch:true}))||(e.request.mode==='navigate'?await c.match('./index.html'):null)||fetch(e.request)));
  }
 });
