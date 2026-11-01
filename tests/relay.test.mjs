@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {scan} from '../cloudflare/worker.mjs';
+const env={CHZZK_CLIENT_ID:'test',CHZZK_CLIENT_SECRET:'test'};
+const id='45e71a76e949e16a34764deb962f9d9f';
+const page=(data=[],next=null)=>new Response(JSON.stringify({content:{data,page:{next}}}));
+let calls=0;
+let result=await scan(env,async url=>{calls++;if(calls===1)return page([{channelId:'outsider'}],'cursor&x');assert.equal(url.searchParams.get('next'),'cursor&x');return page([{channelId:id,liveTitle:'test title',liveCategoryValue:'game'}]);});
+assert.equal(calls,2);assert.equal(result.members.length,14);assert.equal(result.members[0].state,'live');assert.equal(result.members[1].state,'offline');assert.equal(result.complete,true);
+result=await scan(env,async()=>page([], 'more'),1);assert.equal(result.complete,false);assert.ok(result.members.every(m=>m.state==='unknown'));
+result=await scan(env,async()=>new Response('',{status:429}));assert.equal(result.reason,'rate_limited');assert.equal(result.refreshAfter,300);
+result=await scan({},async()=>{throw Error('must not call');});assert.equal(result.reason,'missing_secrets');
+result=await scan(env,async()=>{throw Error('secret must never leak');});assert.equal(result.reason,'connection_error');assert.ok(!JSON.stringify(result).includes('secret must'));
+result=await scan(env,async()=>new Response('{}'));assert.equal(result.reason,'invalid_response');
+result=await scan(env,async()=>page([],'repeat'));assert.equal(result.reason,'repeated_cursor');assert.equal(result.pages,2);
+calls=0;result=await scan(env,async()=>++calls===1?page([{channelId:id,liveTitle:'still found'}],'n'):new Response('',{status:500}));assert.equal(result.members[0].state,'live');assert.equal(result.members[1].state,'unknown');
+console.log('8 relay scenarios passed');
