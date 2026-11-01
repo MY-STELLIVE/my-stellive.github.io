@@ -1,41 +1,31 @@
-# STELLINK v1.3.2 전체 업데이트
+# STELLINK v1.3.3 — 공식 API 연결 안정화
 
-2026-11-01 · 기준 v1.3.1 · 개인용 STELLINK (MY STELLIVE와 별개)
+기준: 제공했던 v1.3.2 완성본. 현재 GitHub 배포본 전체와의 동일성은 확인하지 않았습니다.
+2026-11-01 공개 Worker /live를 직접 조회했을 때 mode=direct-unofficial, 14명 모두 unknown, connection_or_json_error였습니다. 이번 패키지는 이 구형 Worker를 공식 API 방식으로 교체하도록 준비했습니다. 원격 배포는 아직 하지 않았습니다.
 
-## 지금 v1.3.1을 사용 중인 경우
+## 적용 순서 — Cloudflare 교체가 필수입니다
+1. 앱 설정에서 개인 기록 백업을 먼저 내려받습니다. 사이트 데이터는 삭제하지 마세요.
+2. Cloudflare → stellink-api → Edit code → 기존 코드를 모두 지웁니다.
+3. cloudflare/worker-mobile.txt의 한 줄 전체를 붙여넣습니다. 코드 블록 표시나 파일명을 함께 넣지 마세요. worker.mjs는 같은 코드의 읽기 쉬운 원본이므로 둘 중 하나만 사용합니다.
+4. Settings의 Secret 이름 CHZZK_CLIENT_ID / CHZZK_CLIENT_SECRET을 유지합니다. 값은 GitHub나 코드에 넣지 않습니다. 이전에 노출한 Secret을 아직 재발급하지 않았다면 재발급 후 Cloudflare 값도 교체하세요.
+5. Deploy 후 Deployments의 Active deployment가 새 버전인지 확인합니다. 저장만 된 경우 새 버전의 메뉴에서 Promote version으로 활성화합니다.
+6. https://stellink-api.a01086042610.workers.dev/health 에서 version=1.3.3, mode=official-list, configured=true를 확인합니다. configured는 키 존재 여부이며 인증 성공 여부가 아닙니다.
+7. https://stellink-api.a01086042610.workers.dev/live 에서 결과를 확인합니다. mode=direct-unofficial이면 아직 옛 Worker입니다.
+8. GitHub에는 아래 표의 파일을 업로드합니다. v1.3.2 사용자는 github-update-only 안의 파일을 저장소 최상위 동일 경로에 덮어씁니다. 이전 버전이거나 적용 상태가 불명확하면 github 안의 전체 내용을 동일 경로에 업로드합니다. github 폴더 자체를 만들지 않습니다.
+9. 업로드가 끝나면 GitHub Pages 배포 완료 후 Brave의 앱/사이트 탭을 모두 닫고 다시 엽니다. 업데이트 안내가 있으면 적용합니다. 개인 기록이 들어 있는 사이트 저장공간을 초기화하지 않습니다.
 
-1. 압축을 풉니다.
-2. `github-update-only/` 안의 파일을 기존 GitHub의 `index.html`이 있는 위치에 같은 경로로 올립니다.
-3. `assets/brand/stellink-wordmark.png`는 기존 `assets` → `brand` 폴더에 올립니다.
-4. 나머지 패치 JS·CSS·HTML은 `index.html`과 같은 폴더에 올립니다.
-5. GitHub Pages 배포가 완료되면 Brave에서 사이트를 한 번 열고, 스텔링크 앱과 관련 Brave 탭을 모두 닫았다가 다시 엽니다. 새 서비스 워커가 활성화됩니다.
+## GitHub 파일 변경표
+이번에는 새 경로·추가 파일·삭제 파일이 없습니다. 경로 재편은 API 정상화 이후 별도 진행합니다.
 
-`github-update-only` 또는 `github`라는 바깥 폴더 자체를 GitHub에 만들지 마세요. 두 폴더 중 하나의 **내용**만 올립니다.
-이번에 새로 만들 폴더 경로는 없습니다. 기존 `assets/brand/`를 재사용합니다.
+| 분류 | 저장소 경로 | 변경 내용 |
+|---|---|---|
+| 덮어쓰기 | `chzzk-live.js` | 구형 Worker 감지, 안전한 상태 판정, 재시도 제한 준수 |
+| 덮어쓰기 | `core.js` | 1.3.3 버전 및 기존 데이터 보존 |
+| 덮어쓰기 | `next-ui.js` | 조회 대기 안내 개선 |
+| 덮어쓰기 | `release-ui.js` | 오류별 원인 안내 및 서버 버전 표시 |
+| 덮어쓰기 | `sw.js` | 캐시 버전 갱신 및 화면 복구 경로 수정 |
 
-## 구버전에서 바로 적용하거나 전체 파일을 다시 올리는 경우
-
-`github/` 안의 내용을 동일한 기존 사이트 위치에 올립니다. 하위 폴더 경로는 유지합니다.
-기존 파일을 먼저 전부 삭제할 필요는 없습니다. 사이트 데이터·IndexedDB·브라우저 저장 공간을 삭제하지 마세요.
-
-## 새로 추가한 파일 (3개)
-
-- `assets/brand/stellink-wordmark.png`
-- `release-ui.css`
-- `release-ui.js`
-
-## 기존 파일 덮어쓰기 (7개)
-
-- `calendar-ui.js`
-- `chzzk-live.js`
-- `core.js`
-- `index.html`
-- `notices.js`
-- `sw.js`
-- `upgrade-ui.js`
-
-## 기존 유지 파일 (42개)
-
+### 기존 유지 파일 (v1.3.2 기준)
 - `app.js`
 - `assets/brand/stellink-apple-touch-180.png`
 - `assets/brand/stellink-favicon-64.png`
@@ -43,6 +33,7 @@
 - `assets/brand/stellink-icon-512.png`
 - `assets/brand/stellink-logo-512.png`
 - `assets/brand/stellink-maskable-512.png`
+- `assets/brand/stellink-wordmark.png`
 - `assets/members/hina.jpg`
 - `assets/members/hiyori.png`
 - `assets/members/huya.png`
@@ -61,6 +52,7 @@
 - `breaks.js`
 - `calendar-data.js`
 - `calendar-model.js`
+- `calendar-ui.js`
 - `calendar.js`
 - `data/calendar.json`
 - `features.js`
@@ -69,63 +61,48 @@
 - `icon.svg`
 - `icons.js`
 - `image-viewer.js`
+- `index.html`
 - `manifest.webmanifest`
 - `members.js`
 - `next-ui.css`
-- `next-ui.js`
+- `notices.js`
 - `registration.js`
+- `release-ui.css`
 - `schedule.js`
 - `storage.js`
 - `style.css`
+- `upgrade-ui.js`
 - `view-state.js`
 
-삭제할 파일: 없음.
-`README.md`, `FILE-MAP.json`, `tests/`는 안내·검증용이므로 GitHub Pages에 올릴 필요가 없습니다.
+## Cloudflare 전용 파일
+- cloudflare/worker.mjs: 기존 Worker 소스 전체 교체.
+- cloudflare/worker-mobile.txt: 위 코드의 휴대폰 붙여넣기용 한 줄 버전.
+- 이 두 파일은 GitHub Pages에 업로드하지 않습니다. 새 Worker 생성도 필요 없습니다.
+- tests/, README.md, FILE-MAP.json은 검증/안내용이며 앱 배포 필수 파일이 아닙니다.
 
-## 변경 내용
+## 응답별 해석
+| 응답 | 의미와 조치 |
+|---|---|
+| mode=official-list | 이번 공식 조회 방식 |
+| reason=missing_secrets | Cloudflare Secret 이름/존재 확인 |
+| reason=authentication_failed | 인증 거절: 키 값과 앱 상태 확인 |
+| reason=rate_limited | 요청 제한: 5분 대기 |
+| reason=scan_limit | 페이지/시간 한도: 찾은 방송만 반영, 나머지는 unknown |
+| reason=connection_error 또는 timeout | 외부 연결 또는 시간 초과: 종료로 판단하지 않음 |
+| complete=true | 목록 끝까지 확인한 조회. 미발견 채널은 방송 중 아님 |
+| complete=false | 전체 확인 안 됨. 미발견 채널은 확인 불가 |
 
-- 확정한 은백색·라벤더 3D 워드마크를 상단과 앱 정보에 적용. 기존 앱 아이콘 보존. 밝은 테마에서는 짙은 바탕으로 대비 확보.
-- 탭: 홈 / 캘린더 / 멤버 / 설정. 제목: 오늘의 스텔링크 / 스텔라 캘린더 / 스텔라 멤버 / 나의 스텔링크.
-- 월간·주간 달력 일요일 시작~토요일 끝. 공지의 주간 시간표 원본 주차 계산은 기존대로 보존.
-- 날짜 배경: 주말·공휴일, 방송, 기념일, 행사, 단일 선택 멤버의 휴방 구분. 오늘 배지와 선택일 테두리 분리.
-- 겹침 우선순위: 기념일 > 행사 > 방송 > 주말·공휴일. 단일 멤버 휴방은 방송이 없을 때 휴방색. 공휴일 날짜 숫자의 붉은색은 유지.
-- 전체 화면에서는 휴방이 있는 날짜에 휴방 개수를 표시하고 전체 휴방으로 칠하지 않음.
-- 멤버 필터 중에도 공휴일은 유지. 종류 필터에서 공휴일을 제외하면 숨김.
-- 날짜 칸에는 종류·개수, 아래에는 선택일의 상세 일정. 기간 막대 2줄+더보기.
-- 등록 버튼을 고정 플로팅에서 화면 위쪽 일반 버튼으로 이동하여 목록·날짜 가림 제거.
-- 홈 소식 3개, 전체 소식은 날짜별 목록. 멤버 프로필·제목·썸네일·하트·연결 일정 표시.
-- 이미지 장수는 2장 이상일 때만 표시. 수정본·정보 수정 표시. 검색·멤버·읽음·기간·유형 필터.
-- 제목=상세, 썸네일=이미지 확대, 하트=직접 읽음 기록, 일정 버튼=연결 일정. 공지를 여는 것만으로 읽음 변경하지 않음.
-- 상세의 편집 기능은 관리 메뉴로 정리. 기존 목록 필터와 스크롤 보존.
-- 미확인 채널을 OFF에 포함하지 않음. `undefined페이지` 등 내부 처리 문구 제거.
-- 현재 방송 중이 아닌 상태와 관측된 방송 종료를 구분. 요청 실패·오래된 데이터는 확인 불가/갱신 지연.
-- 홈에는 마지막 정상 확인 시각. 설정은 화면 꾸미기 / 캘린더 설정 / 방송 연결 / 내 기록 관리 / 스텔링크 정보.
-- 기존 일정·이미지·하트·필터·개인 메모·설정·백업 데이터 보존.
+공식 API는 전체 라이브 목록을 페이지당 최대 20개 조회합니다. 채널 ID를 지정한 공식 개별 상태 API로 바꾸는 패치가 아닙니다. 최대 40페이지/약 20초 탐색으로 제한하며, 이 한도 때문에 일부 채널은 unknown일 수 있습니다. 목록은 조회 중에도 변할 수 있어 즉각적·원자적인 시작/종료 판정은 아닙니다.
+화면 표시 중 기본 60초 간격, 실패 후 120초, 제한 후 300초입니다. 서버 캐시와 조회 시간으로 지연이 더해질 수 있습니다. 앱을 닫은 동안 계속 추적하거나 알림을 보내지 않습니다.
 
-## 치지직 / Cloudflare
+## 유지되는 기능과 데이터
+기존 로고/워드마크, 일~토 달력, 소식 UI, 개인 일정·이미지·하트·설정, 저장소 이름은 유지합니다. API 결과는 개인 일정을 덮어쓰지 않습니다. 전체 앱 ZIP은 개인 기록 백업을 포함하지 않습니다.
 
-이번 버전에서 Cloudflare Worker 코드는 v1.3.1 통합본과 동일합니다.
-이미 공식 Worker를 적용했다면 다시 교체하지 않아도 됩니다.
-이전 실험용 `direct-unofficial` Worker를 사용하거나 모든 멤버가 `connection_or_json_error`이면, 포함된 `cloudflare/worker-mobile.txt`로 기존 Worker 코드를 **전체 교체**하고 최신 버전을 활성화하세요.
+## 검증 범위
+JS 문법/파일 연결/캐시 목록, 공식 API 모의 응답의 페이지 처리·인증 오류·429·JSON 오류·시간 초과, 구형 Worker 감지, 숨겨진 탭, 수동 새로고침 대기 준수, 불완전 OFF 응답 거부, 상태 전환, 데이터 백업/복원 및 달력 회귀 검증을 수행했습니다.
+실제 새 Worker 인증 성공과 Android Brave UI는 이 환경에서 검증하지 않았습니다. 공식 API 연결 성공으로 보고한 버전이 아니라 배포 가능한 수정본입니다.
 
-- Worker: `stellink-api`
-- 환경 Secret: `CHZZK_CLIENT_ID`, `CHZZK_CLIENT_SECRET` (기존 값 유지, 코드/GitHub에 넣지 않음)
-- 연결 주소: `https://stellink-api.a01086042610.workers.dev/live`
-- 코드 저장 후 Deployments의 해당 최신 버전을 Promote하여 Active / 100%인지 확인
-- 공식 Worker 루트 응답: `STELLINK Chzzk relay`, 버전 `1.0.0`
+## 복구
+개인 데이터를 삭제하지 않고 이전 전체 앱 파일을 다시 업로드할 수 있습니다. 단, 이전 sw.js의 캐시 버전도 복구 전용 새 이름으로 바꿔 재배포해야 합니다. Worker는 Deployments에서 필요한 이전 버전을 활성화할 수 있으나, 확인된 비공식 구버전으로 돌아가면 동일 조회 오류가 재발할 수 있습니다.
 
-연동은 화면이 보일 때 기본 60초 간격으로 조회합니다. 서버 캐시·목록 순회·응답 지연에 따라 더 늦어질 수 있고 즉시 푸시 방식이 아닙니다.
-공식 전체 라이브 목록을 순회해 14명 채널을 골라내는 방식입니다. 조회가 불완전하면 빠진 멤버를 OFF로 단정하지 않습니다.
-새 UI를 설치하는 것만으로 치지직 서버 연결 성공이 보장되지는 않습니다. 실제 계정 Secret·배포·API 응답은 별도입니다.
-
-## 검증 및 한계
-
-- 21개 JS 문법과 HTML/SW 의존 파일 확인
-- 기존 Core 22개, 달력 9개 시나리오 통과
-- Worker 모의 응답 8개 시나리오 통과 (Worker 변경 없음)
-- 실제 LIVE → OFF, 조회 실패와 unknown 처리, 개인 일정 무변경 검증
-- 일요일 시작·연말 경계·주간 범위·겹친 기간 일정·휴방/공휴일 필터 검증
-- 새 소식 목록의 제목 이스케이프·읽음 필터·v1.3.1 설정 보존 및 백업 검증
-- 실제 Galaxy/Brave 렌더링 및 실제 치지직 API 통신 성공은 이 환경에서 검증하지 못했습니다. 브라우저 테스트 파일은 참고용이며 통과로 표시하지 않았습니다.
-
-버전별 패치를 순서대로 설치할 필요 없이 이 통합본만 사용하면 됩니다.
+참고 문서: https://chzzk.gitbook.io/chzzk/chzzk-api/live
