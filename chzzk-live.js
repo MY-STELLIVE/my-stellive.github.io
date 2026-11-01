@@ -3,15 +3,16 @@
 (() => {
  const endpoint='https://stellink-api.a01086042610.workers.dev/live';
  const previousState=CalendarModel.channelState;
- const records=new Map();let last=null,busy=false,failed=false,timer=null,lastAttempt=0;
+ const records=new Map();let last=null,busy=false,failed=false,timer=null,lastAttempt=0,lastSuccess=null;
  CalendarModel.channelState=function(d,i,now=Date.now()){
   const scheduled=previousState(d,i,now),r=records.get(i);
   const fresh=r&&now-Date.parse(r.checkedAt)<180000&&!failed&&r.state!=='unknown';
   if(fresh&&r.state==='live')return {kind:'live',label:'ON AIR',broadcast:r};
   const pendingEvent=d.events.filter(e=>e.members.includes(i)&&e.status==='planned'&&e.date===Core.day(new Date(now))&&e.time&&Core.stamp(e)<=now).sort((a,b)=>Core.stamp(b)-Core.stamp(a))[0];
+  if(scheduled.kind==='off'&&scheduled.event?.status==='planned'&&!scheduled.event.time)return {kind:'next',label:'시간 미정',event:scheduled.event};
   if(scheduled.kind==='next')return {...scheduled,label:scheduled.label+(!fresh?' · 방송 확인 지연':'')};
-  if(pendingEvent&&!(fresh&&r.state==='offline'&&r.wasLive))return {kind:'next',label:fresh?'시작 대기 · 현재 OFF':'시작 시간 경과 · 방송 확인 지연',event:pendingEvent};
-  return {kind:'off',label:fresh?'OFF':r?.lastLive?'확인 지연 · 마지막 확인 ON AIR':'방송 상태 확인 중',broadcast:!fresh?r?.lastLive:null};
+  if(pendingEvent&&!(fresh&&r.state==='offline'&&r.wasLive))return {kind:'next',label:fresh?'시작 대기 · 방송 중 아님':'시작 시간 경과 · 방송 확인 지연',event:pendingEvent};
+  return {kind:fresh?'off':'unknown',label:fresh?(r.wasLive?'방송 종료':'방송 중 아님'):failed||last?'확인 불가 · 갱신 지연':'방송 상태 확인 중',broadcast:!fresh?r?.lastLive:null};
  };
  memberStateRow=function(i,state=CalendarModel.channelState(data,i)){
   const r=state.broadcast;
@@ -22,7 +23,7 @@
  const oldHTML=homeHTML;
  homeHTML=function(){return oldHTML().replace('등록 시간 기준 자동 LIVE · 지난 날짜의 예정 방송은 KST 자정 이후 OFF','치지직 실제 방송 기준 · 화면을 보고 있을 때 1분 간격 조회');};
  function update(){if(typeof data==='undefined'||!data)return;const target=document.getElementById('homeChannels');if(target&&!document.getElementById('modal').open&&!target.contains(document.activeElement))target.innerHTML=homeChannels();}
- window.ChzzkLive=Object.freeze({snapshot:()=>({endpoint,last: last?structuredClone(last):null,busy,failed,lastAttempt}),refresh:()=>refresh()});
+ window.ChzzkLive=Object.freeze({snapshot:()=>({endpoint,last: last?structuredClone(last):null,busy,failed,lastAttempt,lastSuccess}),refresh:()=>refresh()});
  async function refresh(){
   if(busy||document.hidden)return;
   const remaining=60000-(Date.now()-lastAttempt);if(remaining>0){clearTimeout(timer);timer=setTimeout(refresh,remaining);return;}
@@ -35,7 +36,7 @@
    if(body.schema!==1||!Array.isArray(body.members)||body.members.length!==14||!Number.isFinite(Date.parse(body.checkedAt)))throw Error('schema');
    for(const m of MEMBERS){const r=body.members.find(x=>x.id===m.id&&x.channelId===m.channel.split('/').pop());if(!r||!['live','offline','unknown'].includes(r.state)||r.state!=='unknown'&&!Number.isFinite(Date.parse(r.checkedAt)))throw Error('members');}
    for(const r of body.members){const old=records.get(r.id);records.set(r.id,{...r,wasLive:r.state==='live'||old?.wasLive||false,lastLive:r.state==='live'?r:r.state==='unknown'?(old?.state==='live'?old:old?.lastLive):null});}
-   last=body;failed=false;delay=Math.max(60,Math.min(300,Number(body.refreshAfter)||60))*1000;
+   last=body;failed=body.members.every(m=>m.state==='unknown');if(!failed)lastSuccess=body.checkedAt;delay=Math.max(60,Math.min(300,Number(body.refreshAfter)||60))*1000;
   }catch{failed=true;delay=120000;}
   finally{busy=false;update();document.dispatchEvent(new Event('stellink:live'));clearTimeout(timer);if(!document.hidden)timer=setTimeout(refresh,delay);}
  }
