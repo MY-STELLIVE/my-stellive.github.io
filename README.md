@@ -1,66 +1,89 @@
-# STELLINK v1.2.0
+# STELLINK v1.3.1 · 통합 3D 로고 적용
 
-v1.1.0 실제 소스를 기반으로 만든 홈·달력·등록 개편판입니다. 서버·계정·외부 라이브 API 없이 GitHub Pages에서 실행합니다.
+선택한 연결된 두 별+궤도 로고를 그대로 사용했습니다. 이미지 디자인을 재생성하지 않고 웹용 크기로 변환했습니다.
 
-## GitHub 업데이트 — Android Brave
+## 적용 방법
 
-1. 기존 앱의 설정 → 전체 백업으로 ZIP을 내려받아 보관합니다.
-2. 이 ZIP을 압축 해제하고 **내용물**을 기존 GitHub 저장소의 같은 경로에 올립니다. `index.html`, 모든 JS/CSS, `data` 폴더를 포함합니다. 상위 폴더 하나를 새로 만들어 넣지 않습니다.
-3. 기존 파일은 덮어쓰고 새 파일은 추가합니다. `assets/members` 공식 프로필은 기존과 동일합니다. `tests`, `tools`, 문서는 앱 실행에 필수는 아닙니다.
-4. GitHub Pages 배포가 끝난 뒤 Brave의 스텔링크 탭과 설치한 앱 창을 모두 닫고 다시 엽니다. 구버전이 먼저 보이면 잠시 후 다시 모두 닫았다 열어 새 캐시를 활성화합니다.
-5. 설정 하단에서 **v1.2.0**을 확인합니다. **사이트 데이터 삭제는 하지 마세요.** 브라우저의 개인 일정·이미지가 삭제될 수 있습니다.
+- 이미 v1.3.0: github-update-only/ **안의 내용**을 기존 index.html이 있는 위치에 업로드합니다. assets/brand/ 폴더도 경로 그대로 추가합니다.
+- 아직 v1.2.0: github/ **안의 전체 내용**을 같은 위치에 업로드하면 v1.3.0 기능과 v1.3.1 로고가 함께 적용됩니다.
+- 두 폴더를 모두 올릴 필요는 없습니다. 폴더 이름 github 또는 github-update-only 자체를 사이트 경로에 추가하지 마세요.
+- 기존 개인 데이터와 브라우저 저장소는 유지합니다. 사용 중인 같은 사이트 주소에서 업데이트하세요.
+- Cloudflare Worker와 Secrets는 이번 로고 업데이트에서 변경하지 않습니다. cloudflare/는 전체본 참고용이며 이미 연결되어 있으면 다시 배포하지 않습니다.
 
-## 주요 변경
+## 반영 위치
 
-- 홈: 등록 일정 기준 LIVE → 예정 방송 → OFF 채널, OFF 접기, 최근 공지 축소
-- 하단바: 홈 / 달력 / 멤버 / 설정, 고정 +등록 버튼
-- 등록: 이미지 공지+방송/휴방을 한 번에 저장, 같은 공지에 여러 방송 일정 추가
-- 직접 입력과 공지로만 저장 지원, 시·분 숫자 입력, 시간 미정 지원
-- 합방: 하나의 일정에 여러 참여 멤버, 송출 채널을 별도 선택. 단독 멤버 선택 시 기본 송출 채널 선택
-- 하트: 공지를 읽고 확인했다는 개인 표시. 팬카페 좋아요와 연동하지 않음
-- 스텔라이브 달력: 주·월 보기, 2022년 12월부터 이동, 연차 표시, 카테고리·기수·멤버 필터 저장
-- 날짜별 간략 표시·더 보기, 기간 막대, 선택 날짜 상세, 해당 연도 검색
-- 기념일·행사 직접 등록/수정/삭제, 매년 반복·기준 연도·이미지·출처·장소
-- 기본 제공 일정 개인 수정/숨기기, 원본 복원, 연결된 행사·예약·판매 이동
-- 멤버: 기수 필터와 간결한 목록, 일정·공지·기념일·개인 정보
-- 설정: 화면 모드와 데이터 관리 중심. 유리 효과·글자 크기·움직임 선택 제거
-- KST 초 단위 시계와 날짜가 지난 예정 방송의 OFF 처리 유지
+앱 상단: 투명 로고+기존 STELLINK 워드마크 / 설정: 로고와 v1.3.1 / 브라우저 탭: PNG 아이콘 / 홈 화면: 192·512 아이콘 / Android 마스크 아이콘: 어두운 배경과 잘림 방지 여백 / Apple Touch: 180 아이콘.
 
-## 포함한 달력 자료
+## 새 GitHub 경로
 
-- 스텔라이브 기본 기록 **93건**: 생일 14건, 시작·데뷔·유닛 기념일, 음악·의상·3D 공개, 공연·팝업·판매 등
-- 대한민국 국경일 반복 규칙 5건 + 2026년 추가 공휴일 날짜 17건 = **22건**
-- 합계 **115개 원본 레코드**. 반복 표시와 기간에 따라 특정 연도/월의 화면 건수는 달라집니다.
-- 생일은 스텔라이브 활동 시작 이후 첫 해당 날짜부터 표시하고 나이는 계산하지 않습니다.
-- 생일·기념일만 매년 반복합니다. 공연·판매·팝업은 실제 연도의 날짜에만 표시합니다.
-- 대한민국 음력 명절·대체공휴일 상세 데이터는 **2026년만** 포함했습니다. 다른 연도에서는 국경일만 표시하고 안내문을 보여줍니다.
-- 모든 기본 기록에 출처 링크를 보관했습니다. 기간을 확인하지 못한 클리셰 협업 카페는 오픈일만 등록했습니다.
-- 원문으로 확인하지 못해 제외했던 20개 후보는 포함하지 않았습니다. 후보를 확정 사실로 바꿔 넣지 않았습니다.
-- 이 목록은 앞서 조사한 범위의 데이터이며 스텔라이브의 모든 역사·향후 방송을 자동 수집한 데이터가 아닙니다.
+기존 assets 폴더 안에 brand 폴더를 추가합니다. 정확한 상대 경로는 아래와 같습니다.
 
-## 개인 데이터 보존
+- `assets/brand/stellink-apple-touch-180.png`
+- `assets/brand/stellink-favicon-64.png`
+- `assets/brand/stellink-icon-192.png`
+- `assets/brand/stellink-icon-512.png`
+- `assets/brand/stellink-logo-512.png`
+- `assets/brand/stellink-maskable-512.png`
 
-기존 IndexedDB 이름 `STELLINK`, 이미지 저장소와 동시 저장 경로를 유지합니다. 데이터 스키마는 2로 이전하며 기존 ZIP 백업도 읽습니다. 이전은 재실행해도 중복 기록을 만들지 않습니다.
+## 덮어쓸 파일 (v1.3.0 기준)
 
-이전 `watched` 값은 `legacyWatched`로 보존합니다. 공지를 읽었다는 하트로 자동 변환하지 않습니다. 기존 하루 휴방 원본과 변경 이력도 유지합니다. 공지 수정본의 주차는 버전 연결의 기준값으로 보존합니다.
+- `app.js`
+- `core.js`
+- `index.html`
+- `manifest.webmanifest`
+- `next-ui.css`
+- `sw.js`
+- `upgrade-ui.js`
 
-새 전체 백업에는 공지·프로필·행사 이미지, 하트, 기념일, 공식 자료 사본, 개인 수정·숨김, 필터가 포함됩니다. 새 백업은 구버전 앱에 복원하지 마세요. 같은 GitHub Pages 주소·같은 Brave 프로필을 사용해야 기존 기록을 이어서 읽습니다.
+## 기존 유지 파일
 
-## 달력 자료 업데이트
+- `assets/members/hina.jpg`
+- `assets/members/hiyori.png`
+- `assets/members/huya.png`
+- `assets/members/lize.png`
+- `assets/members/mary.png`
+- `assets/members/mashiro.jpg`
+- `assets/members/nana.png`
+- `assets/members/rang.png`
+- `assets/members/riko.png`
+- `assets/members/rin.png`
+- `assets/members/shibuki.png`
+- `assets/members/sources.json`
+- `assets/members/tabi.jpg`
+- `assets/members/toa.png`
+- `assets/members/yuni.png`
+- `breaks.js`
+- `calendar-data.js`
+- `calendar-model.js`
+- `calendar-ui.js`
+- `calendar.js`
+- `chzzk-live.js`
+- `data/calendar.json`
+- `features.js`
+- `icon-192.png`
+- `icon-512.png`
+- `icon.svg`
+- `icons.js`
+- `image-viewer.js`
+- `members.js`
+- `next-ui.js`
+- `notices.js`
+- `registration.js`
+- `schedule.js`
+- `storage.js`
+- `style.css`
+- `view-state.js`
 
-앱은 실행 시와 설정의 ‘자료 업데이트 확인’에서 **이 저장소에 배포된** `data/calendar.json`을 확인합니다. 실패하면 마지막으로 저장된 자료를 유지합니다. 개인 일정과 수정·숨김은 별도 보존합니다. 카페나 공식 홈페이지를 자동 크롤링하지 않습니다.
+삭제할 파일은 없습니다. 기존 icon.svg, icon-192.png, icon-512.png는 호환용으로 남아 있으며 활성 헤더·파비콘·manifest는 assets/brand의 새 로고를 참조합니다. 개인 추가 파일과 CNAME 등 기존 저장소 설정을 삭제하지 마세요.
 
-자료 수정 시 기존 항목의 `id`를 유지하고 `updated`를 갱신합니다. `node tools/build-calendar.cjs`로 형식을 검사하고 첫 실행·오프라인용 `calendar-data.js`를 함께 재생성한 뒤 두 파일을 업로드합니다. 앱 코드도 변경한다면 서비스워커 캐시 버전도 갱신합니다.
+## Brave 캐시와 설치 아이콘
 
-설정의 JSON 가져오기는 자료 형식을 검사하고 적용 전에 확인 화면을 보여줍니다. 개인 일정과 ID가 충돌하는 자료, 이전 날짜의 자료는 거절합니다.
+GitHub Pages 배포가 끝나면 사이트를 한 번 열고, 스텔링크를 연 모든 Brave 탭과 홈 화면 앱 창을 닫았다가 다시 여세요. 새 서비스 워커 캐시는 v1.3.1입니다. 설정에 표시되는 v1.3.1과 로고로 적용 여부를 확인할 수 있습니다.
 
-## 검사 결과와 한계
+이미 설치한 홈 화면 아이콘은 Android/Brave의 별도 갱신 시점 때문에 앱 내부 로고보다 늦게 바뀔 수 있습니다. 아이콘 변경을 위해 사이트 데이터나 개인 기록을 삭제하지 마세요.
 
-- 기존 코어 검사 22개와 신규 달력 검사 9개 통과
-- 실제 브라우저 IndexedDB에서 이미지 저장·공지 연결·하트 보존·백업 왕복·실패 후 보존 검사 7개 통과
-- 실제 브라우저에서 숫자 시간 방송 저장, 개인 행사 저장, 달력 표시 확인
-- 마지막 추가 이미지 선택 UI 및 모바일 화면 검사는 브라우저 검사 사용량 한도로 완료하지 못했습니다. Android Brave 실기기 검수를 완료한 것은 아닙니다.
-- 등록 시간 기반 LIVE입니다. 실제 치지직 송출/종료 여부를 조회하지 않습니다.
+## 검증
 
-로컬 코드 검사: `node tests/core.test.cjs`, `node tests/calendar.test.cjs`, `node tests/package.test.cjs`.
-`tests/storage-harness.html`은 별도 테스트 DB `STELLINK_TEST_v120`을 사용하며 개인 앱 DB를 변경하지 않습니다.
+자바스크립트 문법, 서비스워커 파일 포함, 전체 스크립트 통합 검사, 기존 데이터 백업·복원, v1.3.0→v1.3.1 설정 유지, PNG 실제 크기/투명 배경/manifest 경로를 검사했습니다. Android Brave 실기기와 설치 아이콘 자동 갱신은 직접 검증하지 않았습니다. 원격 배포는 사용자가 진행합니다.
+
+v1.3.0 기능 상세와 공식 API 제한은 V1.3.0-기능안내.md를 참고하세요. API 즉시 푸시 전환이 추가된 버전이 아닙니다.

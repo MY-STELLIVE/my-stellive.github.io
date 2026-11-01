@@ -1,9 +1,9 @@
 'use strict';
-// API phase patch for STELLINK v1.2.0. Does not write personal data.
+// STELLINK 1.3.0: read-only live state, separate from personal schedules.
 (() => {
  const endpoint='https://stellink-api.a01086042610.workers.dev/live';
  const previousState=CalendarModel.channelState;
- const records=new Map();let last=null,busy=false,failed=false,timer=null;
+ const records=new Map();let last=null,busy=false,failed=false,timer=null,lastAttempt=0;
  CalendarModel.channelState=function(d,i,now=Date.now()){
   const scheduled=previousState(d,i,now),r=records.get(i);
   const fresh=r&&now-Date.parse(r.checkedAt)<180000&&!failed&&r.state!=='unknown';
@@ -22,8 +22,11 @@
  const oldHTML=homeHTML;
  homeHTML=function(){return oldHTML().replace('등록 시간 기준 자동 LIVE · 지난 날짜의 예정 방송은 KST 자정 이후 OFF','치지직 실제 방송 기준 · 화면을 보고 있을 때 1분 간격 조회');};
  function update(){if(typeof data==='undefined'||!data)return;const target=document.getElementById('homeChannels');if(target&&!document.getElementById('modal').open&&!target.contains(document.activeElement))target.innerHTML=homeChannels();}
+ window.ChzzkLive=Object.freeze({snapshot:()=>({endpoint,last: last?structuredClone(last):null,busy,failed,lastAttempt}),refresh:()=>refresh()});
  async function refresh(){
   if(busy||document.hidden)return;
+  const remaining=60000-(Date.now()-lastAttempt);if(remaining>0){clearTimeout(timer);timer=setTimeout(refresh,remaining);return;}
+  lastAttempt=Date.now();
   busy=true;let delay=60000;
   try{
    const response=await fetch(endpoint,{cache:'no-store',signal:AbortSignal.timeout(30000)});
@@ -34,7 +37,7 @@
    for(const r of body.members){const old=records.get(r.id);records.set(r.id,{...r,wasLive:r.state==='live'||old?.wasLive||false,lastLive:r.state==='live'?r:r.state==='unknown'?(old?.state==='live'?old:old?.lastLive):null});}
    last=body;failed=false;delay=Math.max(60,Math.min(300,Number(body.refreshAfter)||60))*1000;
   }catch{failed=true;delay=120000;}
-  finally{busy=false;update();clearTimeout(timer);if(!document.hidden)timer=setTimeout(refresh,delay);}
+  finally{busy=false;update();document.dispatchEvent(new Event('stellink:live'));clearTimeout(timer);if(!document.hidden)timer=setTimeout(refresh,delay);}
  }
  document.addEventListener('visibilitychange',()=>{clearTimeout(timer);if(!document.hidden)refresh();});
  setInterval(update,15000);

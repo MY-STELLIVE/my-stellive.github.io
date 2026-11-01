@@ -1,0 +1,63 @@
+{
+  "version": "1.3.1",
+  "baseline": "1.3.0",
+  "new": [
+    "assets/brand/stellink-apple-touch-180.png",
+    "assets/brand/stellink-favicon-64.png",
+    "assets/brand/stellink-icon-192.png",
+    "assets/brand/stellink-icon-512.png",
+    "assets/brand/stellink-logo-512.png",
+    "assets/brand/stellink-maskable-512.png"
+  ],
+  "overwrite": [
+    "app.js",
+    "core.js",
+    "index.html",
+    "manifest.webmanifest",
+    "next-ui.css",
+    "sw.js",
+    "upgrade-ui.js"
+  ],
+  "preserve": [
+    "assets/members/hina.jpg",
+    "assets/members/hiyori.png",
+    "assets/members/huya.png",
+    "assets/members/lize.png",
+    "assets/members/mary.png",
+    "assets/members/mashiro.jpg",
+    "assets/members/nana.png",
+    "assets/members/rang.png",
+    "assets/members/riko.png",
+    "assets/members/rin.png",
+    "assets/members/shibuki.png",
+    "assets/members/sources.json",
+    "assets/members/tabi.jpg",
+    "assets/members/toa.png",
+    "assets/members/yuni.png",
+    "breaks.js",
+    "calendar-data.js",
+    "calendar-model.js",
+    "calendar-ui.js",
+    "calendar.js",
+    "chzzk-live.js",
+    "data/calendar.json",
+    "features.js",
+    "icon-192.png",
+    "icon-512.png",
+    "icon.svg",
+    "icons.js",
+    "image-viewer.js",
+    "members.js",
+    "next-ui.js",
+    "notices.js",
+    "registration.js",
+    "schedule.js",
+    "storage.js",
+    "style.css",
+    "view-state.js"
+  ],
+  "new_directories": [
+    "assets/brand/"
+  ],
+  "delete": []
+}
