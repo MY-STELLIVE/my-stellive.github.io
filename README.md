@@ -1,32 +1,65 @@
-# STELLINK v1.3.3 — 공식 API 연결 안정화
+# STELLINK v1.3.5 — 모바일 홈·멤버·방송 연결 개편
 
-기준: 제공했던 v1.3.2 완성본. 현재 GitHub 배포본 전체와의 동일성은 확인하지 않았습니다.
-2026-11-01 공개 Worker /live를 직접 조회했을 때 mode=direct-unofficial, 14명 모두 unknown, connection_or_json_error였습니다. 이번 패키지는 이 구형 Worker를 공식 API 방식으로 교체하도록 준비했습니다. 원격 배포는 아직 하지 않았습니다.
+기존 v1.3.3/1.3.4 제공본에 적용하는 누적 업데이트입니다. GitHub와 Cloudflare에 자동 배포하지 않았습니다. 기존 개인 일정·공지·이미지·백업 형식은 유지합니다.
 
-## 적용 순서 — Cloudflare 교체가 필수입니다
-1. 앱 설정에서 개인 기록 백업을 먼저 내려받습니다. 사이트 데이터는 삭제하지 마세요.
-2. Cloudflare → stellink-api → Edit code → 기존 코드를 모두 지웁니다.
-3. cloudflare/worker-mobile.txt의 한 줄 전체를 붙여넣습니다. 코드 블록 표시나 파일명을 함께 넣지 마세요. worker.mjs는 같은 코드의 읽기 쉬운 원본이므로 둘 중 하나만 사용합니다.
-4. Settings의 Secret 이름 CHZZK_CLIENT_ID / CHZZK_CLIENT_SECRET을 유지합니다. 값은 GitHub나 코드에 넣지 않습니다. 이전에 노출한 Secret을 아직 재발급하지 않았다면 재발급 후 Cloudflare 값도 교체하세요.
-5. Deploy 후 Deployments의 Active deployment가 새 버전인지 확인합니다. 저장만 된 경우 새 버전의 메뉴에서 Promote version으로 활성화합니다.
-6. https://stellink-api.a01086042610.workers.dev/health 에서 version=1.3.3, mode=official-list, configured=true를 확인합니다. configured는 키 존재 여부이며 인증 성공 여부가 아닙니다.
-7. https://stellink-api.a01086042610.workers.dev/live 에서 결과를 확인합니다. mode=direct-unofficial이면 아직 옛 Worker입니다.
-8. GitHub에는 아래 표의 파일을 업로드합니다. v1.3.2 사용자는 github-update-only 안의 파일을 저장소 최상위 동일 경로에 덮어씁니다. 이전 버전이거나 적용 상태가 불명확하면 github 안의 전체 내용을 동일 경로에 업로드합니다. github 폴더 자체를 만들지 않습니다.
-9. 업로드가 끝나면 GitHub Pages 배포 완료 후 Brave의 앱/사이트 탭을 모두 닫고 다시 엽니다. 업데이트 안내가 있으면 적용합니다. 개인 기록이 들어 있는 사이트 저장공간을 초기화하지 않습니다.
+## 이번 변경
+- 상단을 작은 기존 3D 심볼 + 워드마크 조합으로 변경.
+- 치지직 팔로잉 화면을 참고한 가로 멤버 목록, LIVE 링과 태그, 전체/방송 중/예정 일정 필터.
+- 프로필과 방송 제목 중심의 간결한 방송 목록. 긴 제목은 두 줄까지 노출.
+- 달력의 날짜별 일정 카드와 멤버 일정에 사진 적용. 합방 사진 최대 3명 + 나머지 인원 표시.
+- 사용자가 제공한 파트너 배지 PNG를 홈·멤버 목록·상세·일정·소식의 닉네임 옆에 표시.
+- 긴 한글 제목과 메타데이터 줄바꿈 개선. 합방 기수 정보는 의미 단위로 줄바꿈.
+- 홈에도 조회 상태와 다음 조회 카운트다운 제공. 조회 중/대기 중 버튼 구분.
+- 자동 조회 시 가로 멤버 목록의 스크롤 위치와 펼친 목록 유지.
+- 홈 멤버 클릭이 상세 화면으로 이동하도록 수정. 설정과 멤버 상세의 중복 등록 버튼 제거.
+- 초기 화면은 모든 스크립트가 준비된 후 시작하도록 안정화.
 
-## GitHub 파일 변경표
-이번에는 새 경로·추가 파일·삭제 파일이 없습니다. 경로 재편은 API 정상화 이후 별도 진행합니다.
+## 적용 — GitHub
+1. 기존 앱의 설정에서 전체 백업을 내려받습니다. 사이트 저장공간은 초기화하지 마세요.
+2. 압축을 풀고 `github-update-only` 안의 파일을 아래 동일 경로에 업로드합니다. 폴더 이름 자체를 저장소에 올리지 않습니다.
+3. 덮어쓰기 파일은 저장소 최상위, 배지 이미지는 assets/brand/에 넣습니다.
+4. GitHub Pages 배포 완료 후 Brave에서 앱 및 관련 사이트 탭을 모두 닫고 다시 엽니다.
+5. 설정의 스텔링크 정보가 v1.3.5인지 확인합니다.
 
-| 분류 | 저장소 경로 | 변경 내용 |
-|---|---|---|
-| 덮어쓰기 | `chzzk-live.js` | 구형 Worker 감지, 안전한 상태 판정, 재시도 제한 준수 |
-| 덮어쓰기 | `core.js` | 1.3.3 버전 및 기존 데이터 보존 |
-| 덮어쓰기 | `next-ui.js` | 조회 대기 안내 개선 |
-| 덮어쓰기 | `release-ui.js` | 오류별 원인 안내 및 서버 버전 표시 |
-| 덮어쓰기 | `sw.js` | 캐시 버전 갱신 및 화면 복구 경로 수정 |
+| 작업 | GitHub 저장소 경로 |
+|---|---|
+| 덮어쓰기 | `app.js` |
+| 덮어쓰기 | `chzzk-live.js` |
+| 덮어쓰기 | `core.js` |
+| 덮어쓰기 | `release-ui.css` |
+| 덮어쓰기 | `release-ui.js` |
+| 덮어쓰기 | `sw.js` |
+| 추가 | `assets/brand/chzzk-partner.png` |
 
-### 기존 유지 파일 (v1.3.2 기준)
-- `app.js`
+삭제·이동 파일은 없습니다. github/에는 전체 구성도 들어 있습니다. 직접 수정한 코드가 있다면 해당 파일은 먼저 비교하세요. 기존 로고 파일은 다시 올릴 필요가 없습니다.
+
+## 적용 — Cloudflare Worker
+이번 앱에 포함된 Worker는 v1.3.4입니다. 앱 v1.3.5와 버전 숫자가 다른 것은 정상입니다.
+- 이미 Worker v1.3.4를 적용했다면 다시 바꾸지 않아도 됩니다.
+- Worker가 v1.3.3.1 이하라면 cloudflare/worker-mobile.txt 전체로 기존 Worker 코드를 교체합니다. 읽기 쉬운 동일 소스는 worker.mjs입니다. 둘 중 하나만 사용하세요.
+- 기존 CHZZK_CLIENT_ID / CHZZK_CLIENT_SECRET Secret은 유지합니다. GitHub에 비밀 값을 넣지 않습니다.
+- Deploy 후 Active deployment를 확인합니다. 저장만 된 버전은 Promote version으로 활성화합니다.
+- /health 응답 version=1.3.4, configured=true를 확인합니다. configured는 키 존재 여부입니다.
+- cloudflare/ 파일은 GitHub Pages 업로드 대상이 아닙니다.
+
+## API 동작 범위
+v1.3.4 Worker는 임시 캐시에 다음 페이지를 저장하여 목록 조회를 이어갑니다. 이어 조회할 때 앞 3페이지도 재확인합니다. 기본 재조회 60초, 실패 120초, 조회 제한 300초입니다.
+일부 목록만 확인되면 누락 채널은 OFF로 판정하지 않습니다. 전체 목록에서 발견되지 않은 경우에만 방송 중 아님으로 반환합니다. 목록 순위 변화, 조회 시간, 지역별 캐시 만료로 즉시 또는 항상 정확한 종료 판정을 보장하지 않습니다. 조회 묶음이 4분을 넘으면 새로 시작하고, 개별 방송 정보는 3분이 지나면 미확인으로 취급합니다.
+기존 v1.3.3.1 Worker에도 앱이 연결되지만 scan_limit 문제는 Worker 업데이트 전까지 남습니다.
+
+## 해상도와 배지
+노트20 울트라 WQHD+ 1440×3088은 물리 해상도입니다. 웹 배치는 Brave의 CSS 화면 폭에 반응하도록 만들었습니다. 360px/412px 모바일 폭에서 검증했으며 화면 확대·글자 설정에 따라 배치가 달라질 수 있습니다. 1440px 고정 레이아웃을 사용하지 않습니다.
+파트너 배지는 요청에 따라 등록된 14명에게 정적으로 표시합니다. 치지직 등급을 API로 조회하거나 자동 갱신하는 기능은 아닙니다. 새 로고를 생성한 것이 아니라 기존 로고와 제공된 배지 원본을 사용했습니다.
+
+## 검증
+- JavaScript 문법 및 HTML/서비스워커 파일 의존성 검사 통과.
+- API 응답 검증, LIVE/OFF/unknown 전환, 오류·429 대기, 개인 데이터 보존 검사 통과.
+- 45페이지 이어 조회, 상단 제목 변경, 커서 만료와 오류 처리 검사 통과.
+- 브라우저에서 360px/412px 홈·일정 카드·멤버 상세 이동·설정과 큰 글자 설정 확인.
+- 현재 운영 중인 Worker 응답이 새 앱 홈에 표시되는 것을 확인했습니다. 포함된 v1.3.4 Worker를 원격 배포한 것은 아닙니다.
+- 갤럭시 실기기/Brave 앱 자체에서의 검증은 수행하지 않았습니다.
+
+## 기존 유지 파일
 - `assets/brand/stellink-apple-touch-180.png`
 - `assets/brand/stellink-favicon-64.png`
 - `assets/brand/stellink-icon-192.png`
@@ -65,44 +98,11 @@
 - `manifest.webmanifest`
 - `members.js`
 - `next-ui.css`
+- `next-ui.js`
 - `notices.js`
 - `registration.js`
-- `release-ui.css`
 - `schedule.js`
 - `storage.js`
 - `style.css`
 - `upgrade-ui.js`
 - `view-state.js`
-
-## Cloudflare 전용 파일
-- cloudflare/worker.mjs: 기존 Worker 소스 전체 교체.
-- cloudflare/worker-mobile.txt: 위 코드의 휴대폰 붙여넣기용 한 줄 버전.
-- 이 두 파일은 GitHub Pages에 업로드하지 않습니다. 새 Worker 생성도 필요 없습니다.
-- tests/, README.md, FILE-MAP.json은 검증/안내용이며 앱 배포 필수 파일이 아닙니다.
-
-## 응답별 해석
-| 응답 | 의미와 조치 |
-|---|---|
-| mode=official-list | 이번 공식 조회 방식 |
-| reason=missing_secrets | Cloudflare Secret 이름/존재 확인 |
-| reason=authentication_failed | 인증 거절: 키 값과 앱 상태 확인 |
-| reason=rate_limited | 요청 제한: 5분 대기 |
-| reason=scan_limit | 페이지/시간 한도: 찾은 방송만 반영, 나머지는 unknown |
-| reason=connection_error 또는 timeout | 외부 연결 또는 시간 초과: 종료로 판단하지 않음 |
-| complete=true | 목록 끝까지 확인한 조회. 미발견 채널은 방송 중 아님 |
-| complete=false | 전체 확인 안 됨. 미발견 채널은 확인 불가 |
-
-공식 API는 전체 라이브 목록을 페이지당 최대 20개 조회합니다. 채널 ID를 지정한 공식 개별 상태 API로 바꾸는 패치가 아닙니다. 최대 40페이지/약 20초 탐색으로 제한하며, 이 한도 때문에 일부 채널은 unknown일 수 있습니다. 목록은 조회 중에도 변할 수 있어 즉각적·원자적인 시작/종료 판정은 아닙니다.
-화면 표시 중 기본 60초 간격, 실패 후 120초, 제한 후 300초입니다. 서버 캐시와 조회 시간으로 지연이 더해질 수 있습니다. 앱을 닫은 동안 계속 추적하거나 알림을 보내지 않습니다.
-
-## 유지되는 기능과 데이터
-기존 로고/워드마크, 일~토 달력, 소식 UI, 개인 일정·이미지·하트·설정, 저장소 이름은 유지합니다. API 결과는 개인 일정을 덮어쓰지 않습니다. 전체 앱 ZIP은 개인 기록 백업을 포함하지 않습니다.
-
-## 검증 범위
-JS 문법/파일 연결/캐시 목록, 공식 API 모의 응답의 페이지 처리·인증 오류·429·JSON 오류·시간 초과, 구형 Worker 감지, 숨겨진 탭, 수동 새로고침 대기 준수, 불완전 OFF 응답 거부, 상태 전환, 데이터 백업/복원 및 달력 회귀 검증을 수행했습니다.
-실제 새 Worker 인증 성공과 Android Brave UI는 이 환경에서 검증하지 않았습니다. 공식 API 연결 성공으로 보고한 버전이 아니라 배포 가능한 수정본입니다.
-
-## 복구
-개인 데이터를 삭제하지 않고 이전 전체 앱 파일을 다시 업로드할 수 있습니다. 단, 이전 sw.js의 캐시 버전도 복구 전용 새 이름으로 바꿔 재배포해야 합니다. Worker는 Deployments에서 필요한 이전 버전을 활성화할 수 있으나, 확인된 비공식 구버전으로 돌아가면 동일 조회 오류가 재발할 수 있습니다.
-
-참고 문서: https://chzzk.gitbook.io/chzzk/chzzk-api/live
