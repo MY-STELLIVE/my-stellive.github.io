@@ -1,5 +1,5 @@
 'use strict';
-// STELLINK 1.4.0: read-only live state, separate from personal schedules.
+// STELLINK 1.4.1: read-only live state, separate from personal schedules.
 (() => {
  const endpoint='https://stellink-api.a01086042610.workers.dev/live';
  const previousState=CalendarModel.channelState;

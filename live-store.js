@@ -8,7 +8,15 @@ const LiveStore=(()=>{
  }
  function start(value){if(typeof value!=='string'||!value)return NaN;const s=value.trim();return Date.parse(/(?:Z|[+-]\d\d:\d\d)$/.test(s)?s:s.replace(' ','T')+'+09:00');}
  function elapsed(r,now=Date.now()){const t=start(r?.openDate);if(!Number.isFinite(t)||t>now)return '';const seconds=Math.floor((now-t)/1000);return [Math.floor(seconds/3600),Math.floor(seconds/60)%60,seconds%60].map(n=>String(n).padStart(2,'0')).join(':')+' 스트리밍 중';}
+ function thumbnail(value,checkedAt){
+  if(typeof value!=='string')return '';
+  const normalized=value.replace(/\{type\}|%7Btype%7D/gi,'720');
+  const url=image(normalized);if(!url)return '';
+  const u=new URL(url),stamp=Date.parse(checkedAt);
+  if(u.hostname==='livecloud-thumb.akamaized.net'&&Number.isFinite(stamp))u.searchParams.set('_stellink',String(Math.floor(stamp/60000)));
+  return u.href;
+ }
  const image=u=>{try{const x=new URL(u);return x.protocol==='https:'?x.href:''}catch{return '';}};
- return {observe,start,elapsed,image,changes:i=>history.get(i)?.changes||[]};
+ return {observe,start,elapsed,image,thumbnail,changes:i=>history.get(i)?.changes||[]};
 })();
 if(typeof module!=='undefined')module.exports=LiveStore;

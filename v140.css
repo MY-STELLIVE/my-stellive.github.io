@@ -8,3 +8,42 @@
 
 /* Numeric broadcast status mirrors the supplied mobile reference. */
 .live-information,.detail-live-information{font-variant-numeric:tabular-nums;line-height:1.6;color:var(--muted);overflow-wrap:anywhere}.live-minor{align-items:flex-start;flex-wrap:wrap}.live-information{flex:1 1 150px;font-size:11px}.detail-live-information{font-size:14px;margin:12px 0 16px}.live-info-button{min-width:44px;min-height:44px}.v140 .horizontal .live-information{flex-basis:100%;font-size:10px}.v140 .horizontal .live-minor{justify-content:flex-end}.v140 .horizontal .live-flags span{font-size:9px}.large-text .live-information{font-size:14px}
+
+/* v1.4.1: compact, aligned live rows and reserved action area. */
+.v140 #liveList.live-grid{gap:22px}
+.v140 .chzzk-style .live-body{display:block;padding-right:44px}
+.v140 .chzzk-style.horizontal .live-body{padding-right:30px}
+.v140 .chzzk-style .live-title-button{min-height:0;margin:0 0 5px;line-height:1.4}
+.v140 .chzzk-style .live-title-button h3{margin:0;line-height:1.4}
+.v140 .chzzk-style .live-info-button{position:absolute;right:0;top:-6px;width:32px;height:44px;min-width:32px;padding:0;font-size:0;border-radius:8px}
+.v140 .chzzk-style .live-info-button::after{content:'⋯';font-size:23px;color:var(--muted)}
+.v140 .chzzk-style .live-minor{display:block;margin-top:5px;min-height:0;line-height:1.5}
+.v140 .chzzk-style .live-information{font-size:10px;display:block;white-space:normal}
+.v140 .chzzk-style .live-tags{margin:5px 0 0;max-height:26px}
+.v140 .chzzk-style .live-identity{min-height:24px}
+.v140 .chzzk-style .live-flags{right:5px;flex-wrap:nowrap;max-width:calc(100% - 10px)}
+.v140 .chzzk-style .viewer-label{white-space:nowrap}
+.v140 .chzzk-style .live-flags>span{white-space:nowrap}
+.v140 .chzzk-style.horizontal{grid-template-columns:40% minmax(0,1fr);gap:10px}
+.v140 .vertical .live-body{padding-top:10px;padding-left:40px}
+.v140 .vertical .live-identity .avatar-wrap{width:30px;height:30px;top:12px}
+.v140 .vertical .live-information{font-size:11px}
+.v140 #homeLive140{gap:10px}
+.v140 .list-card{border-radius:14px}
+.v140 .list-card .live-body{padding:11px 12px}
+.v140 .list-card .live-identity{min-height:32px;gap:6px}
+.v140 .list-card .live-identity .avatar-wrap{width:28px;height:28px}
+.v140 .list-card .live-pill{margin-left:auto;background:#ed3047;color:#fff}
+.v140 .list-card .live-body h3{font-size:14px;margin:5px 0}
+.v140 .list-card .live-muted{margin:4px 0;font-size:11px}
+.v140 .list-card .live-tags{margin:6px 0;gap:4px}
+.v140 .list-card button.chip{min-height:26px;padding:2px 6px;border-radius:5px;font-size:10px;background:transparent}
+.v140 .list-card .live-actions{margin-top:7px;gap:8px}
+.v140 .list-card .live-actions button{min-height:36px;padding:5px 8px;font-size:11px;border-radius:9px}
+.v140 .today-summary{margin-bottom:18px}.v140 .today-summary span{padding:9px 12px}.v140 .today-summary b{font-size:21px}
+.v140 .register-dock{position:fixed;bottom:calc(74px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:100%;max-width:960px;z-index:35;padding:5px 14px;background:var(--bg);border-top:1px solid var(--line);display:flex;justify-content:flex-end}
+.v140 .register-dock .register-fab{position:static!important;min-height:38px;height:38px;padding:7px 14px;margin:0;font-size:12px;box-shadow:none;transform:none}
+.v140:has(dialog[open]) .register-dock{display:none}
+.v140 #app{padding-bottom:calc(155px + env(safe-area-inset-bottom))}
+@media(min-width:800px){.v140 .chzzk-style.horizontal{grid-template-columns:240px minmax(0,1fr)}}
+.large-text .chzzk-style .live-title-button h3{font-size:17px}.large-text .chzzk-style .live-information{font-size:12px}
