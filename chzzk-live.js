@@ -1,11 +1,12 @@
 'use strict';
-// STELLINK 1.3.6: read-only live state, separate from personal schedules.
+// STELLINK 1.4.0: read-only live state, separate from personal schedules.
 (() => {
  const endpoint='https://stellink-api.a01086042610.workers.dev/live';
  const previousState=CalendarModel.channelState;
  const records=new Map();let last=null,busy=false,failed=false,timer=null,lastAttempt=0,lastSuccess=null,nextAllowedAt=0,errorCode=null;
  CalendarModel.channelState=function(d,i,now=Date.now()){
   const scheduled=previousState(d,i,now),r=records.get(i);
+  if(typeof ChannelState!=='undefined')return ChannelState.resolve(d,i,r,now,failed);
   const fresh=r&&now-Date.parse(r.checkedAt)>=-30000&&now-Date.parse(r.checkedAt)<180000&&!failed&&r.state!=='unknown';
   if(fresh&&r.state==='live')return {kind:'live',label:'ON AIR',broadcast:r};
   const pendingEvent=d.events.filter(e=>e.members.includes(i)&&e.status==='planned'&&e.date===Core.day(new Date(now))&&e.time&&Core.stamp(e)<=now).sort((a,b)=>Core.stamp(b)-Core.stamp(a))[0];
@@ -31,7 +32,7 @@
   if(focus){const button=[...target.querySelectorAll('[data-act]')].find(el=>el.dataset.act===focus.act&&el.dataset.arg===focus.arg&&!el.disabled);button?.focus({preventScroll:true});}
  }
 
- window.ChzzkLive=Object.freeze({snapshot:()=>({endpoint,last: last?structuredClone(last):null,busy,failed,lastAttempt,lastSuccess,nextAllowedAt,errorCode}),refresh:()=>refresh()});
+ window.ChzzkLive=Object.freeze({snapshot:()=>({endpoint,last: last?structuredClone(last):null,busy,failed,lastAttempt,lastSuccess,nextAllowedAt,errorCode}),refresh:()=>refresh(),record:i=>records.has(i)?structuredClone(records.get(i)):null});
  async function refresh(){
   if(busy||document.hidden)return;
   if(typeof navigator!=='undefined'&&navigator.onLine===false){failed=true;errorCode='device_offline';update();document.dispatchEvent(new Event('stellink:live'));return;}
@@ -39,7 +40,7 @@
   lastAttempt=Date.now();
   busy=true;let delay=60000;nextAllowedAt=0;update();document.dispatchEvent(new Event('stellink:live'));
   try{
-   const response=await fetch(endpoint,{cache:'no-store',signal:AbortSignal.timeout(30000)});
+   const response=await fetch(endpoint,{cache:'no-store',signal:AbortSignal.timeout(45000)});
    if(!response.ok){if(response.status===429){const raw=response.headers?.get('Retry-After');const seconds=raw?(/^\d+$/.test(raw)?Number(raw):Math.ceil((Date.parse(raw)-Date.now())/1000)):300;delay=Math.min(3600,Math.max(300,seconds||300))*1000;}throw Error(response.status===429?'rate_limited':'relay_http_'+response.status);}
    const body=await response.json();
    if(body.mode==='direct-unofficial'||body.experimental)throw Error('legacy_worker');
@@ -48,7 +49,8 @@
    if(Date.parse(body.checkedAt)>Date.now()+30000||last&&Date.parse(body.checkedAt)<Date.parse(last.checkedAt))throw Error('stale_response');
    for(const m of MEMBERS){const r=body.members.find(x=>x.id===m.id&&x.channelId===m.channel.split('/').pop());if(!r||!['live','offline','unknown'].includes(r.state)||r.state!=='unknown'&&(!Number.isFinite(Date.parse(r.checkedAt))||Date.parse(r.checkedAt)>Date.now()+30000))throw Error('members');}
    if(body.complete!==true&&body.members.some(r=>r.state==='offline'))throw Error('unsafe_offline');
-   for(const r of body.members){const old=records.get(r.id);records.set(r.id,{...r,wasLive:r.state==='live'||old?.wasLive||false,lastLive:r.state==='live'?r:r.state==='unknown'?(old?.state==='live'?old:old?.lastLive):null});}
+   body.members=body.members.map(r=>({...r,title:typeof r.title==='string'?r.title:'',category:typeof r.category==='string'?r.category:'',tags:Array.isArray(r.tags)?r.tags.filter(t=>typeof t==='string').slice(0,30):[],viewerCount:Number.isSafeInteger(r.viewerCount)&&r.viewerCount>=0?r.viewerCount:null,openDate:typeof r.openDate==='string'?r.openDate:null,thumbnail:typeof r.thumbnail==='string'?r.thumbnail:null,adult:r.adult===true}));
+   for(const r of body.members){const old=records.get(r.id);if(typeof LiveStore!=='undefined')LiveStore.observe(r,old);records.set(r.id,{...r,wasLive:r.state==='live'||old?.wasLive||false,lastLive:r.state==='live'?r:r.state==='unknown'?(old?.state==='live'?old:old?.lastLive):null});}
    last=body;const confirmed=body.members.filter(m=>m.state!=='unknown'&&Date.now()-Date.parse(m.checkedAt)<180000);failed=false;errorCode=body.reason||null;if(confirmed.length)lastSuccess=new Date(Math.max(...confirmed.map(m=>Date.parse(m.checkedAt)))).toISOString();
    const wait=Number(body.nextPollIn);delay=Number.isFinite(wait)&&wait>0?Math.max(5,Math.min(3600,wait))*1000:Math.max(60,Math.min(3600,Number(body.refreshAfter)||60))*1000;
 

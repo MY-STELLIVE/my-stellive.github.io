@@ -14,7 +14,7 @@ async function openDB(){data=await Store.open();}
 async function save(next){data=await Store.save(next);}
 async function mutate(fn){let next=structuredClone(data);fn(next);await save(next);render()}
 function time(e){if(!e.time)return'시간 미정';if(data.settings.clock==='24')return e.time;let [h,m]=e.time.split(':').map(Number);return`${h<12?'오전':'오후'} ${h%12||12}:${String(m).padStart(2,'0')}`}
-const status=e=>{const s=Schedule.status(e,data.breaks);return s==='LIVE'?'시작 시간 경과':s==='OFF'?'지난 일정':s;};
+const status=e=>{if(typeof ChannelState!=='undefined')return ChannelState.eventLabel(data,e);const s=Schedule.status(e,data.breaks);return s==='LIVE'?'시작 시간 경과':s==='OFF'?'지난 일정':s;};
 const selected=()=>screen==='planner'?(planFilter==='custom'?planIds:[]):filter<0?[]:[filter];
 function events(d){let ids=selected();return data.events.filter(e=>(!d||e.date===d)&&((screen==='planner'&&planFilter!=='all')?e.members.some(m=>ids.includes(m)):!ids.length||e.members.some(m=>ids.includes(m)))).sort((a,b)=>a.date.localeCompare(b.date)||((['off','cancelled'].includes(a.status)?2:!a.time?1:0)-(['off','cancelled'].includes(b.status)?2:!b.time?1:0))||(a.time||'99').localeCompare(b.time||'99'))}
 function eventHTML(e){return`<button class="event" data-act="detail" data-arg="${e.id}"><span class="time">${time(e)}</span>${avatar(e.members[0])}<span class="content"><small>${memberLabel(e.members)}${e.members.length>1?' · 합방':''}</small><strong>${esc(e.title||'휴방')}</strong><span class="badge" data-status="${e.id}">${status(e)}</span>${e.history.length?'<span class="badge">변경 기록 '+e.history.length+'</span>':''}</span><span class="muted">›</span></button>`}
