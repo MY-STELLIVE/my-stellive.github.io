@@ -1,16 +1,23 @@
 {
-  "app_version": "1.3.6",
-  "worker_version": "1.3.6",
-  "base": "1.3.5",
+  "app_version": "1.4.0",
+  "worker_version": "1.4.0",
+  "base": "1.3.6",
   "overwrite": [
+    "app.js",
     "chzzk-live.js",
     "core.js",
+    "index.html",
     "release-ui.js",
     "sw.js"
   ],
-  "added": [],
+  "added": [
+    "channel-state.js",
+    "live-store.js",
+    "live-ui.js",
+    "navigation.js",
+    "v140.css"
+  ],
   "keep": [
-    "app.js",
     "assets/brand/chzzk-partner.png",
     "assets/brand/stellink-apple-touch-180.png",
     "assets/brand/stellink-favicon-64.png",
@@ -46,7 +53,6 @@
     "icon.svg",
     "icons.js",
     "image-viewer.js",
-    "index.html",
     "manifest.webmanifest",
     "members.js",
     "next-ui.css",
