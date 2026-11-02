@@ -1,28 +1,24 @@
 {
-  "version": "1.3.2",
-  "patchBase": "1.3.1",
-  "added": [
-    "assets/brand/stellink-wordmark.png",
-    "release-ui.css",
-    "release-ui.js"
-  ],
+  "app_version": "1.3.6",
+  "worker_version": "1.3.6",
+  "base": "1.3.5",
   "overwrite": [
-    "calendar-ui.js",
     "chzzk-live.js",
     "core.js",
-    "index.html",
-    "notices.js",
-    "sw.js",
-    "upgrade-ui.js"
+    "release-ui.js",
+    "sw.js"
   ],
+  "added": [],
   "keep": [
     "app.js",
+    "assets/brand/chzzk-partner.png",
     "assets/brand/stellink-apple-touch-180.png",
     "assets/brand/stellink-favicon-64.png",
     "assets/brand/stellink-icon-192.png",
     "assets/brand/stellink-icon-512.png",
     "assets/brand/stellink-logo-512.png",
     "assets/brand/stellink-maskable-512.png",
+    "assets/brand/stellink-wordmark.png",
     "assets/members/hina.jpg",
     "assets/members/hiyori.png",
     "assets/members/huya.png",
@@ -41,6 +37,7 @@
     "breaks.js",
     "calendar-data.js",
     "calendar-model.js",
+    "calendar-ui.js",
     "calendar.js",
     "data/calendar.json",
     "features.js",
@@ -49,17 +46,20 @@
     "icon.svg",
     "icons.js",
     "image-viewer.js",
+    "index.html",
     "manifest.webmanifest",
     "members.js",
     "next-ui.css",
     "next-ui.js",
+    "notices.js",
     "registration.js",
+    "release-ui.css",
     "schedule.js",
     "storage.js",
     "style.css",
+    "upgrade-ui.js",
     "view-state.js"
   ],
   "delete": [],
-  "newDirectories": [],
-  "workerChanged": false
+  "move": []
 }
