@@ -1,72 +1,273 @@
 {
-  "app_version": "1.4.1",
-  "worker_version": "1.4.1",
-  "base": "1.4.0",
-  "overwrite": [
-    "chzzk-live.js",
-    "core.js",
-    "live-store.js",
-    "live-ui.js",
-    "navigation.js",
-    "release-ui.js",
-    "sw.js",
-    "v140.css"
-  ],
-  "added": [
-    "assets/brand/live-placeholder.svg"
-  ],
-  "keep": [
-    "app.js",
-    "assets/brand/chzzk-partner.png",
-    "assets/brand/stellink-apple-touch-180.png",
-    "assets/brand/stellink-favicon-64.png",
-    "assets/brand/stellink-icon-192.png",
-    "assets/brand/stellink-icon-512.png",
-    "assets/brand/stellink-logo-512.png",
-    "assets/brand/stellink-maskable-512.png",
-    "assets/brand/stellink-wordmark.png",
-    "assets/members/hina.jpg",
-    "assets/members/hiyori.png",
-    "assets/members/huya.png",
-    "assets/members/lize.png",
-    "assets/members/mary.png",
-    "assets/members/mashiro.jpg",
-    "assets/members/nana.png",
-    "assets/members/rang.png",
-    "assets/members/riko.png",
-    "assets/members/rin.png",
-    "assets/members/shibuki.png",
-    "assets/members/sources.json",
-    "assets/members/tabi.jpg",
-    "assets/members/toa.png",
-    "assets/members/yuni.png",
-    "breaks.js",
-    "calendar-data.js",
-    "calendar-model.js",
-    "calendar-ui.js",
-    "calendar.js",
-    "channel-state.js",
-    "data/calendar.json",
-    "features.js",
-    "icon-192.png",
-    "icon-512.png",
-    "icon.svg",
-    "icons.js",
-    "image-viewer.js",
-    "index.html",
+  "version": "1.5.0",
+  "base": "1.4.2",
+  "workerChanged": false,
+  "changedFiles": [
     "manifest.webmanifest",
-    "members.js",
-    "next-ui.css",
-    "next-ui.js",
-    "notices.js",
-    "registration.js",
-    "release-ui.css",
-    "schedule.js",
+    "live-ui.js",
     "storage.js",
-    "style.css",
-    "upgrade-ui.js",
-    "view-state.js"
+    "v150.js",
+    "index.html",
+    "notices.js",
+    "core.js",
+    "sw.js",
+    "chzzk-live.js",
+    "app.js",
+    "navigation.js",
+    "v150.css"
   ],
-  "delete": [],
-  "move": []
+  "github": [
+    {
+      "path": "app.js",
+      "sha256": "10dd0cb523835cd921f7cf74983266b6a2cf0ab7f16fdb0d4fc97e4bbd629ec4"
+    },
+    {
+      "path": "assets/brand/chzzk-partner.png",
+      "sha256": "9e744d6406720d53a658f0e9923193f16c2e836095a443be9ada996274045af4"
+    },
+    {
+      "path": "assets/brand/live-placeholder.svg",
+      "sha256": "3dee2241a191aeb9016c88a0d226af6e1eedcb5fab9e6c475418a23c250ef6f5"
+    },
+    {
+      "path": "assets/brand/stellink-apple-touch-180.png",
+      "sha256": "6ab3137645f09ccd15d1449b6bf81a7e993a503b49810461471f49350ab2b012"
+    },
+    {
+      "path": "assets/brand/stellink-favicon-64.png",
+      "sha256": "6ee0d79ba7ba4e0c35d981f36835d273d134a0ceab771b99be5fe7d3d7cf9b5d"
+    },
+    {
+      "path": "assets/brand/stellink-icon-192.png",
+      "sha256": "12dbc661686016da852bf77b9384ca762e9136571b9f715ece8483f5845fc43b"
+    },
+    {
+      "path": "assets/brand/stellink-icon-512.png",
+      "sha256": "8b0d8371903a459832a0625591f44968588329c497bb7928fc91813e3c058bab"
+    },
+    {
+      "path": "assets/brand/stellink-logo-512.png",
+      "sha256": "8b0d8371903a459832a0625591f44968588329c497bb7928fc91813e3c058bab"
+    },
+    {
+      "path": "assets/brand/stellink-maskable-512.png",
+      "sha256": "17c13062e8fa90bf33d23ca3c28c64965d6205acfe087b3a61057398f01cfe8e"
+    },
+    {
+      "path": "assets/brand/stellink-wordmark.png",
+      "sha256": "80643bf33cefb7ddfbe1fab3d0ec0534dca5c041dbd40364413089058eacbfb8"
+    },
+    {
+      "path": "assets/members/.rin.png.GtLSqA",
+      "sha256": "e112217de6eaaca9a786a95976f93ab2b516db3930e722cf4af32670185c8324"
+    },
+    {
+      "path": "assets/members/.rin.png.GtLSqA.Zmjh3o",
+      "sha256": "bc4e60f19a3af2e68debfbdd8b8aca791d3385917526fb19588e43d74eeddd7a"
+    },
+    {
+      "path": "assets/members/hina.jpg",
+      "sha256": "efca17522eb9ce0800d423c1de2a2f67352f06556dfa9ea97ca41b5c52ebefa1"
+    },
+    {
+      "path": "assets/members/hiyori.png",
+      "sha256": "c1b074b8f8e7c4c6c51e96c4f3ed8bf67c7e36532d9e5736372646702796704a"
+    },
+    {
+      "path": "assets/members/huya.png",
+      "sha256": "9e061d9daf11289defebfe512c19c16ce4a795b6b1942f7335e59743eecab27c"
+    },
+    {
+      "path": "assets/members/lize.png",
+      "sha256": "4c54b3aa368b539c914fd25932f4bddf53c45bdc71d8b5646725f44bd7ffa180"
+    },
+    {
+      "path": "assets/members/mary.png",
+      "sha256": "4b60d495531af4d8332f138882648ffc60b075e7207f2215b303bfc74ae639ad"
+    },
+    {
+      "path": "assets/members/mashiro.jpg",
+      "sha256": "dc017d51fd46520437dc622a758cc634ee56ce2b985adc96cab0834622bba894"
+    },
+    {
+      "path": "assets/members/nana.png",
+      "sha256": "f6ff60075fed23f5c08f27db6eb38181515c51c0536f3b3390db9db9113ccfa4"
+    },
+    {
+      "path": "assets/members/rang.png",
+      "sha256": "ff2726492dda65e91fcbae0187716bffbe48fa9fe4bf427efa96b7bf5e8ed662"
+    },
+    {
+      "path": "assets/members/riko.png",
+      "sha256": "ae7b9953e70828309dc522f197980b54dda625ed44e61b9d0868f13de164426e"
+    },
+    {
+      "path": "assets/members/rin.png",
+      "sha256": "a479205899561dbb3a46fadcc6f5c6f059a328c4b028937b7b14d523b02ea5ea"
+    },
+    {
+      "path": "assets/members/shibuki.png",
+      "sha256": "a2b3fbf0e7300002d9adcd6bf13339f347b38f1ad99537437aa2b7e7873d4e8b"
+    },
+    {
+      "path": "assets/members/sources.json",
+      "sha256": "3bde94e39cccbe309fc4b17caeded7177b115dad3c37e3fde3736a27aada012c"
+    },
+    {
+      "path": "assets/members/tabi.jpg",
+      "sha256": "fae1664ad67b97abba70e0dab006f0ca52df2a63371337161357397110fdb04f"
+    },
+    {
+      "path": "assets/members/toa.png",
+      "sha256": "c37b3ab10239636cd90a982915a37eea35584e57ba9b643973dfa29a1a928729"
+    },
+    {
+      "path": "assets/members/yuni.png",
+      "sha256": "3774c5f911aaa55d781b6f68bf076f420ee3522d42ebeb8a4a81a9024957a370"
+    },
+    {
+      "path": "breaks.js",
+      "sha256": "c7dcb4af5e0305cfbba1713f269c875b28e5c455c0e0b31358e621b711b1d0af"
+    },
+    {
+      "path": "calendar-data.js",
+      "sha256": "0120856980d0c023484d4583d48fb042489ad3c3ebb27cac9d339c8919fb06a9"
+    },
+    {
+      "path": "calendar-model.js",
+      "sha256": "b74ec8e926d14a3148537108f5ec9c6b7c9d5368fe92e6620a28c49cc2eeb299"
+    },
+    {
+      "path": "calendar-ui.js",
+      "sha256": "5c7ba50bcbde9313b4263eb20c07b410fc75825d271205e26f27d64d666e9d61"
+    },
+    {
+      "path": "calendar.js",
+      "sha256": "0d0dfaf923f51943a7e9c1b1e3c7ef8c87fd286c9a49b576782dcadfeb9f018c"
+    },
+    {
+      "path": "channel-state.js",
+      "sha256": "464a715d63b0e1dfd3a39082ed4b4f5b223fff2276aab6fe5534c3b2d75a71a9"
+    },
+    {
+      "path": "chzzk-live.js",
+      "sha256": "482e496bece12227925aa7f98ddfa713bffad7624882caceccf7841d683bfb2c"
+    },
+    {
+      "path": "core.js",
+      "sha256": "204fac43fad6247d8538cf90b59a3a0b6e89ced8bf772c0e281487eb6bdcc102"
+    },
+    {
+      "path": "data/calendar.json",
+      "sha256": "9a519b5c6962caa2247d210eb13e82f38d800876364cfa6f397e182493544a08"
+    },
+    {
+      "path": "features.js",
+      "sha256": "16b89484503d5c682c9b23b1a778b42023223e17c8e0502288e98ea04618605c"
+    },
+    {
+      "path": "icon-192.png",
+      "sha256": "12dbc661686016da852bf77b9384ca762e9136571b9f715ece8483f5845fc43b"
+    },
+    {
+      "path": "icon-512.png",
+      "sha256": "8b0d8371903a459832a0625591f44968588329c497bb7928fc91813e3c058bab"
+    },
+    {
+      "path": "icon.svg",
+      "sha256": "ac3227960c8163bcfa577c284f1faf4d3063b2d21420095cccc5aad456156931"
+    },
+    {
+      "path": "icons.js",
+      "sha256": "38f2d364de4609f2febaf64ff0ae9d0a2d87d6c6df7ac080235c16cab527ea6a"
+    },
+    {
+      "path": "image-viewer.js",
+      "sha256": "969e65f1024dc477b4b62e5fc81cd4a183f02de02d2052a339d7ef2d11832e07"
+    },
+    {
+      "path": "index.html",
+      "sha256": "10a657e149335ff5fb45c97a4d3fcd370a0a2d872ad16b738963d49076fa796a"
+    },
+    {
+      "path": "live-store.js",
+      "sha256": "927779e382c6534156baafd71dd479d4b3285b8bd2b17905257653680acc4934"
+    },
+    {
+      "path": "live-ui.js",
+      "sha256": "e8df8819f2def38039f770fbb40d1afcaa51fbf82b8b013c69bceee381c926c9"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "sha256": "90cd6f12bd09617241456ac017f2b8b8669a471940476ff4448f6fb1117b5dc9"
+    },
+    {
+      "path": "members.js",
+      "sha256": "0e2af44eb1d654a6f12b5c9d5e791a7d61c0eda353f66d9ea50f62019709e5fc"
+    },
+    {
+      "path": "navigation.js",
+      "sha256": "188b3b984c083eef0f6309332e04f326b5fc01408dc68d164fbfdee2d394b9a4"
+    },
+    {
+      "path": "next-ui.css",
+      "sha256": "48fe9f6bff36261b8398355567a06e86db059fdb2e51f15944853e92abf611ea"
+    },
+    {
+      "path": "next-ui.js",
+      "sha256": "e8ccb3b421515fcd671a081e460131f6a7b0f84e5bf63bb99a7b80586d69bbd8"
+    },
+    {
+      "path": "notices.js",
+      "sha256": "385d323408515be27e367cdf31f03ba583e947906786944519f2ae3cd539e571"
+    },
+    {
+      "path": "registration.js",
+      "sha256": "23400c4e54b6c03d7cb74f6dacbf907e6b9c62ab1becb2d3eb0964205160cacf"
+    },
+    {
+      "path": "release-ui.css",
+      "sha256": "783f7ccb227c39da1e2e3b19811116d4c561430d5264cda9d73660b4dff284a7"
+    },
+    {
+      "path": "release-ui.js",
+      "sha256": "54baec59067403539265c04da679df3f694d57f52646c2e2b8c57143e5bfb04b"
+    },
+    {
+      "path": "schedule.js",
+      "sha256": "3e39d900aefab7167c2eb51dfac530e569a7a613dc187003ebc9a9ed7d4276ea"
+    },
+    {
+      "path": "storage.js",
+      "sha256": "95b9389625f0ff057aa27c51e53b22ad4074b8af08a0c0167cd0606744d71b75"
+    },
+    {
+      "path": "style.css",
+      "sha256": "2cb3a151431299db9fd82536df41e3e9a9c84709441ddbdf02aff123e33f842f"
+    },
+    {
+      "path": "sw.js",
+      "sha256": "76585b1763a36d886c9f3dda5e78898eee3e48cc1bfbc81ead8ce77d7eada25b"
+    },
+    {
+      "path": "upgrade-ui.js",
+      "sha256": "b675adfc6f88641a4c1a804c2972ac021f9c2013f0a63e697e69009405638774"
+    },
+    {
+      "path": "v140.css",
+      "sha256": "3a7543c0c5fcc66e203c5a4bfee86548ad3810bcb6627a765e57df92a60862d0"
+    },
+    {
+      "path": "v150.css",
+      "sha256": "f843943cb03ac41bdcf9ce0b60dd1d68f9860a1181c7635b056d2884720ccdb4"
+    },
+    {
+      "path": "v150.js",
+      "sha256": "8482569ddef5970b7d64d3e34c37042467181564880c8cb25a5535fe3bed8d80"
+    },
+    {
+      "path": "view-state.js",
+      "sha256": "fbab10ff6571a5d0bcce28b8811e83c91c306457023dcff99e2d7b5f09de5dd8"
+    }
+  ]
 }
