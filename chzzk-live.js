@@ -7,13 +7,7 @@
  CalendarModel.channelState=function(d,i,now=Date.now()){
   const scheduled=previousState(d,i,now),r=records.get(i);
   if(typeof ChannelState!=='undefined')return ChannelState.resolve(d,i,r,now,failed);
-  const fresh=r&&now-Date.parse(r.checkedAt)>=-30000&&now-Date.parse(r.checkedAt)<180000&&!failed&&r.state!=='unknown';
-  if(fresh&&r.state==='live')return {kind:'live',label:'ON AIR',broadcast:r};
-  const pendingEvent=d.events.filter(e=>e.members.includes(i)&&e.status==='planned'&&e.date===Core.day(new Date(now))&&e.time&&Core.stamp(e)<=now).sort((a,b)=>Core.stamp(b)-Core.stamp(a))[0];
-  if(scheduled.kind==='off'&&scheduled.event?.status==='planned'&&!scheduled.event.time)return {kind:'next',label:'시간 미정',event:scheduled.event};
-  if(scheduled.kind==='next')return {...scheduled,label:scheduled.label+(!fresh?' · 방송 확인 지연':'')};
-  if(pendingEvent&&!(fresh&&r.state==='offline'&&r.wasLive))return {kind:'next',label:fresh?'시작 대기 · 방송 중 아님':'시작 시간 경과 · 방송 확인 지연',event:pendingEvent};
-  return {kind:fresh?'off':'unknown',label:fresh?(r.wasLive?'방송 종료':'방송 중 아님'):r?.pendingOffline?'종료 여부 재확인 중':failed||last?'확인 불가 · 갱신 지연':'방송 상태 확인 중',broadcast:!fresh?r?.lastLive:null};
+  return {kind:r?.state==='live'&&!failed?'live':'off',label:r?.state==='live'&&!failed?'라이브':'오프라인',broadcast:r?.state==='live'&&!failed?r:null};
  };
  memberStateRow=function(i,state=CalendarModel.channelState(data,i)){
   const r=state.broadcast;

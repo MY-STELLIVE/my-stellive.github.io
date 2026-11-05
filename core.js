@@ -6,7 +6,7 @@ const add=(d,n)=>new Date(Date.parse(d+'T00:00:00Z')+n*86400000).toISOString().s
 const monday=d=>add(d,-((new Date(d+'T00:00:00Z').getUTCDay()+6)%7));
 const stamp=e=>e.time?Date.parse(e.date+'T'+e.time+':00+09:00'):Infinity;
 const next=(events,ids=[],now=Date.now())=>events.filter(e=>e.status==='planned'&&e.time&&stamp(e)>now&&(!ids.length||e.members.some(m=>ids.includes(m)))).sort((a,b)=>stamp(a)-stamp(b))[0];
-const initial=()=>migrate({schema:2,version:'1.5.0',breaks:[],events:[],boards:[],profiles:{},favorites:[],settings:{theme:'dark',glass:'normal',size:'normal',motion:'system',clock:'24',view:'month',weekMode:'day'},lastBackup:null});
+const initial=()=>migrate({schema:2,version:'1.6.0',breaks:[],events:[],boards:[],profiles:{},favorites:[],settings:{theme:'dark',glass:'normal',size:'normal',motion:'system',clock:'24',view:'month',weekMode:'day'},lastBackup:null});
 const crc=b=>{let c=0xffffffff;for(const x of b){c^=x;for(let i=0;i<8;i++)c=(c>>>1)^((c&1)?0xedb88320:0)}return(c^0xffffffff)>>>0};
 function zip(data){const name=new TextEncoder().encode('stellink.json'),b=new TextEncoder().encode(JSON.stringify(data)),out=new Uint8Array(30+name.length+b.length+46+name.length+22),v=new DataView(out.buffer);const put=(p,x,n=4)=>n===2?v.setUint16(p,x,true):v.setUint32(p,x,true);let size=30+name.length+b.length;put(0,0x04034b50);put(4,20,2);put(14,crc(b));put(18,b.length);put(22,b.length);put(26,name.length,2);out.set(name,30);out.set(b,30+name.length);put(size,0x02014b50);put(size+4,20,2);put(size+6,20,2);put(size+16,crc(b));put(size+20,b.length);put(size+24,b.length);put(size+28,name.length,2);out.set(name,size+46);let end=size+46+name.length;put(end,0x06054b50);put(end+8,1,2);put(end+10,1,2);put(end+12,46+name.length);put(end+16,size);return out}
 function unzip(buffer){if(!(buffer instanceof ArrayBuffer)||buffer.byteLength<60)throw Error('백업 파일이 너무 짧거나 손상되었습니다.');let v=new DataView(buffer);if(v.getUint32(0,true)!==0x04034b50||v.getUint16(8,true)!==0)throw Error('스텔링크에서 생성한 백업 ZIP을 선택해 주세요.');let n=v.getUint16(26,true),extra=v.getUint16(28,true),len=v.getUint32(18,true),p=30+n+extra;if(new TextDecoder().decode(new Uint8Array(buffer,30,n))!=='stellink.json'||p+len>buffer.byteLength)throw Error('백업 구조가 올바르지 않습니다.');let end=buffer.byteLength-22,central=p+len;if(central+46+n!==end||v.getUint32(central,true)!==0x02014b50||v.getUint32(end,true)!==0x06054b50||v.getUint16(end+8,true)!==1||v.getUint16(end+10,true)!==1||v.getUint32(end+16,true)!==central||v.getUint32(end+12,true)!==46+n||v.getUint32(central+20,true)!==len||v.getUint32(central+16,true)!==v.getUint32(14,true))throw Error('백업 ZIP의 끝부분이 손상되었습니다.');let b=new Uint8Array(buffer,p,len);if(crc(b)!==v.getUint32(14,true))throw Error('손상된 백업 파일입니다.');return JSON.parse(new TextDecoder().decode(b))}
@@ -15,14 +15,14 @@ function migrate(input){
  d.calendarItems??=[];d.calendarOverrides??={};d.calendarHidden??=[];
  d.calendarCatalog??=typeof STELLINK_CATALOG!=='undefined'?structuredClone(STELLINK_CATALOG):{schema:1,updated:'2026-10-31',items:[]};
  d.calendarFilters??={categories:[],members:[],generation:'all'};
- if(!['1.2.0','1.3.0','1.3.1','1.3.2','1.3.3','1.3.4','1.3.5','1.3.6','1.4.0','1.4.1','1.4.2','1.5.0'].includes(d.version)){d.legacySettings??=structuredClone(d.settings);d.settings.clock='24';d.settings.glass='normal';d.settings.size='normal';d.settings.motion='system';d.settings.view='month';}
+ if(!['1.2.0','1.3.0','1.3.1','1.3.2','1.3.3','1.3.4','1.3.5','1.3.6','1.4.0','1.4.1','1.4.2','1.5.0','1.6.0'].includes(d.version)){d.legacySettings??=structuredClone(d.settings);d.settings.clock='24';d.settings.glass='normal';d.settings.size='normal';d.settings.motion='system';d.settings.view='month';}
  for(const b of d.boards)b.read??=false;
  d.schema=2;
  for(const b of d.boards){b.kind??='legacy';b.noticeDate??='';}
  for(const e of d.events.filter(e=>e.status==='off')){if(!d.breaks.some(b=>b.legacyEventId===e.id))d.breaks.push({id:'break_'+e.id,legacyEventId:e.id,members:[...e.members],start:e.date,end:e.date,title:e.title,note:e.note||'',expected:'',boardId:e.boardId||'',history:structuredClone(e.history),originalEvent:structuredClone(e)});}
  d.events=d.events.filter(e=>e.status!=='off');
  for(const e of d.events){if(e.watched!==undefined){e.legacyWatched??=e.watched;delete e.watched;}e.channels??=[...e.members];}
-d.settings.theme='dark';d.version='1.5.0';return d;
+d.settings.theme='dark';d.version='1.6.0';return d;
 }
 function validate(d){
  const fail=msg=>{throw Error('백업 확인 실패: '+msg)};
@@ -42,8 +42,9 @@ function validate(d){
  forbidden(d);
  if(!d.favorites.every(mid)||!unique(d.favorites))fail('즐겨찾기');
  const eventIds=new Set(),boardIds=new Set();
+ if(d.sessionRejections!==undefined&&(!Array.isArray(d.sessionRejections)||!d.sessionRejections.every(x=>obj(x)&&mid(x.member)&&str(x.key,200))))fail('방송 연결 제외 기록');
  for(const b of d.boards){
-  if(!obj(b)||!id(b.id)||boardIds.has(b.id)||!mid(b.member)||!date(b.week)||monday(b.week)!==b.week||!instant(b.created)||!Array.isArray(b.images)||!b.images.length||!b.images.every(image)||!optionalText(b.previous,100)||!optionalText(b.title,200))fail('시간표 또는 이미지');
+  if(!obj(b)||!id(b.id)||boardIds.has(b.id)||!mid(b.member)||!date(b.week)||monday(b.week)!==b.week||!instant(b.created)||!Array.isArray(b.images)||(!b.images.length&&!b.title?.trim())||!b.images.every(image)||!optionalText(b.previous,100)||!optionalText(b.title,200))fail('시간표 또는 이미지');
   if(b.noticeDate!==undefined&&b.noticeDate!==''&&!date(b.noticeDate))fail('공지 날짜');
   if(b.topic!==undefined&&!['broadcast','break','collab','other'].includes(b.topic))fail('소식 분류');
   if(b.kind!==undefined&&!['daily','weekly','legacy'].includes(b.kind))fail('공지 유형');
@@ -58,6 +59,7 @@ function validate(d){
   if(e.channels!==undefined&&(!Array.isArray(e.channels)||!unique(e.channels)||!e.channels.every(x=>e.members.includes(x))))fail('합방 송출 멤버');
   if(e.boardId&&!boardIds.has(e.boardId))fail('원본 시간표 연결');
   for(const h of e.history){if(!obj(h)||!instant(h.at)||!optionalText(h.reason))fail('변경 이력');for(const k of ['before','after']){const v=h[k];if(!obj(v)||!date(v.date)||!time(v.time)||!states.includes(v.status)||!str(v.title,200))fail('변경 전후 값');}}
+  if(e.sessionLinks!==undefined&&(!Array.isArray(e.sessionLinks)||!e.sessionLinks.every(l=>obj(l)&&mid(l.member)&&e.members.includes(l.member)&&str(l.key,200)&&instant(l.startedAt)&&instant(l.linkedAt)&&(!l.endedAt||instant(l.endedAt))&&['auto','manual'].includes(l.method))))fail('방송 연결 기록');
   eventIds.add(e.id);
  }
  if(d.breaks!==undefined){if(!Array.isArray(d.breaks))fail('휴방 목록');const seen=new Set();for(const b of d.breaks){if(!obj(b)||!id(b.id)||seen.has(b.id)||!Array.isArray(b.members)||!b.members.length||!b.members.every(mid)||!unique(b.members)||!date(b.start)||(b.end!==''&&(!date(b.end)||b.end<b.start))||!str(b.title,200)||!str(b.note)||!str(b.expected,200)||!optionalText(b.boardId,100)||b.boardId&&!boardIds.has(b.boardId))fail('휴방 기록');seen.add(b.id);}}
