@@ -86,6 +86,6 @@ function tick(){
  document.querySelectorAll('[data-status]').forEach(el=>{const e=data.events.find(x=>x.id===el.dataset.status);if(e)el.textContent=status(e);});
 }
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)tick()});setInterval(tick,1000);matchMedia('(prefers-color-scheme: light)').addEventListener('change',()=>data&&render());
-(document.readyState==='loading'?new Promise(resolve=>document.addEventListener('DOMContentLoaded',resolve,{once:true})):Promise.resolve()).then(openDB).then(()=>{render();loadCatalogQuietly();if('serviceWorker'in navigator&&location.protocol!=='file:'&&location.hostname!=='terminal.local')navigator.serviceWorker.register('./sw.js').catch(()=>toast('오프라인 준비에 실패했습니다. 온라인에서 다시 열어 주세요.'))}).catch(err=>{$('#app').innerHTML='<h1>저장 공간을 열지 못했습니다.</h1><p>브라우저의 저장 허용 여부와 일반 창 사용 여부를 확인한 뒤 다시 열어 주세요.</p>';console.error(err)});
+(document.readyState==='loading'?new Promise(resolve=>document.addEventListener('DOMContentLoaded',resolve,{once:true})):Promise.resolve()).then(openDB).then(()=>{render();loadCatalogQuietly();if('serviceWorker'in navigator&&location.protocol!=='file:'&&!['terminal.local','127.0.0.1','localhost'].includes(location.hostname))navigator.serviceWorker.register('./sw.js').catch(()=>toast('오프라인 준비에 실패했습니다. 온라인에서 다시 열어 주세요.'))}).catch(err=>{$('#app').innerHTML='<h1>저장 공간을 열지 못했습니다.</h1><p>브라우저의 저장 허용 여부와 일반 창 사용 여부를 확인한 뒤 다시 열어 주세요.</p>';console.error(err)});
 
 document.addEventListener('error',e=>{if(e.target.matches?.('img.avatar-photo'))e.target.hidden=true},true);

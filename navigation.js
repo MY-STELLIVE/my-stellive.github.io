@@ -43,5 +43,3 @@ Object.assign(actions,{
  register:()=>{if(screen!=='planner')date=Core.day();if(screen==='live')filter=-1;registrationDraft=null;unifiedForm();}
 });
 document.addEventListener('change',ev=>{if(ev.target.id==='liveDefaultView'){liveFilter.view=ev.target.value;persistLivePrefs();}});
-// Refresh only the home broadcast summary; editors stay open and all personal data remains untouched.
-document.addEventListener('stellink:live',()=>{if(typeof data==='undefined'||!data||screen!=='today'||$('#modal').open)return;const el=$('#homeLive140');if(el){const rows=liveRecords().filter(x=>x.state.kind==='live').sort((a,b)=>(b.state.broadcast.viewerCount??-1)-(a.state.broadcast.viewerCount??-1)||a.i-b.i);el.innerHTML=rows.slice(0,4).map(x=>liveCard(x.i,x.state,true)).join('')||'<p class="empty-line">현재 확인된 방송이 없습니다.</p>';const count=$('.today-summary b');if(count)count.textContent=rows.length;}});

@@ -60,6 +60,6 @@
  if(typeof window.addEventListener==='function'){window.addEventListener('offline',()=>{clearTimeout(timer);failed=true;errorCode='device_offline';update();document.dispatchEvent(new Event('stellink:live'));});window.addEventListener('online',()=>refresh());}
  document.addEventListener('visibilitychange',()=>{clearTimeout(timer);if(!document.hidden)refresh();});
  setInterval(update,15000);
- setInterval(()=>{const s=window.ChzzkLive.snapshot(),wait=Math.max(0,Math.ceil((s.nextAllowedAt-Date.now())/1000));document.querySelectorAll('[data-live-countdown]').forEach(el=>{el.textContent=s.errorCode==='device_offline'?'인터넷 연결을 기다리고 있습니다.':s.busy?'최신 방송 정보를 확인하고 있습니다.':wait?'다음 자동 조회까지 '+wait+'초':'조회 가능';});document.querySelectorAll('[data-live-refresh]').forEach(el=>{el.disabled=s.busy||wait>0||s.errorCode==='device_offline';el.textContent=s.busy?'조회 중…':'새로고침';});},1000);
+ setInterval(()=>{const s=window.ChzzkLive.snapshot(),wait=Math.max(0,Math.ceil((s.nextAllowedAt-Date.now())/1000));document.querySelectorAll('[data-live-countdown]').forEach(el=>{el.textContent=s.errorCode==='device_offline'?'인터넷 연결을 기다리고 있습니다.':s.busy?'최신 방송 정보를 확인하고 있습니다.':wait?'다음 자동 조회까지 '+wait+'초':'조회 가능';});document.querySelectorAll('[data-live-refresh]').forEach(el=>{el.disabled=s.busy||wait>0||s.errorCode==='device_offline';el.textContent=el.closest('.sync150')?'↻':s.busy?'조회 중…':'새로고침';});},1000);
  refresh();
 })();
