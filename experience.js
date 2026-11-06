@@ -1,5 +1,5 @@
 'use strict';
-const APP_VERSION='1.6.0';
+const APP_VERSION='1.6.1';
 const currentRecord=i=>window.ChzzkLive?.record(i);
 const runningEvent=e=>SessionLink.active(data,e,currentRecord);
 const upcoming160=(i=-1)=>data.events.filter(e=>e.status==='planned'&&!runningEvent(e)&&(i<0||e.members.includes(i))&&e.date>=Core.day()&&(!e.time||Core.stamp(e)>=Date.now())&&(!Schedule.conflicts(e,data.breaks).length||e.breakException)).sort((a,b)=>a.date.localeCompare(b.date)||(a.time||'99').localeCompare(b.time||'99'));
@@ -35,7 +35,7 @@ actions.crewFromDetail160=async i=>{await close(true);actions.crew(i);};
 const crew160=crews;
 crews=function(){if(crew===null)return `<section><h2>전체 채널</h2>${groups.map(g=>`<h3>${esc(g[0])}</h3>${g[1].map(i=>memberStateRow(i)).join('')}`).join('')}</section>`;let html=crew160();html=html.replace('<p class="state-banner">오프라인</p>','<p class="state-banner">오프라인</p>'+noticeLink160(crew));return html;};
 const settings160=settings;
-settings=function(){return settings160().replace(/v1\.5\.0/g,'v1.6.0')+`<section class="card"><h2>스텔링크 업데이트</h2><p>현재 버전 ${APP_VERSION}</p><a class="update-link160" href="updates/v1.6.0/">이번 업데이트 보기 ›</a><a class="update-link160" href="updates/">지난 업데이트 기록 ›</a></section>`;};
+settings=function(){return settings160().replace(/v1\.5\.0/g,'v1.6.1')+`<section class="card"><h2>스텔링크 업데이트</h2><p>현재 버전 ${APP_VERSION}</p><a class="update-link160" href="updates/v1.6.1/">이번 업데이트 보기 ›</a><a class="update-link160" href="updates/">지난 업데이트 기록 ›</a></section>`;};
 const draw160=draw;
 draw=function(){draw160();const settingsButton=$('.header-settings');if(settingsButton)settingsButton.innerHTML=navIcon('settings');};
 const refresh160=refreshLiveUI;

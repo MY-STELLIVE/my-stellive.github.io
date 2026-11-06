@@ -2,7 +2,9 @@
 // v1.4.1 presentation layer. No personal record transformations.
 const wordmarkHTML='<img class="wordmark" src="assets/brand/stellink-wordmark.png" alt="STELLINK 스텔링크" width="2048" height="683">';
 const brandLockupHTML='<span class="brand-lockup"><img class="brand-symbol" src="assets/brand/stellink-logo-512.png" width="32" height="32" alt="">'+wordmarkHTML+'</span>';
-function partnerBadge(i){const c=Number.isInteger(i)?window.ChzzkLive?.record?.(i)?.channel:null;return c?.partner===true?'<img class="partner-badge" src="assets/brand/chzzk-partner.png" width="14" height="14" alt="치지직 파트너">':c?.verifiedMark===true?'<span class="verified160" aria-label="인증된 채널" title="인증된 채널">인증</span>':'';}
+// Fixed STELLINK channel roster uses its maintained partner badge metadata.
+function partnerBadge(i){const member=MEMBERS[i],c=Number.isInteger(i)?window.ChzzkLive?.record?.(i)?.channel:null;const partner=c?.partner===true||(c?.partner!==false&&member?.badge==='partner');return partner?'<img class="partner-badge" src="assets/brand/chzzk-partner.png" width="14" height="14" alt="치지직 파트너">':'';}
+
 function memberNameHTML(i){return `<span class="member-name"><span>${esc(names[i])}</span>${partnerBadge(i)}</span>`;}
 function scheduleAvatars(ids){const members=[...new Set(ids)].filter(i=>MEMBERS[i]);return members.length?`<span class="schedule-avatars" aria-hidden="true">${members.slice(0,3).map(avatar).join('')}${members.length>3?`<span class="avatar-more">+${members.length-3}</span>`:''}</span>`:'';}
 collaborationHTML=function(ids){const set=new Set(ids);return ids.length>1?'<span class="collaboration-meta">'+groups.map((g,i)=>{const n=g[1].filter(id=>set.has(id)).length;return n?`<span>${i+1}기 · ${esc(g[0])} ${n}명</span>`:'';}).join('')+'</span>':'';};

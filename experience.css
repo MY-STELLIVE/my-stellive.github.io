@@ -5,3 +5,22 @@ body.v160{background:#101214;color:#eeedf4}body.v160 #app{padding-bottom:100px}.
 
 .v160 .live-generations button.active{box-shadow:none;border-bottom:0}.v160 .empty{border:0;min-height:0}.v160 .offline-section160{margin-top:16px}
 .v160 .chzzk-style .live-info-button{font-size:20px;width:36px;min-width:36px;color:#a1a2b3}.v160 .chzzk-style .live-info-button::after{content:none}.v160 .chzzk-style.horizontal .live-title-button h3{font-size:15px;line-height:1.45}.v160 .chzzk-style .live-information{font-size:11px}.v160 .chzzk-style .live-identity strong{font-size:12px}.v160 .chzzk-style.vertical .live-body{padding-left:0}.v160 .chzzk-style.vertical .live-identity .avatar-wrap{position:static;width:24px;height:24px}.v160 .chzzk-style.vertical .live-title-button h3{font-size:17px}
+
+/* v1.6.1: one-line identity, consistent rail baselines and a mobile image tray. */
+.v160 .member-name{display:inline-flex;align-items:center;gap:4px;flex-wrap:nowrap;min-width:0;vertical-align:middle}
+.v160 .member-name>span{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v160 .partner-badge{display:inline-block!important;flex:0 0 14px;width:14px!important;height:14px!important;object-fit:contain;margin:0;vertical-align:middle}
+.v160 .generation-rail{align-items:start;gap:12px}
+.v160 .rail-person150{width:118px;min-width:118px;flex:0 0 118px;gap:8px;padding:4px 0}
+.v160 .rail-person150>span:not(.avatar-wrap){width:100%;height:20px;min-height:20px;white-space:nowrap}
+.v160 .rail-person150 .member-name{display:flex;justify-content:center;flex-wrap:nowrap;max-width:100%;height:20px}
+.v160 .rail-person150 small{display:block;line-height:18px;min-height:18px;margin:0}
+.v160 .large-text .rail-person150{width:140px;min-width:140px}
+.v160 .empty-line{padding:10px 0;margin:0 0 18px;min-height:0;line-height:1.6}
+.v160 .summary150{border-bottom:0;padding-bottom:0;margin-bottom:20px}
+.v160 #sheet form{min-width:0}.v160 #modal:has(#unifiedForm){overflow:auto}.v160 #modal:has(#unifiedForm) #sheet{overflow:visible;max-height:none}
+.v160 .upload161{margin:18px 0;padding:14px;border:1px solid #34363e;border-radius:14px;background:#141519}
+.upload-heading161{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:14px;margin-bottom:12px}.upload-heading161 small,.upload-heading161>span{font-size:12px;color:#a6a5b3;font-weight:400}
+.v160 .upload-pick161{position:relative;display:flex;align-items:center;justify-content:center;gap:10px;min-height:54px;margin:0;border:1px dashed #9c88db;border-radius:10px;background:#b6a3ff12;color:#d0c1ff;overflow:hidden;cursor:pointer}
+.upload-pick161 svg{width:22px;height:22px;stroke:currentColor;stroke-width:1.5;fill:none;flex:none}.v160 .upload-input161{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0;cursor:pointer}.upload-pick161:focus-within{outline:2px solid #b6a3ff;outline-offset:3px}.upload-pick161:has(input:disabled){opacity:.5}
+.v160 .upload161 .hint{font-size:11px;line-height:1.6;margin:8px 0}.upload-grid161{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.upload-item161{margin:0;min-width:0;border-radius:10px;background:#202126;overflow:hidden}.v160 .upload-preview161{display:block;position:relative;padding:0;width:100%;border:0;border-radius:0}.upload-preview161 img{display:block;width:100%;height:132px;object-fit:contain;background:#0e0f12}.upload-preview161>span{position:absolute;top:6px;left:6px;background:#0c0d11d9;padding:2px 6px;border-radius:5px;font-size:11px}.upload-item161 figcaption{padding:6px 8px;font-size:11px;color:#b6b4c1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.upload-actions161{display:flex;align-items:center;justify-content:space-between;padding:0 4px 4px}.v160 .upload-actions161 button{min-width:36px;min-height:44px;padding:6px;border:0;background:none;font-size:12px}.upload-actions161 button:last-child{color:#f5a6b8}.upload-item161.expanded161{grid-column:1/-1}.upload-item161.expanded161 img{height:auto;max-height:65vh;object-fit:contain}.title-hint161{font-size:11px;margin:6px 0 14px}

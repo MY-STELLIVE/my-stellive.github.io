@@ -24,7 +24,7 @@ actions.boardDetail=boardDetail;
 const modalBefore150=modal;
 modal=function(html){modalBefore150(html);const f=$('#noticeForm')||$('#noticeEditForm');if(f&&!f.querySelector('[name=topic]')){const b=data.boards.find(x=>x.id===(f.dataset.id||f.dataset.prev));f.querySelector('[name=title]')?.insertAdjacentHTML('afterend',`<label>소식 분류<select name="topic">${Object.entries(NEWS_TOPICS).filter(([k])=>k!=='all').map(([k,v])=>`<option value="${k}" ${(b?topic150(b):'broadcast')===k?'selected':''}>${v}</option>`).join('')}</select></label>`);}};
 const settingsBefore150=settings;
-settings=function(){return settingsBefore150().replace('<h1>나의 스텔링크</h1>','').replace(/<div class="setting[^"]*"><span>화면 모드<\/span>[\s\S]*?<\/div>/,'<p class="hint">다크 테마 전용 · 스텔링크</p>').replace(/STELLINK v1\.[45]\.[012]/g,'STELLINK v1.6.0');};
+settings=function(){return settingsBefore150().replace('<h1>나의 스텔링크</h1>','').replace(/<div class="setting[^"]*"><span>화면 모드<\/span>[\s\S]*?<\/div>/,'<p class="hint">다크 테마 전용 · 스텔링크</p>').replace(/STELLINK v1\.[45]\.[012]/g,'STELLINK v1.6.1');};
 // Calendar uses the existing Sunday-based model; remove duplicate News navigation.
 plannerTabs=()=>'';
 const plannerBefore150=planner;
